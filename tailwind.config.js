@@ -5,13 +5,13 @@ export default {
     './node_modules/preline/preline.js',
   ],
    theme: {
-  //   colors:{
-  //     primary: '#26C1CD',
-  //     secondary: '#B25499',
-  //     body: '#2D3648', // base text color
-  //     bg: '#FFFFF8',
-  //     dark: '#0F0D0E',
-  //   },
+    colors:{
+      primary: '#26C1CD',
+      secondary: '#B25499',
+      body: '#2D3648', // base text color
+      bg: '#FFFFF8',
+      dark: '#0F0D0E',
+    },
     extend: {
       colors: {
         greyscale: {
