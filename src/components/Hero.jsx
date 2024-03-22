@@ -1,7 +1,8 @@
 export function Hero() {
   return (
     <>
-      <h1>I am the navbar. Hear me nav</h1>
+      <h1>Workshops People Want</h1>
+      <h2>Never have empty events again!</h2>
     </>
   );
 }

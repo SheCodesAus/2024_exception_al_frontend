@@ -1,7 +1,23 @@
 export function NavBar() {
   return (
     <>
-      <h1>I am the navbar. Hear me nav</h1>
+      <nav
+        className="hidden sm:block space-x-8 text-xl"
+        aria-label="main navigation"
+      >
+        <a href="/" className="hover:text-secondary">
+          Home
+        </a>
+        <a href="/" className="hover:text-secondary">
+          About Us
+        </a>
+        <a href="/" className="hover:text-secondary">
+          Ideas
+        </a>
+        <a href="/" className="hover:text-secondary">
+          Contact Us
+        </a>
+      </nav>
       {/* list bits here */}
     </>
   );
