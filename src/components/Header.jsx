@@ -3,7 +3,7 @@ import NavBar from "./NavBar";
 export function Header() {
   return (
     <>
-      <h1>
+      <h1 className="text-3xl">
         I am the header. I contain the logo, navigation, search bar, login and
         register
       </h1>
