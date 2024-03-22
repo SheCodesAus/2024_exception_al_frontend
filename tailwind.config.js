@@ -1,13 +1,10 @@
-
-const config = {
+export default {
   content: [
-    "./pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./sections/**/*.{js,ts,jsx,tsx,mdx}",
-    "./app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",
     './node_modules/preline/preline.js',
   ],
-  theme: {
+   theme: {
     colors:{
       primary: '#26C1CD',
       secondary: '#B25499',
@@ -39,6 +36,5 @@ const config = {
         "6xl": "4rem",
       },
     },
-  },
-};
-export default config;
+  }
+}
