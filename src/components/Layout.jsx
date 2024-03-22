@@ -1,15 +1,17 @@
 import { Outlet } from "react-router-dom";
-
+import Footer from "./Footer";
+import Header from "./Header";
 export default function Layout() {
   return (
     <>
       <header>
-        {/* Navbar to be added */}
+        <Header />
       </header>
       <main>
-      <h1>Hello Peeps!!</h1>
-        <Outlet/>
+        <h1>I am the main doing main boss things</h1>
+        <Outlet />
       </main>
+      <Footer />
     </>
-  )
+  );
 }
