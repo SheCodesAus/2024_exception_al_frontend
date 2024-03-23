@@ -1,24 +1,31 @@
+import { Link } from "react-router-dom";
+
 export function NavBar() {
   return (
+    // For when we have a hook for useAuth
+    // const { auth, setAuth } = useAuth();
+    // const handleLogout = () => {
+    //   window.localStorage.removeItem("token");
+    //   setAuth({ token: null });
+    // };
     <>
       <nav
         className="hidden sm:block space-x-8 text-xl"
         aria-label="main navigation"
       >
-        <a href="/" className="hover:text-secondary">
+        <Link to="/" className="hover:text-secondary">
           Home
-        </a>
-        <a href="/" className="hover:text-secondary">
+        </Link>
+        <Link to="/aboutus" className="hover:text-secondary">
           About Us
-        </a>
-        <a href="/" className="hover:text-secondary">
+        </Link>
+        <Link to="/workshopideas" className="hover:text-secondary">
           Ideas
-        </a>
-        <a href="/" className="hover:text-secondary">
+        </Link>
+        <Link to="/contactus" className="hover:text-secondary">
           Contact Us
-        </a>
+        </Link>
       </nav>
-      {/* list bits here */}
     </>
   );
 }
