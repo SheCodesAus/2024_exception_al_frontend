@@ -4,7 +4,7 @@ export default function Header() {
   return (
     <div className="flex flex-row items-center mx-8 my-8">
       <img src="logo.svg" alt="planet expressions" />
-      <section className="flex flex-grow justify-between items-center sm:flex-row-reverse md:flex-row-reverse lg:flex-row">
+      <section className="flex flex-grow justify-between items-center flex-row-reverse lg:flex-row">
         <NavBar />
 
         <div>
