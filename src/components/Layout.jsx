@@ -5,7 +5,7 @@ import "../index.css";
 
 export default function Layout() {
   return (
-    <div className="bg-bg h-dvh">
+    <div className="bg-bg h-dvh font-poppins">
       <header>
         <Header />
       </header>
