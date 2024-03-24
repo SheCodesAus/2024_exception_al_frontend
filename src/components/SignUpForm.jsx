@@ -1,7 +1,8 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import TextInput from "./TextInput";
-import Dropdown from "./Dropdown";
+import MultiSelectCheckbox from "./MultiSelectCheckbox";
+import Button from "./Button";
 //import postSignUp from "../api/post-signup";
 
 export default function SignUpForm() {
@@ -12,7 +13,15 @@ export default function SignUpForm() {
     email: "",
     password: "",
     passwordConfirm: "",
+    interests: [],
+    skills: []
   });
+  const handleInterestsChange = (selectedInterests) => {
+    setCredentials((prev) => ({
+      ...prev,
+      interests: selectedInterests,
+    }));
+  };
   const [error, setError] = useState({
     field: "",
     errorMessage: "",
@@ -32,14 +41,14 @@ export default function SignUpForm() {
         setError({ field: "password", errorMessage: "Password do not match" });
       } else {
         setFormState("pending");
-       // postSignUp(credentials)
-          // .then((res) => {
-          //   setFormState("successful");
-          // })
-          // .catch((err) => {
-          //   console.error(err);
-          //   setFormState("error");
-          // });
+        // postSignUp(credentials)
+        // .then((res) => {
+        //   setFormState("successful");
+        // })
+        // .catch((err) => {
+        //   console.error(err);
+        //   setFormState("error");
+        // });
       }
     }
   };
@@ -55,92 +64,96 @@ export default function SignUpForm() {
       ) : formState === "error" ? (
         <p>Error while submitting the sign up form</p>
       ) : (
-        <form onSubmit={handleSubmit} className="form auth-form">
-          <h2>Register today!</h2>
-          <div>
+        <form
+          onSubmit={handleSubmit}
+          className="m-auto w-full px-4 sm:max-w-[500px] sm:px-12"
+        >
+          <h1 className="text-3xl font-semibold mb-3 sm:text-4xl text-center">
+            Register today!
+          </h1>
+          <div className="mb-5 sm:text-center sm:mb-8">
+            <span className="text-greyscale-600 underline">
               Already have an account?{" "}
-              <Link className="link" to="/login">
-                Log in
-              </Link>
-            </div>
-          <div className="name-wrapper">
-          <TextInput type="text" name="firstName" id="firstName" size="sm" label="First name*" onChange={handleChange}/>
-          <TextInput type="text" name="lastName" id="lastName" size="sm" label="Last name*" onChange={handleChange}/>
-          <Dropdown type="text" name="interest" id="interest" size="sm" label="My interests (Select one or more options)" multiple={true} onChange={handleChange}>
-            <option value="outdoor">Outdoor</option>
-            <option value="outdoor-2">Outdoor</option>
-            <option value="outdoor-3">Outdoor</option>
-            <option value="outdoor">Outdoor</option>
-          </Dropdown>
-
-            <div className="form-field half-width">
-              <label htmlFor="lastName">Last name: </label>
-              <input
-                type="text"
-                id="lastName"
-                name="lastName"
-                onChange={handleChange}
-              />
-            </div>
+            </span>
+            <Link className="font-semibold text-black underline" to="/login">
+              Log in
+            </Link>
           </div>
-          <div className="form-field">
-            <label htmlFor="username">Username: </label>
-            <input
+          <div className="flex flex-col justify-between gap-4 sm:flex-row">
+            <TextInput
               type="text"
-              id="username"
-              name="username"
+              name="firstName"
+              id="firstName"
+              size="sm"
+              label="First name*"
               onChange={handleChange}
-              required
             />
-          </div>
-          <div className="form-field">
-            <label htmlFor="email">Email address: </label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              onChange={handleChange}
-              required
-            />
-          </div>
-          <div className="form-field">
-            <label htmlFor="password">Password: </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
+            <TextInput
+              type="text"
+              name="lastName"
+              id="lastName"
+              size="sm"
+              label="Last name*"
               onChange={handleChange}
             />
           </div>
-          <div className="form-field">
-            <label htmlFor="passwordConfirm">Password confirm: </label>
-            <input
-              type="password"
-              id="passwordConfirm"
-              name="passwordConfirm"
-              onChange={handleChange}
+          <TextInput
+            type="text"
+            name="username"
+            id="username"
+            label="Username"
+            onChange={handleChange}
+          />
+          <TextInput
+            type="email"
+            name="email"
+            id="email"
+            label="Email*"
+            onChange={handleChange}
+          />
+          <TextInput
+            type="password"
+            name="password"
+            id="password"
+            label="Password*"
+            onChange={handleChange}
+          />
+          <TextInput
+            type="password"
+            name="passwordConfirm"
+            id="passwordConfirm"
+            label="Password confirm*"
+            onChange={handleChange}
+          />
+          {error && error.field === "password" ? (
+            <span className="error-text">{error.errorMessage}</span>
+          ) : (
+            <></>
+          )}
+          <div className="mb-4">
+            <span className="block text-sm font-medium mb-2">
+              My interests (Select one or more options)*
+            </span>
+            <MultiSelectCheckbox
+              name="interests"
+              id="interests"
+              onChange={handleInterestsChange}
             />
-            {error && error.field === "password" ? (
-              <span className="error-text">{error.errorMessage}</span>
-            ) : (
-              <></>
-            )}
           </div>
-          <div className="form-field">
-            <label htmlFor="password">Password: </label>
-            <input
-              type="password"
-              id="password"
-              name="password"
-              onChange={handleChange}
+          <div className="mb-4">
+            <span className="block text-sm font-medium mb-2">
+              My skills (Select one or more options)*
+            </span>
+            <MultiSelectCheckbox
+              name="skills"
+              id="skills"
+              onChange={handleInterestsChange}
             />
           </div>
-          <div className="link-wrapper">
-
-
-            <button type="submit" className="button--submit">
+          <div className="my-8 text-center">
+            <Button variant="action" type="submit" size="sm">
               Sign up
-            </button>
+            </Button>
           </div>
         </form>
       )}
