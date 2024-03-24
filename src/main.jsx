@@ -4,6 +4,7 @@ import "./index.css";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import Layout from "./components/Layout";
 import NotFound from "./pages/NotFound";
+import Home from "./pages/Home";
 
 const router = createBrowserRouter([
   {
@@ -11,8 +12,10 @@ const router = createBrowserRouter([
     element: <Layout />,
     errorElement: <NotFound />,
     children: [
-      // Pages to be added
-      //{path: "/", element: <HomePage/>}
+      { path: "/", element: <Home /> },
+      // { path: "/about", element: <AboutUs /> },
+      // { path: "/ideas", element: <Ideas /> },
+      // { path: "/contact", element: <Contact /> },
     ],
   },
 ]);
