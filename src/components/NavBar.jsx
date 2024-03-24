@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 
 export default function NavBar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
+  const showMenuNavClasses = "left-0 z-10 transition-all duration-500";
+  const hideMenuNavClasses = "left-[100%] transition-all duration-500";
 
   return (
     <nav>
@@ -16,7 +18,11 @@ export default function NavBar() {
           <span className="block h-0.5 w-8 animate-pulse bg-dark"></span>
         </div>
 
-        <div className={isNavOpen ? "showMenuNav" : "hideMenuNav"}>
+        <div
+          className={`flex flex-col justify-evenly items-center bg-bg absolute w-full h-[100vh] top-0 ${
+            isNavOpen ? showMenuNavClasses : hideMenuNavClasses
+          }`}
+        >
           <div
             className="absolute top-0 right-0 px-8 py-8"
             onClick={() => setIsNavOpen(false)}
@@ -65,26 +71,6 @@ export default function NavBar() {
           Contact Us
         </Link>
       </div>
-
-      <style>{`
-        .hideMenuNav {
-          display: none;
-        }
-        .showMenuNav {
-          display: block;
-          position: absolute;
-          width: 100%;
-          height: 100vh;
-          top: 0;
-          right: 0;
-          background: #FFFFF8;
-          z-index: 10;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-evenly;
-          align-items: center;
-        }
-      `}</style>
     </nav>
   );
 }
