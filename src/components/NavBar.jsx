@@ -22,7 +22,7 @@ export default function NavBar() {
             onClick={() => setIsNavOpen(false)}
           >
             <svg
-              className="h-8 w-8 text-gray-600"
+              className="h-12 w-12 text-dark"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
@@ -34,7 +34,7 @@ export default function NavBar() {
               <line x1="6" y1="6" x2="18" y2="18" />
             </svg>
           </div>
-          <div className="flex flex-col items-center justify-between min-h-[250px]">
+          <div className="flex flex-col items-center justify-between min-h-[250px] text-3xl">
             <Link to="/" className="hover:text-secondary">
               Home
             </Link>
@@ -77,7 +77,7 @@ export default function NavBar() {
           height: 100vh;
           top: 0;
           right: 0;
-          background: white;
+          background: #FFFFF8;
           z-index: 10;
           display: flex;
           flex-direction: column;
