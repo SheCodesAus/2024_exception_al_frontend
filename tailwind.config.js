@@ -11,6 +11,8 @@ export default {
       body: '#2D3648', // base text color
       bg: '#FFFFF8',
       dark: '#0F0D0E',
+      white: "#fff",
+      black: "#000"
     },
     extend: {
       colors: {
@@ -18,10 +20,17 @@ export default {
           200: '#F7F9FC',
           300: '#E2E7F0',
           400: '#CBD2E0',
+          600: '#717D96'
         },
       },
+      flexBasis: {
+        "1/2-gap-4": "calc(50% - 1rem)"
+      },
+      width: {
+        "1/2-gap-4": "calc(50% - 1rem)"
+      },
       fontFamily: {
-        // font family to be added
+        "poppins": ['Poppins', 'sans-serif']
       },
       fontSize: {
         xs: "0.75rem",
