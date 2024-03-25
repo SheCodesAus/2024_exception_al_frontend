@@ -1,31 +1,32 @@
 import NavBar from "./NavBar";
-import "../index.css";
 
-export function Header() {
+export default function Header() {
   return (
     <div className="flex flex-row items-center mx-8 my-8">
       <img src="logo.svg" alt="planet expressions" />
-      <section className="flex flex-grow justify-between">
+      <section className="flex flex-grow justify-between items-center flex-row-reverse lg:flex-row">
         <NavBar />
 
         <div>
-          {/* search bar*/}
-          <button>&#128269;</button>
-          {/* insert login button*/}
-          <button>LOGIN HERE</button>
-          {/* insert register button (to be hidden in mobile)*/}
-          <button>REGISTER HERE</button>
+          {/* Buttons */}
+          <div className="flex items-center space-x-4">
+            {/* Search bar
+            <input
+              type="text"
+              placeholder="Search"
+              className="p-2 border border-gray-300 rounded-lg focus:outline-none"
+            /> */}
+            {/* Login button */}
+            <button className="px-4 py-2 bg-gray-800 text-white rounded-lg">
+              LOGIN HERE
+            </button>
+            {/* Register button (hidden in mobile) */}
+            <button className="hidden sm:block px-4 py-2 bg-gray-800 text-white rounded-lg">
+              REGISTER HERE
+            </button>
+          </div>
         </div>
-        {/* hamburger menu for mobile */}
-        <button
-          id="mobile-trigram-menu"
-          className="text-4xl sm:hidden focus:outline-none flex justify-end"
-        >
-          &#9776;
-        </button>
-        {/* fun fact, this is the html code for a trigram of heaven, or what we call a hamburger menu */}
       </section>
     </div>
   );
 }
-export default Header;
