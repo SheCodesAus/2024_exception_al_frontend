@@ -17,13 +17,20 @@ export default function Header() {
               className="p-2 border border-gray-300 rounded-lg focus:outline-none"
             /> */}
             {/* Login button */}
-            <button className="px-4 py-2 bg-gray-800 text-dark rounded-lg">
-              LOGIN HERE
-            </button>
+            <a
+              href="/login"
+              className="block px-4 py-2 bg-gray-800 text-dark rounded-lg"
+            >
+              LOGIN
+            </a>
+
             {/* Register button (hidden in mobile) */}
-            <button className="hidden sm:block px-4 py-2 bg-gray-800 text-dark rounded-lg">
-              REGISTER HERE
-            </button>
+            <a
+              href="/signup"
+              className="block px-4 py-2 bg-gray-800 text-dark rounded-lg"
+            >
+              REGISTER
+            </a>
           </div>
         </div>
       </section>
