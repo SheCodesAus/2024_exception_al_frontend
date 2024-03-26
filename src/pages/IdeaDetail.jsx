@@ -1,29 +1,21 @@
-// idea image
-
-// contains idea name
-
-// also contains idea short description
-
-// end image tag
-
-// section for left panel
-
-// section start for date cost
-
-// contains date/potential date/tbc
-
-// contains cost
-
-// end section
-
-// overview of project
-
-// end left panel section
-
-// right side panel section start
-
-// contains whether workshop numbers are open or closed
-
-// contains whether mentors are being looked for or not
-
-// information about the organiser of the Workshop Idea
+export default function LoginPage() {
+  // const link for idea data HERE
+  return (
+    <>
+      <section>
+        <img src={ideaData.image} alt={ideaData.description}></img>
+        <h2>{ideaData.title}</h2>
+        <p>{ideaData.description}</p>
+      </section>
+      <section>
+        {/* workshop EOIs number */}
+        {/* mentor EOI number */}
+      </section>
+      <section>
+        <p>{ideaData.attendees}</p>
+        <p>{ideaData.mentors}</p>
+        <p>{ideaData.organiser}</p>
+      </section>
+    </>
+  );
+}
