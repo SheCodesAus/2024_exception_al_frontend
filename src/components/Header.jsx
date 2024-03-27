@@ -3,7 +3,11 @@ import NavBar from "./NavBar";
 export default function Header() {
   return (
     <div className="flex flex-row items-center mx-8 my-8">
-      <img src="logo.svg" alt="planet expressions" />
+      <img
+        className="size-28 mr-4"
+        src="planidea-light.svg"
+        alt="planidea logo"
+      />
       <section className="flex flex-grow justify-between items-center flex-row-reverse lg:flex-row">
         <NavBar />
 
