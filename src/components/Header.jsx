@@ -3,7 +3,11 @@ import NavBar from "./NavBar";
 export default function Header() {
   return (
     <div className="flex flex-row items-center mx-8 my-8">
-      <img src="logo.svg" alt="planet expressions" />
+      <img
+        className="size-28 mr-4"
+        src="planidea-light.svg"
+        alt="planidea logo"
+      />
       <section className="flex flex-grow justify-between items-center flex-row-reverse lg:flex-row">
         <NavBar />
 
@@ -17,13 +21,20 @@ export default function Header() {
               className="p-2 border border-gray-300 rounded-lg focus:outline-none"
             /> */}
             {/* Login button */}
-            <button className="px-4 py-2 bg-gray-800 text-white rounded-lg">
-              LOGIN HERE
-            </button>
+            <a
+              href="/login"
+              className="block px-4 py-2 bg-gray-800 text-dark rounded-lg"
+            >
+              LOGIN
+            </a>
+
             {/* Register button (hidden in mobile) */}
-            <button className="hidden sm:block px-4 py-2 bg-gray-800 text-white rounded-lg">
-              REGISTER HERE
-            </button>
+            <a
+              href="/signup"
+              className="block px-4 py-2 bg-gray-800 text-dark rounded-lg"
+            >
+              REGISTER
+            </a>
           </div>
         </div>
       </section>
