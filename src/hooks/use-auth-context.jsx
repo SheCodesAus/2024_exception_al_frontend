@@ -8,8 +8,8 @@ export const useAuthContext = () => {
 
 export const AuthContextProvider = ({children}) => {
   const [auth, setAuth] = useState(() => {
-    const storedUser = window.localStorage.getItem("user");
-    const storedToken = window.localStorage.getItem("token");
+    const storedUser = window.localStorage.getItem("user") | null;
+    const storedToken = window.localStorage.getItem("token") | null;
     return {storedUser, storedToken}
   })
 
