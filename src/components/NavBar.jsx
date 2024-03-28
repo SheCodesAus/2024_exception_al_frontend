@@ -10,7 +10,7 @@ export default function NavBar() {
     <nav>
       <section className="MOBILE-MENU flex lg:hidden">
         <div
-          className="HAMBURGER-ICON space-y-2"
+          className="HAMBURGER-ICON space-y-2 cursor-pointer"
           onClick={() => setIsNavOpen((prev) => !prev)}
         >
           <span className="block h-0.5 w-8 animate-pulse bg-dark"></span>
@@ -24,7 +24,7 @@ export default function NavBar() {
           }`}
         >
           <div
-            className="absolute top-0 right-0 px-8 py-8"
+            className="absolute top-0 right-0 px-8 py-8 cursor-pointer"
             onClick={() => setIsNavOpen(false)}
           >
             <svg
@@ -41,16 +41,16 @@ export default function NavBar() {
             </svg>
           </div>
           <div className="flex flex-col items-center justify-between min-h-[250px] text-3xl">
-            <Link to="/" className="hover:text-secondary">
+            <Link to="/" className="hover:text-secondary" onClick={() => setIsNavOpen(false)}>
               Home
             </Link>
-            <Link to="/aboutus" className="hover:text-secondary">
+            <Link to="/aboutus" className="hover:text-secondary" onClick={() => setIsNavOpen(false)}>
               About Us
             </Link>
-            <Link to="/workshopideas" className="hover:text-secondary">
+            <Link to="/workshopideas" className="hover:text-secondary" onClick={() => setIsNavOpen(false)}>
               Ideas
             </Link>
-            <Link to="/contactus" className="hover:text-secondary">
+            <Link to="/contactus" className="hover:text-secondary" onClick={() => setIsNavOpen(false)}>
               Contact Us
             </Link>
           </div>
@@ -58,7 +58,7 @@ export default function NavBar() {
       </section>
 
       <div className="DESKTOP-MENU hidden space-x-8 lg:flex items-center">
-        <Link to="/" className="hover:text-secondary">
+        <Link to="/" className="hover:text-secondary" >
           Home
         </Link>
         <Link to="/aboutus" className="hover:text-secondary">

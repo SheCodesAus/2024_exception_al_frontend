@@ -7,7 +7,7 @@ export default function Layout() {
   return (
     <div className="bg-bg h-dvh font-poppins">
       <header>
-        <Header />
+        <Header/>
       </header>
       <main>
         <Outlet />
