@@ -1,5 +1,6 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
+import { useAuthContext } from "../hooks/use-auth-context";
 
 function IdeaCard({
   id,
@@ -13,6 +14,7 @@ function IdeaCard({
   // const { workshopData } = props;
   var date = new Date(plannedDate);
   var formattedDate = date.toLocaleDateString();
+  const { auth } = useAuthContext();
 
   return (
     <div className="flex flex-col items-center justify-center container mx-auto border border-dark rounded-lg max-w-96">
@@ -28,16 +30,21 @@ function IdeaCard({
           <Link to={`/idea/${id}`}>
             <h2 className="justify-start text-xl p-2 md:p-4">{title}</h2>
           </Link>
-          {/* if user logged in show: */}
-          <img
-            src="./heart-unfilled.svg"
-            className="justify-end p-4 max-w-16"
-          ></img>
-          {/* if user logged in and expressed interest show: */}
-          {/* <img src="./heart-filled.svg" className="flex justify-end"></img> */}
+          {/* need to add logic for when logged in and already expressed interest heart is filled */}
+          {auth.user ? (
+            <img
+              src="./heart-unfilled.svg"
+              className="justify-end p-4 max-w-16"
+            ></img>
+          ) : (
+            <img
+              src="./heart-filled.svg"
+              className="justify-end p-4 max-w-16"
+            ></img>
+          )}
         </section>
       </section>
-      <section className="items-start">
+      <section className="flex flex-col items-start">
         <p className="ml-4">Planned Date: {formattedDate}</p>
         <p className="ml-4">Description: {description}</p>
         <p className="ml-4">Attendee Target:{attendeeTarget}</p>
