@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <footer className="fixed bottom-0 w-full bg-primary text-sm p-4">
+    <footer className="bottom-0 w-full bg-primary text-sm p-4">
       <div className="container mx-auto">
         <img className="size-24" src="planidea-light.svg" alt="planidea logo" />
         <section className="flex flex-col sm:flex-row md:flex-row lg:flex-row">
