@@ -22,9 +22,20 @@ function IdeaCard({
             src={image}
             alt={`${title} picture of workshop`}
             className="object-cover rounded-lg pb-2 w-full h-40"
-          ></img>
-          <h2 className="flex justify-center text-xl p-2 md:p-4">{title}</h2>
+          />
         </Link>
+        <section className="flex justify-between">
+          <Link to={`/idea/${id}`}>
+            <h2 className="justify-start text-xl p-2 md:p-4">{title}</h2>
+          </Link>
+          {/* if user logged in show: */}
+          <img
+            src="./heart-unfilled.svg"
+            className="justify-end p-4 max-w-16"
+          ></img>
+          {/* if user logged in and expressed interest show: */}
+          {/* <img src="./heart-filled.svg" className="flex justify-end"></img> */}
+        </section>
       </section>
       <section className="items-start">
         <p className="ml-4">Planned Date: {formattedDate}</p>
