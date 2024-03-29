@@ -19,7 +19,7 @@ export default function Header() {
         src="planidea-light.svg"
         alt="planidea logo"
       />
-      <section className="flex flex-grow justify-between items-center flex-row-reverse lg:flex-row">
+      <section className="flex flex-grow gap-4 items-center flex-row-reverse lg:flex-row lg:justify-between">
         <NavBar />
 
         <div>
