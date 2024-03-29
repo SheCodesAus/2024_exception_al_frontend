@@ -4,11 +4,11 @@ import { Link } from "react-router-dom";
 export default function NavBar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
   const showMenuNavClasses = "left-0 z-10 transition-all duration-500";
-  const hideMenuNavClasses = "left-[100%] transition-all duration-500";
+  const hideMenuNavClasses = "left-[100%] transition-all duration-500 w-0 h-0 overflow-hidden";
 
   return (
     <nav>
-      <section className="MOBILE-MENU flex lg:hidden">
+      <section className="MOBILE-MENU flex md:hidden">
         <div
           className="HAMBURGER-ICON space-y-2 cursor-pointer"
           onClick={() => setIsNavOpen((prev) => !prev)}
@@ -57,7 +57,7 @@ export default function NavBar() {
         </div>
       </section>
 
-      <div className="DESKTOP-MENU hidden space-x-8 lg:flex items-center">
+      <div className="DESKTOP-MENU hidden space-x-8 md:flex items-center">
         <Link to="/" className="hover:text-secondary" >
           Home
         </Link>

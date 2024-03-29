@@ -13,7 +13,7 @@ const mockIdeaProperties = {
 
 function IdeaSnapshot() {
   return (
-    <div className="flex flex-col justify-around items-center">
+    <div className="flex flex-col justify-around items-center container mx-aut p-4">
       <h2 className="text-xl font-bold">Latest Ideas</h2>
       <IdeaCard
         id={mockIdeaProperties.id}

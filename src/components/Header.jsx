@@ -13,13 +13,13 @@ export default function Header() {
     navigate("/");
   };
   return (
-    <div className="flex flex-row items-center p-4">
+    <div className="flex flex-row items-center p-4 container mx-auto">
       <img
         className="size-16 mr-4 sm:size-24"
         src="planidea-light.svg"
         alt="planidea logo"
       />
-      <section className="flex flex-grow justify-between items-center flex-row-reverse lg:flex-row">
+      <section className="flex flex-grow gap-4 items-center flex-row-reverse md:flex-row md:justify-between">
         <NavBar />
 
         <div>
