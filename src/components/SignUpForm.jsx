@@ -8,6 +8,7 @@ import postSignUp from "../api/post-signup";
 const emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$";
 
 export default function SignUpForm() {
+  const [formState, setFormState] = useState("");
   const [credentials, setCredentials] = useState({
     username: "",
     firstName: "",
@@ -21,7 +22,6 @@ export default function SignUpForm() {
     field: "",
     errorMessage: "",
   });
-  const [formState, setFormState] = useState("");
   const handleChange = (e) => {
     const { id, value } = e.target;
     setCredentials((prev) => ({
@@ -44,15 +44,23 @@ export default function SignUpForm() {
           errorMessage: "Please enter a valid email address.",
         });
         window.scrollTo({
-          top: 0,
+          top: 200,
           behavior: "smooth",
         });
       } else if (credentials.password !== credentials.passwordConfirm) {
         setError({ field: "password", errorMessage: "Password do not match." });
         window.scrollTo({
-          top: 0,
+          top: 400,
           behavior: "smooth",
         });
+      } else if (credentials.interests.length == 0) {
+        setError({ field: "interests", errorMessage: "Please select one or more interests." });
+        window.scrollTo({
+          top: 300,
+          behavior: "smooth",
+        });
+      } else if (credentials.skills.length == 0) {
+        setError({ field: "skills", errorMessage: "Please select one or more skills." });
       } else {
         setFormState("pending");
         postSignUp(credentials)
@@ -169,7 +177,7 @@ export default function SignUpForm() {
             <></>
           )}
           <div className="mb-4">
-            <span className="block text-sm font-medium mb-2">
+            <span className={`block text-sm font-medium mb-2 ${error && error.field === "interests" ? "text-warning" : ""}`}>
               My interests (Select one or more options)*
             </span>
             <MultiSelectCheckbox
@@ -181,7 +189,7 @@ export default function SignUpForm() {
             />
           </div>
           <div className="mb-4">
-            <span className="block text-sm font-medium mb-2">
+          <span className={`block text-sm font-medium mb-2 ${error && error.field === "skills" ? "text-warning" : ""}`}>
               My skills (Select one or more options)*
             </span>
             <MultiSelectCheckbox

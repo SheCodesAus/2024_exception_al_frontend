@@ -2,16 +2,15 @@
 import { useState } from "react";
 import { options } from "../data/options";
 
-export default function MultiSelectCheckbox({ onChange}) {
+export default function MultiSelectCheckbox({ onChange }) {
   const [selectedItems, setSelectedItems] = useState([]);
   const handleCheckboxChange = (e) => {
     const { value, checked } = e.target;
-    if (checked) {
-      setSelectedItems((prev) => [...prev, value]);
-    } else {
-      setSelectedItems((prev) => prev.filter((item) => item !== value));
-    }
-    onChange(selectedItems);
+    const updatedItems = checked
+      ? [...selectedItems, value]
+      : selectedItems.filter((item) => item !== value);
+    setSelectedItems(updatedItems);
+    onChange(updatedItems);
   };
   return (
     <div className="flex flex-col">
