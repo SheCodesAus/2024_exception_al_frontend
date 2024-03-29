@@ -12,11 +12,17 @@ export default function MultiSelectCheckbox({ onChange }) {
     setSelectedItems(updatedItems);
     onChange(updatedItems);
   };
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      e.preventDefault();
+      e.target.click();
+    }
+  };
   return (
     <div className="flex flex-col">
-      {options.map((option) => (
+      {options.map((option, index) => (
         <label
-          key={option.value}
+          key={index}
           htmlFor={option.name}
           className="pb-1 flex gap-2 items-center cursor-pointer"
         >
@@ -25,9 +31,10 @@ export default function MultiSelectCheckbox({ onChange }) {
             value={option.value}
             checked={selectedItems.includes(option.value)}
             onChange={handleCheckboxChange}
-            className="hidden peer"
+            className="sr-only peer focus:border-2 focus:border-solid focus:border-primary"
+            onKeyDown={handleKeyDown}
           />
-          <span className="w-4 h-4 border rounded border-greyscale-400 peer-checked:bg-primary peer-checked:border-primary"></span>
+          <span className="w-4 h-4 border rounded border-greyscale-400 peer-checked:bg-primary peer-checked:border-primary peer-focus:border-2 peer-focus:border-solid peer-focus:border-primary"></span>
           <svg
             className="
       absolute 
