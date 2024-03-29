@@ -1,4 +1,5 @@
 export const options = [
+  {value: 'none', label: 'None'},
   { value: 'technology', label: 'Technology' },
   { value: 'arts_crafts', label: 'Arts and crafts' },
   { value: 'language_communication', label: 'Language and communication' },
