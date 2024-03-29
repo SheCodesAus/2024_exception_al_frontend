@@ -76,7 +76,7 @@ export default function SignUpForm() {
     }
   };
   return (
-    <div className="form-container">
+    <div className="form-container pt-6">
       {formState === "pending" ? (
         <p>Submitting ...</p>
       ) : formState === "successful" ? (
