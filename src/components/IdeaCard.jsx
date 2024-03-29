@@ -16,14 +16,16 @@ function IdeaCard({
 
   return (
     <div className="flex flex-col items-center justify-center container mx-auto border border-dark rounded-lg max-w-96">
-      <Link to={`/idea/${id}`}>
-        <img
-          src={image}
-          alt={`${title} picture of workshop`}
-          className="object-fill rounded-lg pb-2"
-        ></img>
-        <h2 className="text-xl p-2 md:p-4">{title}</h2>
-      </Link>
+      <section className="object-cover w-full">
+        <Link to={`/idea/${id}`}>
+          <img
+            src={image}
+            alt={`${title} picture of workshop`}
+            className="object-cover rounded-lg pb-2 w-full h-40"
+          ></img>
+          <h2 className="flex justify-center text-xl p-2 md:p-4">{title}</h2>
+        </Link>
+      </section>
       <section className="items-start">
         <p className="ml-4">Planned Date: {formattedDate}</p>
         <p className="ml-4">Description: {description}</p>
