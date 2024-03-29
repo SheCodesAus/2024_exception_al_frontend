@@ -82,6 +82,7 @@ export default function SignUpForm() {
       ) : formState === "successful" ? (
         <SuccessfulCard />
       ) : formState === "error" ? (
+        // Todo: handle exceptions
         <p>Error while submitting the sign up form</p>
       ) : (
         <form
