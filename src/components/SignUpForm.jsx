@@ -4,6 +4,7 @@ import TextInput from "./TextInput";
 import MultiSelectCheckbox from "./MultiSelectCheckbox";
 import Button from "./Button";
 import postSignUp from "../api/post-signup";
+import SuccessfulCard from "./SuccessfulCard";
 
 const emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$";
 
@@ -79,10 +80,7 @@ export default function SignUpForm() {
       {formState === "pending" ? (
         <p>Submitting ...</p>
       ) : formState === "successful" ? (
-        <div>
-          <p>Sign up was successful!</p>
-          <Link to="/login">Login</Link>
-        </div>
+        <SuccessfulCard />
       ) : formState === "error" ? (
         <p>Error while submitting the sign up form</p>
       ) : (
