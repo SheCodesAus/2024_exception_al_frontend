@@ -1,3 +1,4 @@
+import Button from "./Button";
 
 export function Hero() {
   return (
@@ -7,9 +8,17 @@ export function Hero() {
           <h1 className="lg:text-6xl md:text-6xl sm: text-4xl">
             Workshops People Want
           </h1>
-          <h2 className="text-2xl">Never have empty workshops again</h2>
-          <button>Get Started</button>
-          <button>Find out more</button>
+          <h2 className="text-2xl font-semibold">
+            Never have empty workshops again
+          </h2>
+          <div className="flex space-x-4">
+            <Button variant="link" href="/login" size="sm" buttonStyle="white">
+              Get Started
+            </Button>
+            <Button variant="link" href="/signup" size="sm" buttonStyle="white">
+              Find Out More
+            </Button>
+          </div>
         </section>
         <img
           src="../women-holding-pottery.jpg"
