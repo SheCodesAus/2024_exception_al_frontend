@@ -1,4 +1,10 @@
-export default function Button({ variant, size, buttonStyle, children, ...rest }) {
+export default function Button({
+  variant,
+  size,
+  buttonStyle,
+  children,
+  ...rest
+}) {
   let classNames = "rounded text-sm sm:text-md  font-normal ";
   const className = (() => {
     switch (size) {
@@ -11,10 +17,16 @@ export default function Button({ variant, size, buttonStyle, children, ...rest }
     }
     switch (buttonStyle) {
       case "solid":
-        classNames += "bg-secondary text-white border-2 border-secondary hover:bg-white hover:text-secondary transition-all";
+        classNames +=
+          "bg-secondary text-white border-2 border-secondary drop-shadow-lg  hover:bg-white hover:text-secondary transition-all";
         break;
       case "outline":
-        classNames += "bg-transparent border-2 border-solid border-primary text-black tracking-wider hover:bg-primary hover:text-white transition-all";
+        classNames +=
+          "bg-transparent border-2 border-solid border-primary text-black tracking-wider drop-shadow-lg hover:bg-primary hover:text-white transition-all";
+        break;
+      case "white":
+        classNames +=
+          "bg-bg border-2 border-solid border-dark text-black tracking-wider drop-shadow-lg hover:bg-primary hover:text-black hover:font-bold transition-all";
         break;
     }
     return classNames;
@@ -26,7 +38,9 @@ export default function Button({ variant, size, buttonStyle, children, ...rest }
           {children}
         </a>
       ) : (
-        <button className={className} {...rest}>{children}</button>
+        <button className={className} {...rest}>
+          {children}
+        </button>
       )}
     </>
   );
