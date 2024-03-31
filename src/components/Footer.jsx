@@ -7,12 +7,12 @@ function Footer() {
           <section>
             <h3>Copyright {new Date().getFullYear()} | planidea</h3>
           </section>
-          <section className="">
+          <section className="flex">
             <a href="https://www.instagram.com/shecodesaus/?hl=en">
               <img
                 src="/Instagram_Glyph_Black.svg"
                 alt="Instagram Logo"
-                className="max-w-12"
+                className="w-8"
               />
             </a>
 
@@ -20,7 +20,7 @@ function Footer() {
               <img
                 src="/Facebook_Glyph.svg"
                 alt="Facebook Logo"
-                className="max-w-12"
+                className="w-8"
               />
             </a>
           </section>
