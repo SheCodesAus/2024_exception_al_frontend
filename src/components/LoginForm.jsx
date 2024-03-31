@@ -31,7 +31,6 @@ function LoginForm() {
           return getUser(res.user_id);
         })
         .then((userDetails) => {
-          window.localStorage.setItem("user", JSON.stringify(userDetails));
           setAuth(prev => ({...prev, user: userDetails}))
           navigate("/");
         })

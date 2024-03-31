@@ -1,3 +1,4 @@
+
 export function Hero() {
   return (
     <div className="bg-primary flex justify-center">

@@ -5,12 +5,13 @@ import MultiSelectCheckbox from "./MultiSelectCheckbox";
 import Button from "./Button";
 import postSignUp from "../api/post-signup";
 import SuccessfulCard from "./SuccessfulCard";
+import useToast from "../hooks/use-toast";
+import Toast from "./Toast";
 
-const emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$";
 
-export default function SignUpForm() {
+export default function EditProfileForm() {
   const [formState, setFormState] = useState("");
-  const [credentials, setCredentials] = useState({
+  const [profileDetails, setProfileDetails] = useState({
     username: "",
     firstName: "",
     lastName: "",
@@ -23,38 +24,33 @@ export default function SignUpForm() {
     field: "",
     errorMessage: "",
   });
+  const {showToast, isVisible} = useToast();
+  const handleShowToast = () => {
+    showToast();
+  }
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setCredentials((prev) => ({
+    setProfileDetails((prev) => ({
       ...prev,
       [id]: value,
     }));
   };
   const handleCheckboxChange = (selectedItems, name) => {
-    setCredentials((prev) => ({
+    setProfileDetails((prev) => ({
       ...prev,
       [name]: selectedItems,
     }));
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (credentials) {
-      if (!credentials.email.match(emailPattern)) {
-        setError({
-          field: "email",
-          errorMessage: "Please enter a valid email address.",
-        });
-        window.scrollTo({
-          top: 200,
-          behavior: "smooth",
-        });
-      } else if (credentials.password !== credentials.passwordConfirm) {
+    if (profileDetails) {
+      if (profileDetails.password !== profileDetails.passwordConfirm) {
         setError({ field: "password", errorMessage: "Password do not match." });
         window.scrollTo({
           top: 400,
           behavior: "smooth",
         });
-      } else if (credentials.interests.length == 0) {
+      } else if (profileDetails.interests.length == 0) {
         setError({
           field: "interests",
           errorMessage: "Please select one or more interests.",
@@ -63,14 +59,14 @@ export default function SignUpForm() {
           top: 300,
           behavior: "smooth",
         });
-      } else if (credentials.skills.length == 0) {
+      } else if (profileDetails.skills.length == 0) {
         setError({
           field: "skills",
           errorMessage: "Please select one or more skills.",
         });
       } else {
         setFormState("pending");
-        postSignUp(credentials)
+        postUpdateProfile(profileDetails)
           .then((res) => {
             setFormState("successful");
           })
@@ -86,12 +82,7 @@ export default function SignUpForm() {
       {formState === "pending" ? (
         <p>Submitting ...</p>
       ) : formState === "successful" ? (
-        <SuccessfulCard>
-          <p className="text-lg">Sign up was successful!</p>
-          <Button variant="link" href="/login" size="md" buttonStyle="solid">
-            Login
-          </Button>
-        </SuccessfulCard>
+      <Toast message="Hello" isVisible={isVisible}/>
       ) : formState === "error" ? (
         // Todo: handle exceptions
         <p>Error while submitting the sign up form</p>
