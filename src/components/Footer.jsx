@@ -5,7 +5,11 @@ function Footer() {
   return (
     <footer className="w-full bg-primary text-sm p-4 ">
       <div className="container mx-auto  ">
-        <img className="size-24" src="planidea-light.svg" alt="planidea logo" />
+        <img
+          className="size-24"
+          src="/planidea-light.svg"
+          alt="planidea logo"
+        />
         <section className="flex flex-col sm:flex-row  lg:flex-row space-x-8">
           <section>
             <h3>Copyright {new Date().getFullYear()} | planidea</h3>

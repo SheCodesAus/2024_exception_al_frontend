@@ -1,5 +1,5 @@
 async function getWorkshop(workshopId) {
-  const url = `${import.meta.env.VITE_API_URL}/idea/${workshopId}`;
+  const url = `${import.meta.env.VITE_API_URL}/workshops/${workshopId}`;
   const response = await fetch(url, { method: "GET" });
 
   if (!response.ok) {

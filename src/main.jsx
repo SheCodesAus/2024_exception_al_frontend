@@ -9,6 +9,7 @@ import SignUpPage from "./pages/SignUp";
 import LoginPage from "./pages/Login";
 import { AuthContextProvider } from "./hooks/use-auth-context";
 import ProfilePage from "./pages/Profile";
+import IdeaDetail from "./pages/IdeaDetail";
 
 const router = createBrowserRouter([
   {
@@ -21,8 +22,10 @@ const router = createBrowserRouter([
       { path: "/login", element: <LoginPage /> },
       { path: "/profile/:slug", element: <ProfilePage /> },
       // { path: "/about", element: <AboutUs /> },
-      // { path: "/ideas", element: <Ideas /> },
+      // { path: "/workshops", element: <Ideas /> },
       // { path: "/contact", element: <Contact /> },
+      { path: "/workshops/:id", element: <IdeaDetail /> },
+      // { path: "/ideas", element: <AllIdeaDetails /> },
     ],
   },
 ]);
