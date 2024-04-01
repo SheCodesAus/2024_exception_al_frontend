@@ -5,11 +5,11 @@ import "../index.css";
 
 export default function Layout() {
   return (
-    <div className="bg-bg h-dvh font-poppins">
+    <div className="bg-bg h-full font-poppins relative min-h-screen flex flex-col">
       <header>
-        <Header />
+        <Header/>
       </header>
-      <main>
+      <main className="flex-1">
         <Outlet />
       </main>
       <Footer />

@@ -1,14 +1,24 @@
 import NavBar from "./NavBar";
+import Button from "./Button";
+import { useAuthContext } from "../hooks/use-auth-context";
+import { useNavigate } from "react-router-dom";
 
 export default function Header() {
+  const { auth } = useAuthContext();
+  const navigate = useNavigate();
+  const handleLogout = () => {
+    window.localStorage.removeItem("user");
+    window.localStorage.removeItem("token");
+    navigate("/");
+  };
   return (
-    <div className="flex flex-row items-center mx-8 my-8">
+    <div className="flex flex-row items-center p-4 container mx-auto">
       <img
-        className="size-28 mr-4"
+        className="size-16 mr-4 sm:size-24"
         src="planidea-light.svg"
         alt="planidea logo"
       />
-      <section className="flex flex-grow justify-between items-center flex-row-reverse lg:flex-row">
+      <section className="flex flex-grow gap-4 items-center flex-row-reverse md:flex-row md:justify-between">
         <NavBar />
 
         <div>
@@ -21,20 +31,35 @@ export default function Header() {
               className="p-2 border border-gray-300 rounded-lg focus:outline-none"
             /> */}
             {/* Login button */}
-            <a
-              href="/login"
-              className="block px-4 py-2 bg-gray-800 text-dark rounded-lg"
-            >
-              LOGIN
-            </a>
-
-            {/* Register button (hidden in mobile) */}
-            <a
-              href="/signup"
-              className="block px-4 py-2 bg-gray-800 text-dark rounded-lg"
-            >
-              REGISTER
-            </a>
+            {auth.user ? (
+              <Button
+                variant="action"
+                size="sm"
+                buttonStyle="outline"
+                onClick={handleLogout}
+              >
+                LOGOUT
+              </Button>
+            ) : (
+              <>
+                <Button
+                  variant="link"
+                  href="/login"
+                  size="sm"
+                  buttonStyle="outline"
+                >
+                  LOGIN
+                </Button>
+                <Button
+                  variant="link"
+                  href="/signup"
+                  size="sm"
+                  buttonStyle="solid"
+                >
+                  REGISTER
+                </Button>
+              </>
+            )}
           </div>
         </div>
       </section>

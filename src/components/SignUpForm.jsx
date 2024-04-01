@@ -3,30 +3,26 @@ import { Link, useNavigate } from "react-router-dom";
 import TextInput from "./TextInput";
 import MultiSelectCheckbox from "./MultiSelectCheckbox";
 import Button from "./Button";
-//import postSignUp from "../api/post-signup";
+import postSignUp from "../api/post-signup";
+import SuccessfulCard from "./SuccessfulCard";
+
+const emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$";
 
 export default function SignUpForm() {
+  const [formState, setFormState] = useState("");
   const [credentials, setCredentials] = useState({
     username: "",
     firstName: "",
     lastName: "",
     email: "",
     password: "",
-    passwordConfirm: "",
     interests: [],
-    skills: []
+    skills: [],
   });
-  const handleInterestsChange = (selectedInterests) => {
-    setCredentials((prev) => ({
-      ...prev,
-      interests: selectedInterests,
-    }));
-  };
   const [error, setError] = useState({
     field: "",
     errorMessage: "",
   });
-  const [formState, setFormState] = useState("");
   const handleChange = (e) => {
     const { id, value } = e.target;
     setCredentials((prev) => ({
@@ -34,34 +30,59 @@ export default function SignUpForm() {
       [id]: value,
     }));
   };
+  const handleCheckboxChange = (selectedItems, name) => {
+    setCredentials((prev) => ({
+      ...prev,
+      [name]: selectedItems,
+    }));
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (credentials) {
-      if (credentials.password !== credentials.passwordConfirm) {
-        setError({ field: "password", errorMessage: "Password do not match" });
+      if (!credentials.email.match(emailPattern)) {
+        setError({
+          field: "email",
+          errorMessage: "Please enter a valid email address.",
+        });
+        window.scrollTo({
+          top: 200,
+          behavior: "smooth",
+        });
+      } else if (credentials.password !== credentials.passwordConfirm) {
+        setError({ field: "password", errorMessage: "Password do not match." });
+        window.scrollTo({
+          top: 400,
+          behavior: "smooth",
+        });
+      } else if (credentials.interests.length == 0) {
+        setError({ field: "interests", errorMessage: "Please select one or more interests." });
+        window.scrollTo({
+          top: 300,
+          behavior: "smooth",
+        });
+      } else if (credentials.skills.length == 0) {
+        setError({ field: "skills", errorMessage: "Please select one or more skills." });
       } else {
         setFormState("pending");
-        // postSignUp(credentials)
-        // .then((res) => {
-        //   setFormState("successful");
-        // })
-        // .catch((err) => {
-        //   console.error(err);
-        //   setFormState("error");
-        // });
+        postSignUp(credentials)
+          .then((res) => {
+            setFormState("successful");
+          })
+          .catch((err) => {
+            console.error(err);
+            setFormState("error");
+          });
       }
     }
   };
   return (
-    <div className="form-container">
+    <div className="form-container pt-6">
       {formState === "pending" ? (
         <p>Submitting ...</p>
       ) : formState === "successful" ? (
-        <div>
-          <p>Sign up was successful!</p>
-          <Link to="/login">Login</Link>
-        </div>
+        <SuccessfulCard />
       ) : formState === "error" ? (
+        // Todo: handle exceptions
         <p>Error while submitting the sign up form</p>
       ) : (
         <form
@@ -71,11 +92,14 @@ export default function SignUpForm() {
           <h1 className="text-3xl font-semibold mb-3 sm:text-4xl text-center">
             Register today!
           </h1>
-          <div className="mb-5 sm:text-center sm:mb-8">
+          <div className="mb-5 text-center sm:mb-8">
             <span className="text-greyscale-600 underline">
               Already have an account?{" "}
             </span>
-            <Link className="font-semibold text-black underline" to="/login">
+            <Link
+              className="font-semibold text-secondary text-lg underline"
+              to="/login"
+            >
               Log in
             </Link>
           </div>
@@ -87,6 +111,7 @@ export default function SignUpForm() {
               size="sm"
               label="First name*"
               onChange={handleChange}
+              required
             />
             <TextInput
               type="text"
@@ -95,14 +120,16 @@ export default function SignUpForm() {
               size="sm"
               label="Last name*"
               onChange={handleChange}
+              required
             />
           </div>
           <TextInput
             type="text"
             name="username"
             id="username"
-            label="Username"
+            label="Username*"
             onChange={handleChange}
+            required
           />
           <TextInput
             type="email"
@@ -110,13 +137,23 @@ export default function SignUpForm() {
             id="email"
             label="Email*"
             onChange={handleChange}
+            classNames={
+              error && error.field === "email" ? "border-2 border-warning" : ""
+            }
+            required
           />
+          {error && error.field === "email" ? (
+            <span className="font-warning">{error.errorMessage}</span>
+          ) : (
+            <></>
+          )}
           <TextInput
             type="password"
             name="password"
             id="password"
             label="Password*"
             onChange={handleChange}
+            required
           />
           <TextInput
             type="password"
@@ -124,35 +161,52 @@ export default function SignUpForm() {
             id="passwordConfirm"
             label="Password confirm*"
             onChange={handleChange}
+            classNames={
+              error && error.field === "password"
+                ? "border-2 border-warning"
+                : ""
+            }
+            required
           />
           {error && error.field === "password" ? (
-            <span className="error-text">{error.errorMessage}</span>
+            <span className="text-warning text-sm mb-4 block">
+              {error.errorMessage}
+            </span>
           ) : (
             <></>
           )}
           <div className="mb-4">
-            <span className="block text-sm font-medium mb-2">
+            <span className={`block text-sm font-medium mb-2 ${error && error.field === "interests" ? "text-warning" : ""}`}>
               My interests (Select one or more options)*
             </span>
             <MultiSelectCheckbox
               name="interests"
               id="interests"
-              onChange={handleInterestsChange}
+              onChange={(selectedItems) =>
+                handleCheckboxChange(selectedItems, "interests")
+              }
             />
           </div>
           <div className="mb-4">
-            <span className="block text-sm font-medium mb-2">
+          <span className={`block text-sm font-medium mb-2 ${error && error.field === "skills" ? "text-warning" : ""}`}>
               My skills (Select one or more options)*
             </span>
             <MultiSelectCheckbox
               name="skills"
               id="skills"
-              onChange={handleInterestsChange}
+              onChange={(selectedItems) =>
+                handleCheckboxChange(selectedItems, "skills")
+              }
             />
           </div>
           <div className="my-8 text-center">
-            <Button variant="action" type="submit" size="sm">
-              Sign up
+            <Button
+              variant="action"
+              buttonStyle="solid"
+              type="submit"
+              size="md"
+            >
+              Register
             </Button>
           </div>
         </form>

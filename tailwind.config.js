@@ -8,11 +8,13 @@ export default {
     colors:{
       primary: '#26C1CD',
       secondary: '#B25499',
+      tertiary: '#FAB354',
       body: '#2D3648', // base text color
       bg: '#FFFFF8',
       dark: '#0F0D0E',
       white: "#fff",
-      black: "#000"
+      black: "#000",
+      warning: "#CD3226"
     },
     extend: {
       colors: {
@@ -28,6 +30,9 @@ export default {
       },
       width: {
         "1/2-gap-4": "calc(50% - 1rem)"
+      },
+      boxShadow:{
+        "subtle": "rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;"
       },
       fontFamily: {
         "poppins": ['Poppins', 'sans-serif']
