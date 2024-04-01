@@ -110,7 +110,7 @@ export default function EditProfileForm() {
           ) : (
             <></>
           )}
-          <div className="absolute bottom-3 right-0 w-6 z-10 bg-white rounded-full p-1">
+          <div className="absolute bottom-3 right-0 w-6 z-1 bg-white rounded-full p-1">
             <img
               src={CameraIcon}
               className="w-full object-contain"
