@@ -1,5 +1,6 @@
 import { useParams } from "react-router-dom";
 import useWorkshop from "../hooks/use-workshop";
+import Button from "../components/Button";
 
 export default function LoginPage() {
   const { id } = useParams();
@@ -13,21 +14,32 @@ export default function LoginPage() {
 
   return (
     <>
-      <p>Idea Detail Page</p>
-      <section>
+      <section className="m-auto w-full px-4 sm:max-w-[500px] sm:px-12 py-6">
         <img src={workshop.image} alt=""></img>
-        <h2>{workshop.title}</h2>
+        <h1 className="text-3xl font-semibold mb-3 sm:text-4xl text-center">
+          {workshop.title}
+        </h1>
+      </section>
+      <section className="mb-5 text-left mx-7">
+        <p>Proposed Date: {formattedDate}</p>
+      </section>
+      <section className="mb-5 text-left mx-7">
         <p>{workshop.description}</p>
       </section>
-      <section>
-        <p>Proposed date: {formattedDate}</p>
-      </section>
-      <section>
-        <p>Attendee target: {workshop.attendee_target} </p>
-        <p>Mentor target: {workshop.mentor_target} </p>
-        <button>I want to learn!</button>
+      <section className="mb-5 text-center mx-7">
+        <p className="font-semibold p-3">
+          Learners Needed: {workshop.attendee_target}
+        </p>
+        <Button variant="link" href="/eoi" size="sm" buttonStyle="white">
+          I want to learn!
+        </Button>
         {/* Optional button to express interest in mentoring */}
-        <button>I want to mentor!</button>
+        <p className="font-semibold p-3">
+          Mentors Needed: {workshop.mentor_target}
+        </p>
+        <Button variant="link" href="/eoi" size="sm" buttonStyle="white">
+          I want to mentor!
+        </Button>
       </section>
       {/* <section>
         <p>Ideated by: {workshop.created_by}</p>
