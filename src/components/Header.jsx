@@ -1,7 +1,9 @@
+import { Link, useNavigate } from "react-router-dom";
+import { useAuthContext } from "../hooks/use-auth-context";
 import NavBar from "./NavBar";
 import Button from "./Button";
-import { useAuthContext } from "../hooks/use-auth-context";
-import { useNavigate } from "react-router-dom";
+import profilePlaceHolder from "../assets/profile-placeholder.png";
+import LogoutIcon from "../assets/icons/logout.png";
 
 export default function Header() {
   const { auth } = useAuthContext();
@@ -31,15 +33,25 @@ export default function Header() {
               className="p-2 border border-gray-300 rounded-lg focus:outline-none"
             /> */}
             {/* Login button */}
-            {auth.user ? (
-              <Button
-                variant="action"
-                size="sm"
-                buttonStyle="outline"
-                onClick={handleLogout}
-              >
-                LOGOUT
-              </Button>
+            {auth.user !== null ? (
+              <>
+                <Link
+                  to={`profile/${auth.user.id}`}
+                  className="flex items-center gap-3"
+                >
+                  <img src={profilePlaceHolder} className="w-[40px] block" />
+                  <span>{auth.user.first_name}</span>
+                </Link>
+                <Button
+                  variant="action"
+                  size="sm"
+                  buttonStyle="outline"
+                  onClick={handleLogout}
+                >
+                  <span className="hidden sm:block">LOGOUT</span>
+                  <img src={LogoutIcon} className="w-[24px] sm:hidden" />
+                </Button>
+              </>
             ) : (
               <>
                 <Button
