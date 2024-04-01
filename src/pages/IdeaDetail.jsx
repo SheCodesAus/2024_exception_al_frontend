@@ -15,7 +15,7 @@ export default function LoginPage() {
     <>
       <p>Idea Detail Page</p>
       <section>
-        <img src={workshop.image} alt={workshop.description}></img>
+        <img src={workshop.image} alt=""></img>
         <h2>{workshop.title}</h2>
         <p>{workshop.description}</p>
       </section>
