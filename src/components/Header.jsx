@@ -12,6 +12,7 @@ export default function Header() {
     window.localStorage.removeItem("user");
     window.localStorage.removeItem("token");
     navigate("/");
+    window.location.reload();
   };
   return (
     <div className="flex flex-row items-center p-4 container mx-auto">
@@ -33,7 +34,7 @@ export default function Header() {
               className="p-2 border border-gray-300 rounded-lg focus:outline-none"
             /> */}
             {/* Login button */}
-            {auth.user !== null ? (
+            {auth?.user !== null ? (
               <>
                 <Link to={`profile/${auth.user.id}`} className="flex items-center gap-3">
                   <img src={profilePlaceHolder} className="w-[40px] block" />
