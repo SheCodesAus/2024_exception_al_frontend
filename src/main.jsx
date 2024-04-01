@@ -9,6 +9,7 @@ import SignUpPage from "./pages/SignUp";
 import LoginPage from "./pages/Login";
 import { AuthContextProvider } from "./hooks/use-auth-context";
 import ProfilePage from "./pages/Profile";
+import IdeaDetail from "./pages/IdeaDetail";
 
 const router = createBrowserRouter([
   {
