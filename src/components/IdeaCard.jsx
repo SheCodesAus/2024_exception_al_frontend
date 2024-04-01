@@ -1,6 +1,8 @@
 /* eslint-disable react/prop-types */
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../hooks/use-auth-context";
+import FilledHeart from '../assets/icons/heart-filled.svg';
+import EmptyHeart from '../assets/icons/heart-unfilled.svg';
 
 function IdeaCard({
   id,
@@ -33,12 +35,12 @@ function IdeaCard({
           {/* need to add logic for when logged in and already expressed interest heart is filled */}
           {auth.user ? (
             <img
-              src="./heart-unfilled.svg"
+              src={EmptyHeart}
               className="justify-end p-4 max-w-16"
             ></img>
           ) : (
             <img
-              src="./heart-filled.svg"
+              src={FilledHeart}
               className="justify-end p-4 max-w-16"
             ></img>
           )}

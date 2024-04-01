@@ -7,6 +7,8 @@ import postSignUp from "../api/post-signup";
 import SuccessfulCard from "./SuccessfulCard";
 import useToast from "../hooks/use-toast";
 import Toast from "./Toast";
+import { useAuthContext } from "../hooks/use-auth-context";
+import CameraIcon from '../assets/icons/camera.png';
 
 
 export default function EditProfileForm() {
@@ -24,6 +26,7 @@ export default function EditProfileForm() {
     field: "",
     errorMessage: "",
   });
+  const {auth} = useAuthContext();
   const {showToast, isVisible} = useToast();
   const handleShowToast = () => {
     showToast();
@@ -82,7 +85,7 @@ export default function EditProfileForm() {
       {formState === "pending" ? (
         <p>Submitting ...</p>
       ) : formState === "successful" ? (
-      <Toast message="Hello" isVisible={isVisible}/>
+      <Toast message="Successfully updated!" isVisible={isVisible}/>
       ) : formState === "error" ? (
         // Todo: handle exceptions
         <p>Error while submitting the sign up form</p>
@@ -92,18 +95,15 @@ export default function EditProfileForm() {
           className="m-auto w-full px-4 sm:max-w-[500px] sm:px-12"
         >
           <h1 className="text-3xl font-semibold mb-3 sm:text-4xl text-center">
-            Register today!
+            Edit profile
           </h1>
-          <div className="mb-5 text-center sm:mb-8">
-            <span className="text-greyscale-600 underline">
-              Already have an account?{" "}
-            </span>
-            <Link
-              className="font-semibold text-secondary text-lg underline"
-              to="/login"
-            >
-              Log in
-            </Link>
+          <div className="rounded-full relative w-36 h-36 m-auto bg-greyscale-300 my-8">
+          {
+            auth.user?.user_image 
+            ? <img src={auth.user.user_image}/>
+            : <></>
+          }
+            <img src={CameraIcon} className="absolute bottom-3 right-0 w-5"/>
           </div>
           <div className="flex flex-col justify-between gap-4 sm:flex-row">
             <TextInput
@@ -130,25 +130,20 @@ export default function EditProfileForm() {
             name="username"
             id="username"
             label="Username*"
-            onChange={handleChange}
-            required
+            value={auth.user.username}
+            classNames="bg-greyscale-300"
+            disabled
           />
           <TextInput
             type="email"
             name="email"
             id="email"
             label="Email*"
-            onChange={handleChange}
-            classNames={
-              error && error.field === "email" ? "border-2 border-warning" : ""
-            }
-            required
+            value={auth.user.email}
+            classNames="bg-greyscale-300"
+            disabled
           />
-          {error && error.field === "email" ? (
-            <span className="font-warning">{error.errorMessage}</span>
-          ) : (
-            <></>
-          )}
+
           <TextInput
             type="password"
             name="password"
@@ -188,6 +183,7 @@ export default function EditProfileForm() {
             <MultiSelectCheckbox
               name="interests"
               id="interests"
+              values={auth.user.interests}
               onChange={(selectedItems) =>
                 handleCheckboxChange(selectedItems, "interests")
               }
@@ -204,6 +200,7 @@ export default function EditProfileForm() {
             <MultiSelectCheckbox
               name="skills"
               id="skills"
+              values={auth.user.skills}
               onChange={(selectedItems) =>
                 handleCheckboxChange(selectedItems, "skills")
               }
