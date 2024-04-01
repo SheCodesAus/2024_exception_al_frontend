@@ -2,8 +2,9 @@
 import { useState } from "react";
 import { options } from "../data/options";
 
-export default function MultiSelectCheckbox({ onChange }) {
-  const [selectedItems, setSelectedItems] = useState([]);
+export default function MultiSelectCheckbox({ onChange, values }) {
+  const initialState = values ? values.split('|') : []
+  const [selectedItems, setSelectedItems] = useState(initialState);
   const handleCheckboxChange = (e) => {
     const { value, checked } = e.target;
     const updatedItems = checked

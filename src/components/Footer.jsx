@@ -1,3 +1,6 @@
+import InstagramLogo from '../assets/icons/instagram.svg';
+import FacebookLogo from '../assets/icons/facebook-2.svg';
+
 function Footer() {
   return (
     <footer className="w-full bg-primary text-sm p-4 ">
@@ -10,7 +13,7 @@ function Footer() {
           <section className="flex">
             <a href="https://www.instagram.com/shecodesaus/?hl=en">
               <img
-                src="/Instagram_Glyph_Black.svg"
+                src={InstagramLogo}
                 alt="Instagram Logo"
                 className="w-8"
               />
@@ -18,7 +21,7 @@ function Footer() {
 
             <a href="https://www.facebook.com/yourpage">
               <img
-                src="/Facebook_Glyph.svg"
+                src={FacebookLogo}
                 alt="Facebook Logo"
                 className="w-8"
               />

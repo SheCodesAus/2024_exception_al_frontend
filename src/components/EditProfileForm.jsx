@@ -5,12 +5,15 @@ import MultiSelectCheckbox from "./MultiSelectCheckbox";
 import Button from "./Button";
 import postSignUp from "../api/post-signup";
 import SuccessfulCard from "./SuccessfulCard";
+import useToast from "../hooks/use-toast";
+import Toast from "./Toast";
+import { useAuthContext } from "../hooks/use-auth-context";
+import CameraIcon from '../assets/icons/camera.png';
 
-const emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$";
 
-export default function SignUpForm() {
+export default function EditProfileForm() {
   const [formState, setFormState] = useState("");
-  const [credentials, setCredentials] = useState({
+  const [profileDetails, setProfileDetails] = useState({
     username: "",
     firstName: "",
     lastName: "",
@@ -23,38 +26,34 @@ export default function SignUpForm() {
     field: "",
     errorMessage: "",
   });
+  const {auth} = useAuthContext();
+  const {showToast, isVisible} = useToast();
+  const handleShowToast = () => {
+    showToast();
+  }
   const handleChange = (e) => {
     const { id, value } = e.target;
-    setCredentials((prev) => ({
+    setProfileDetails((prev) => ({
       ...prev,
       [id]: value,
     }));
   };
   const handleCheckboxChange = (selectedItems, name) => {
-    setCredentials((prev) => ({
+    setProfileDetails((prev) => ({
       ...prev,
       [name]: selectedItems,
     }));
   };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (credentials) {
-      if (!credentials.email.match(emailPattern)) {
-        setError({
-          field: "email",
-          errorMessage: "Please enter a valid email address.",
-        });
-        window.scrollTo({
-          top: 200,
-          behavior: "smooth",
-        });
-      } else if (credentials.password !== credentials.passwordConfirm) {
+    if (profileDetails) {
+      if (profileDetails.password !== profileDetails.passwordConfirm) {
         setError({ field: "password", errorMessage: "Password do not match." });
         window.scrollTo({
           top: 400,
           behavior: "smooth",
         });
-      } else if (credentials.interests.length == 0) {
+      } else if (profileDetails.interests.length == 0) {
         setError({
           field: "interests",
           errorMessage: "Please select one or more interests.",
@@ -63,14 +62,14 @@ export default function SignUpForm() {
           top: 300,
           behavior: "smooth",
         });
-      } else if (credentials.skills.length == 0) {
+      } else if (profileDetails.skills.length == 0) {
         setError({
           field: "skills",
           errorMessage: "Please select one or more skills.",
         });
       } else {
         setFormState("pending");
-        postSignUp(credentials)
+        postUpdateProfile(profileDetails)
           .then((res) => {
             setFormState("successful");
           })
@@ -86,12 +85,7 @@ export default function SignUpForm() {
       {formState === "pending" ? (
         <p>Submitting ...</p>
       ) : formState === "successful" ? (
-        <SuccessfulCard>
-          <p className="text-lg">Sign up was successful!</p>
-          <Button variant="link" href="/login" size="md" buttonStyle="solid">
-            Login
-          </Button>
-        </SuccessfulCard>
+      <Toast message="Successfully updated!" isVisible={isVisible}/>
       ) : formState === "error" ? (
         // Todo: handle exceptions
         <p>Error while submitting the sign up form</p>
@@ -101,18 +95,15 @@ export default function SignUpForm() {
           className="m-auto w-full px-4 sm:max-w-[500px] sm:px-12"
         >
           <h1 className="text-3xl font-semibold mb-3 sm:text-4xl text-center">
-            Register today!
+            Edit profile
           </h1>
-          <div className="mb-5 text-center sm:mb-8">
-            <span className="text-greyscale-600 underline">
-              Already have an account?{" "}
-            </span>
-            <Link
-              className="font-semibold text-secondary text-lg underline"
-              to="/login"
-            >
-              Log in
-            </Link>
+          <div className="rounded-full relative w-36 h-36 m-auto bg-greyscale-300 my-8">
+          {
+            auth.user?.user_image 
+            ? <img src={auth.user.user_image}/>
+            : <></>
+          }
+            <img src={CameraIcon} className="absolute bottom-3 right-0 w-5"/>
           </div>
           <div className="flex flex-col justify-between gap-4 sm:flex-row">
             <TextInput
@@ -139,25 +130,20 @@ export default function SignUpForm() {
             name="username"
             id="username"
             label="Username*"
-            onChange={handleChange}
-            required
+            value={auth.user.username}
+            classNames="bg-greyscale-300"
+            disabled
           />
           <TextInput
             type="email"
             name="email"
             id="email"
             label="Email*"
-            onChange={handleChange}
-            classNames={
-              error && error.field === "email" ? "border-2 border-warning" : ""
-            }
-            required
+            value={auth.user.email}
+            classNames="bg-greyscale-300"
+            disabled
           />
-          {error && error.field === "email" ? (
-            <span className="font-warning">{error.errorMessage}</span>
-          ) : (
-            <></>
-          )}
+
           <TextInput
             type="password"
             name="password"
@@ -197,6 +183,7 @@ export default function SignUpForm() {
             <MultiSelectCheckbox
               name="interests"
               id="interests"
+              values={auth.user.interests}
               onChange={(selectedItems) =>
                 handleCheckboxChange(selectedItems, "interests")
               }
@@ -213,6 +200,7 @@ export default function SignUpForm() {
             <MultiSelectCheckbox
               name="skills"
               id="skills"
+              values={auth.user.skills}
               onChange={(selectedItems) =>
                 handleCheckboxChange(selectedItems, "skills")
               }
