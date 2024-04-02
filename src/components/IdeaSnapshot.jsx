@@ -1,5 +1,4 @@
 import IdeaCard from "./IdeaCard";
-import Button from "./Button";
 
 // temporary measure until backend deployed
 const mockIdeaProperties = {
@@ -16,41 +15,15 @@ function IdeaSnapshot() {
   return (
     <div className="flex flex-col justify-around items-center container mx-auto p-4">
       <h2 className="text-xl font-bold">Latest Ideas</h2>
-      <section className="sm:flex sm:flex-col md:flex md:flex-row m-5">
-        <div className="m-6">
-          <IdeaCard
-            id={mockIdeaProperties.id}
-            plannedDate={mockIdeaProperties.plannedDate}
-            image={mockIdeaProperties.image}
-            title={mockIdeaProperties.title}
-            description={mockIdeaProperties.description}
-            attendeeTarget={mockIdeaProperties.attendeeTarget}
-            mentorTarget={mockIdeaProperties.mentorTarget}
-          />
-        </div>
-        <div className="m-6">
-          <IdeaCard
-            id={mockIdeaProperties.id}
-            plannedDate={mockIdeaProperties.plannedDate}
-            image={mockIdeaProperties.image}
-            title={mockIdeaProperties.title}
-            description={mockIdeaProperties.description}
-            attendeeTarget={mockIdeaProperties.attendeeTarget}
-            mentorTarget={mockIdeaProperties.mentorTarget}
-          />
-        </div>
-        <div className="m-6">
-          <IdeaCard
-            id={mockIdeaProperties.id}
-            plannedDate={mockIdeaProperties.plannedDate}
-            image={mockIdeaProperties.image}
-            title={mockIdeaProperties.title}
-            description={mockIdeaProperties.description}
-            attendeeTarget={mockIdeaProperties.attendeeTarget}
-            mentorTarget={mockIdeaProperties.mentorTarget}
-          />
-        </div>
-      </section>
+      <IdeaCard
+        id={mockIdeaProperties.id}
+        plannedDate={mockIdeaProperties.plannedDate}
+        image={mockIdeaProperties.image}
+        title={mockIdeaProperties.title}
+        description={mockIdeaProperties.description}
+        attendeeTarget={mockIdeaProperties.attendeeTarget}
+        mentorTarget={mockIdeaProperties.mentorTarget}
+      />
       <button>View All Workshop Ideas</button>
     </div>
   );
