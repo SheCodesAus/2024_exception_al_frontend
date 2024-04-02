@@ -1,9 +1,10 @@
 import IdeaCard from "./IdeaCard";
+import Button from "./Button";
 
 // temporary measure until backend deployed
 const mockIdeaProperties = {
   id: "1",
-  plannedDate: new Date(),
+  plannedDate: "2024-07-08",
   image: "https://picsum.photos/200",
   title: "Idea Title",
   description: "Workshop description",
@@ -24,7 +25,16 @@ function IdeaSnapshot() {
         attendeeTarget={mockIdeaProperties.attendeeTarget}
         mentorTarget={mockIdeaProperties.mentorTarget}
       />
-      <button>View All Workshop Ideas</button>
+      <section className="m-5">
+        <Button
+          variant="link"
+          href={`/workshops/1`}
+          size="sm"
+          buttonStyle="solid"
+        >
+          View All Workshop Ideas
+        </Button>
+      </section>
     </div>
   );
 }
