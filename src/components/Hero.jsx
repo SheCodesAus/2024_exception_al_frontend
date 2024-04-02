@@ -1,3 +1,5 @@
+import Button from "./Button";
+
 export function Hero() {
   return (
     <div className="bg-primary flex justify-center">
@@ -6,9 +8,17 @@ export function Hero() {
           <h1 className="lg:text-6xl md:text-6xl sm: text-4xl">
             Workshops People Want
           </h1>
-          <h2 className="text-2xl">Never have empty workshops again</h2>
-          <button>Get Started</button>
-          <button>Find out more</button>
+          <h2 className="text-2xl font-semibold">
+            Never have empty workshops again
+          </h2>
+          <div className="flex space-x-4 py-8">
+            <Button buttonType="link" href="/login" size="md" buttonStyle="white">
+              Get Started
+            </Button>
+            <Button buttonType="link" href="/signup" size="md" buttonStyle="primary">
+              Find Out More
+            </Button>
+          </div>
         </section>
         <img
           src="../women-holding-pottery.jpg"

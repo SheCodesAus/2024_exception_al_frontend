@@ -55,13 +55,19 @@ export default function SignUpForm() {
           behavior: "smooth",
         });
       } else if (credentials.interests.length == 0) {
-        setError({ field: "interests", errorMessage: "Please select one or more interests." });
+        setError({
+          field: "interests",
+          errorMessage: "Please select one or more interests.",
+        });
         window.scrollTo({
           top: 300,
           behavior: "smooth",
         });
       } else if (credentials.skills.length == 0) {
-        setError({ field: "skills", errorMessage: "Please select one or more skills." });
+        setError({
+          field: "skills",
+          errorMessage: "Please select one or more skills.",
+        });
       } else {
         setFormState("pending");
         postSignUp(credentials)
@@ -80,7 +86,12 @@ export default function SignUpForm() {
       {formState === "pending" ? (
         <p>Submitting ...</p>
       ) : formState === "successful" ? (
-        <SuccessfulCard />
+        <SuccessfulCard>
+          <p className="text-lg">Sign up was successful!</p>
+          <Button buttonType="link" href="/login" size="md" buttonStyle="secondary">
+            Login
+          </Button>
+        </SuccessfulCard>
       ) : formState === "error" ? (
         // Todo: handle exceptions
         <p>Error while submitting the sign up form</p>
@@ -108,7 +119,7 @@ export default function SignUpForm() {
               type="text"
               name="firstName"
               id="firstName"
-              size="sm"
+              width="sm"
               label="First name*"
               onChange={handleChange}
               required
@@ -117,7 +128,7 @@ export default function SignUpForm() {
               type="text"
               name="lastName"
               id="lastName"
-              size="sm"
+              width="sm"
               label="Last name*"
               onChange={handleChange}
               required
@@ -176,7 +187,11 @@ export default function SignUpForm() {
             <></>
           )}
           <div className="mb-4">
-            <span className={`block text-sm font-medium mb-2 ${error && error.field === "interests" ? "text-warning" : ""}`}>
+            <span
+              className={`block text-sm font-medium mb-2 ${
+                error && error.field === "interests" ? "text-warning" : ""
+              }`}
+            >
               My interests (Select one or more options)*
             </span>
             <MultiSelectCheckbox
@@ -188,7 +203,11 @@ export default function SignUpForm() {
             />
           </div>
           <div className="mb-4">
-          <span className={`block text-sm font-medium mb-2 ${error && error.field === "skills" ? "text-warning" : ""}`}>
+            <span
+              className={`block text-sm font-medium mb-2 ${
+                error && error.field === "skills" ? "text-warning" : ""
+              }`}
+            >
               My skills (Select one or more options)*
             </span>
             <MultiSelectCheckbox
@@ -201,8 +220,8 @@ export default function SignUpForm() {
           </div>
           <div className="my-8 text-center">
             <Button
-              variant="action"
-              buttonStyle="solid"
+              buttonType="action"
+              buttonStyle="secondary"
               type="submit"
               size="md"
             >

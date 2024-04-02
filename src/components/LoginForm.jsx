@@ -31,7 +31,6 @@ function LoginForm() {
           return getUser(res.user_id);
         })
         .then((userDetails) => {
-          window.localStorage.setItem("user", JSON.stringify(userDetails));
           setAuth(prev => ({...prev, user: userDetails}))
           navigate("/");
         })
@@ -74,7 +73,7 @@ function LoginForm() {
         errorMessage ? <span className="text-warning text-sm">{errorMessage}</span> : <></>
       }
       <div className="my-8 text-center">
-        <Button variant="action" buttonStyle="solid" type="submit" size="md" onClick={() => {}}>
+        <Button buttonType="action" buttonStyle="secondary" type="submit" size="md" onClick={() => {}}>
           Login
         </Button>
       </div>
