@@ -1,9 +1,10 @@
 import IdeaCard from "./IdeaCard";
+import Button from "./Button";
 
 // temporary measure until backend deployed
 const mockIdeaProperties = {
   id: "1",
-  plannedDate: new Date(),
+  plannedDate: "2024-07-08",
   image: "https://picsum.photos/200",
   title: "Idea Title",
   description: "Workshop description",
