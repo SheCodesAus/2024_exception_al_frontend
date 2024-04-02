@@ -88,7 +88,7 @@ export default function SignUpForm() {
       ) : formState === "successful" ? (
         <SuccessfulCard>
           <p className="text-lg">Sign up was successful!</p>
-          <Button variant="link" href="/login" size="md" buttonStyle="solid">
+          <Button buttonType="link" href="/login" size="md" buttonStyle="secondary">
             Login
           </Button>
         </SuccessfulCard>
@@ -119,7 +119,7 @@ export default function SignUpForm() {
               type="text"
               name="firstName"
               id="firstName"
-              size="sm"
+              width="sm"
               label="First name*"
               onChange={handleChange}
               required
@@ -128,7 +128,7 @@ export default function SignUpForm() {
               type="text"
               name="lastName"
               id="lastName"
-              size="sm"
+              width="sm"
               label="Last name*"
               onChange={handleChange}
               required
@@ -220,8 +220,8 @@ export default function SignUpForm() {
           </div>
           <div className="my-8 text-center">
             <Button
-              variant="action"
-              buttonStyle="solid"
+              buttonType="action"
+              buttonStyle="secondary"
               type="submit"
               size="md"
             >

@@ -5,7 +5,7 @@ import "../index.css";
 
 export default function Layout() {
   return (
-    <div className="bg-bg h-full font-poppins relative min-h-screen flex flex-col">
+    <div className="bg-bg h-full font-poppins relative min-h-screen flex flex-col overflow-hidden">
       <header>
         <Header/>
       </header>

@@ -11,11 +11,11 @@ export function Hero() {
           <h2 className="text-2xl font-semibold">
             Never have empty workshops again
           </h2>
-          <div className="flex space-x-4">
-            <Button variant="link" href="/login" size="sm" buttonStyle="white">
+          <div className="flex space-x-4 py-8">
+            <Button buttonType="link" href="/login" size="md" buttonStyle="white">
               Get Started
             </Button>
-            <Button variant="link" href="/signup" size="sm" buttonStyle="white">
+            <Button buttonType="link" href="/signup" size="md" buttonStyle="primary">
               Find Out More
             </Button>
           </div>
