@@ -5,7 +5,7 @@ import Button from "./Button";
 import useToast from "../hooks/use-toast";
 import Toast from "./Toast";
 import { useAuthContext } from "../hooks/use-auth-context";
-import CameraIcon from "../assets/icons/camera.png";
+import CameraIcon from "../assets/icons/camera.svg";
 import updateUser from "../api/update-user";
 
 export default function EditProfileForm() {
@@ -129,7 +129,7 @@ export default function EditProfileForm() {
             type="text"
             name="firstName"
             id="firstName"
-            size="sm"
+            width="sm"
             label="First name*"
             onChange={handleChange}
             value={auth.user.first_name}
@@ -139,7 +139,7 @@ export default function EditProfileForm() {
             type="text"
             name="lastName"
             id="lastName"
-            size="sm"
+            width="sm"
             label="Last name*"
             onChange={handleChange}
             value={auth.user.last_name}
@@ -226,7 +226,7 @@ export default function EditProfileForm() {
           />
         </div>
         <div className="my-8 text-center">
-          <Button variant="action" buttonStyle="solid" type="submit" size="md">
+          <Button buttonType="action" buttonStyle="secondary" type="submit" size="md">
             Register
           </Button>
         </div>

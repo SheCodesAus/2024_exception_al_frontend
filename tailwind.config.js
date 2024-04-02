@@ -14,7 +14,8 @@ export default {
       dark: '#0F0D0E',
       white: "#fff",
       black: "#000",
-      warning: "#CD3226"
+      warning: "#CD3226",
+      transparent: "transparent"
     },
     extend: {
       colors: {

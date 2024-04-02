@@ -41,9 +41,9 @@ export default function Header() {
                   <span>{auth.user.first_name}</span>
                 </Link>
                 <Button
-                  variant="action"
+                  buttonType="action"
                   size="sm"
-                  buttonStyle="outline"
+                  buttonStyle="primary-outline"
                   onClick={handleLogout}
                 >
                   <span className="hidden sm:block">LOGOUT</span>
@@ -53,18 +53,18 @@ export default function Header() {
             ) : (
               <>
                 <Button
-                  variant="link"
+                  buttonType="link"
                   href="/login"
                   size="sm"
-                  buttonStyle="outline"
+                  buttonStyle="primary-outline"
                 >
                   LOGIN
                 </Button>
                 <Button
-                  variant="link"
+                  buttonType="link"
                   href="/signup"
                   size="sm"
-                  buttonStyle="solid"
+                  buttonStyle="secondary"
                 >
                   REGISTER
                 </Button>
