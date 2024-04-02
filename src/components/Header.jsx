@@ -18,7 +18,7 @@ export default function Header() {
     <div className="flex flex-row items-center p-4 container mx-auto">
       <img
         className="size-16 mr-4 sm:size-24"
-        src="planidea-light.svg"
+        src="/planidea-light.svg"
         alt="planidea logo"
       />
       <section className="flex flex-grow gap-4 items-center flex-row-reverse md:flex-row md:justify-between">
@@ -36,7 +36,10 @@ export default function Header() {
             {/* Login button */}
             {auth?.user !== null ? (
               <>
-                <Link to={`profile/${auth.user.id}`} className="flex items-center gap-3">
+                <Link
+                  to={`profile/${auth.user.id}`}
+                  className="flex items-center gap-3"
+                >
                   <img src={profilePlaceHolder} className="w-[40px] block" />
                   <span>{auth.user.first_name}</span>
                 </Link>
