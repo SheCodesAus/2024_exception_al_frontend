@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import { options } from '../data/options';
 
-const Dropdown = ({onSelect }) => {
+const Dropdown = ({onSelect, ...rest }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const dropdownRef = useRef(null);
@@ -33,7 +33,7 @@ const Dropdown = ({onSelect }) => {
 
   const handleOptionKeyDown = (event, option) => {
     if (event.key === 'Enter' || event.key === ' ') {
-      handleSelect(option);
+      handleSelect(option.value);
     }
   };
   useEffect(() => {
@@ -52,6 +52,7 @@ const Dropdown = ({onSelect }) => {
         aria-haspopup="true"
         aria-expanded={isOpen}
         aria-controls="dropdown-list"
+        {...rest}
       >
         {selectedOption ? selectedOption.label : 'Select'}
         <span className='w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[10px] border-t-black border-t-solid'></span>
