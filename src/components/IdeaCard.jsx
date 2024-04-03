@@ -34,7 +34,7 @@ function IdeaCard({
             <h2 className="justify-start text-xl p-2 md:p-4 ml-4">{title}</h2>
           </Link>
           {/* Add auth.user check */}
-          {auth.user ? (
+          {/* {auth.user ? (
             EOI ? (
               <img src={FilledHeart} className="justify-end p-4 max-w-16" />
             ) : (
@@ -44,7 +44,7 @@ function IdeaCard({
             <Link to="/login">
               <img src={EmptyHeart} className="justify-end p-4 max-w-16" />
             </Link>
-          )}
+          )} */}
         </section>
       </section>
       <section className="flex flex-col">
