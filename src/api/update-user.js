@@ -1,15 +1,13 @@
 
 async function updateUser(userId, formData) {
-  const url = `${import.meta.env.VITE_API_URL}/users/${userId}`;
+  const url = `${import.meta.env.VITE_API_URL}/user/${userId}/`;
+  const token = window.localStorage.getItem('token');
   const res = await fetch(url, {
-    method: "POST",
+    method: "PUT",
     headers: {
-      "Content-Type": "application/json",
+      "Authorization": "Token " + token
     },
-    body: JSON.stringify({
-      "username": formData.username,
-      "password": formData.password,
-    })
+    body: formData
   })
   if(!res.ok) {
     const fallbackError = "Please check your username and password and try again.";

@@ -9,16 +9,16 @@ import CameraIcon from "../assets/icons/camera.svg";
 import updateUser from "../api/update-user";
 
 export default function EditProfileForm() {
-  const { auth } = useAuthContext();
+  const { auth, setAuth } = useAuthContext();
   const [formState, setFormState] = useState("");
   const [image, setImage] = useState(null);
   const [profileDetails, setProfileDetails] = useState({
-    firstName: auth.user.first_name,
-    lastName: auth.user.last_name,
+    first_name: auth.user.first_name,
+    last_name: auth.user.last_name,
     password: "",
     profile_image: null,
-    interests: auth.user.interests.split("|"),
-    skills: auth.user.skills.split("|"),
+    interests: auth.user?.interests.split("|"),
+    skills: auth.user?.skills.split("|")
   });
   const [error, setError] = useState({
     field: "",
@@ -48,7 +48,7 @@ export default function EditProfileForm() {
   const handleSubmit = (e) => {
     e.preventDefault();
     if (profileDetails) {
-      if (profileDetails.password !== profileDetails.passwordConfirm) {
+      if (profileDetails.password !== "" && profileDetails.password !== profileDetails.passwordConfirm) {
         setError({ field: "password", errorMessage: "Password do not match." });
         window.scrollTo({
           top: 400,
@@ -70,9 +70,25 @@ export default function EditProfileForm() {
         });
       } else {
         setFormState("pending");
-        updateUser(auth.user.id, profileDetails)
+        const formData = new FormData();
+        formData.append("first_name", profileDetails.first_name);
+        formData.append("last_name", profileDetails.last_name);
+        formData.append("interests", profileDetails.interests.join("|"));
+        formData.append("skills", profileDetails.skills.join("|"));
+        if (profileDetails.profile_image) {
+          formData.append("profile_image", profileDetails.profile_image);
+        }
+        if (profileDetails.password !== ""){
+          formData.append("password", profileDetails.first_name)
+        }
+        updateUser(auth.user.id, formData)
           .then((res) => {
+            setAuth(prev => ({...prev, user:res}));
             setFormState("successful");
+            window.scrollTo({
+              top: 0,
+              behavior: "smooth",
+            });
             showToast();
           })
           .catch((err) => {
@@ -97,18 +113,16 @@ export default function EditProfileForm() {
           Edit profile
         </h1>
         <label
-          htmlFor="image"
+          htmlFor="profile_image"
           className="block rounded-full relative w-32 h-32 m-auto bg-greyscale-300 my-8 cursor-pointer"
         >
-          {auth.user?.user_image ? (
+          {auth.user?.profile_image && (
             <img
-              src={auth.user.user_image}
+              src={auth.user.profile_image}
               className="object-cover  w-32 h-32 rounded-full"
-            />
-          ) : image ? (
-            <img src={image} className="object-cover w-32 h-32 rounded-full" />
-          ) : (
-            <></>
+            />)}
+          {image && (
+            <img src={image} className="object-cover w-32 h-32 rounded-full absolute top-0 z-2" />
           )}
           <div className="absolute bottom-3 right-0 w-6 z-1 bg-white rounded-full p-1">
             <img
@@ -117,7 +131,7 @@ export default function EditProfileForm() {
             />
           </div>
           <input
-            id="image"
+            id="profile_image"
             type="file"
             accept="image/png, image/jpeg"
             onChange={handleImageChange}
@@ -127,22 +141,22 @@ export default function EditProfileForm() {
         <div className="flex flex-col justify-between gap-4 sm:flex-row">
           <TextInput
             type="text"
-            name="firstName"
-            id="firstName"
+            name="first_name"
+            id="first_name"
             width="sm"
             label="First name*"
             onChange={handleChange}
-            value={auth.user.first_name}
+            defaultValue={profileDetails.first_name}
             required
           />
           <TextInput
             type="text"
-            name="lastName"
-            id="lastName"
+            name="last_name"
+            id="last_name"
             width="sm"
             label="Last name*"
             onChange={handleChange}
-            value={auth.user.last_name}
+            defaultValue={profileDetails.last_name}
             required
           />
         </div>
@@ -171,7 +185,6 @@ export default function EditProfileForm() {
           id="password"
           label="Password*"
           onChange={handleChange}
-          required
         />
         <TextInput
           type="password"
@@ -182,7 +195,6 @@ export default function EditProfileForm() {
           classNames={
             error && error.field === "password" ? "border-2 border-warning" : ""
           }
-          required
         />
         {error && error.field === "password" ? (
           <span className="text-warning text-sm mb-4 block">
@@ -227,7 +239,7 @@ export default function EditProfileForm() {
         </div>
         <div className="my-8 text-center">
           <Button buttonType="action" buttonStyle="secondary" type="submit" size="md">
-            Register
+            Save
           </Button>
         </div>
       </form>

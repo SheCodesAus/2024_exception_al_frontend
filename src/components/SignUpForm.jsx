@@ -5,6 +5,7 @@ import MultiSelectCheckbox from "./MultiSelectCheckbox";
 import Button from "./Button";
 import postSignUp from "../api/post-signup";
 import SuccessfulCard from "./SuccessfulCard";
+import LoadingSpinner from "./LoadingSpinner";
 
 const emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$";
 
@@ -83,12 +84,15 @@ export default function SignUpForm() {
   };
   return (
     <div className="form-container pt-6">
-      {formState === "pending" ? (
-        <p>Submitting ...</p>
-      ) : formState === "successful" ? (
+      {formState === "successful" ? (
         <SuccessfulCard>
           <p className="text-lg">Sign up was successful!</p>
-          <Button buttonType="link" href="/login" size="md" buttonStyle="secondary">
+          <Button
+            buttonType="link"
+            href="/login"
+            size="md"
+            buttonStyle="secondary"
+          >
             Login
           </Button>
         </SuccessfulCard>
@@ -225,7 +229,7 @@ export default function SignUpForm() {
               type="submit"
               size="md"
             >
-              Register
+              {formState === "pending" ? <LoadingSpinner/> : "Register"}
             </Button>
           </div>
         </form>
