@@ -1,5 +1,5 @@
-import InstagramLogo from '../assets/icons/instagram.svg';
-import FacebookLogo from '../assets/icons/facebook-2.svg';
+import InstagramLogo from "../assets/icons/instagram.svg";
+import FacebookLogo from "../assets/icons/facebook-2.svg";
 
 function Footer() {
   return (
@@ -16,19 +16,11 @@ function Footer() {
           </section>
           <section className="flex">
             <a href="https://www.instagram.com/shecodesaus/?hl=en">
-              <img
-                src={InstagramLogo}
-                alt="Instagram Logo"
-                className="w-8"
-              />
+              <img src={InstagramLogo} alt="Instagram Logo" className="w-8" />
             </a>
 
-            <a href="https://www.facebook.com/yourpage">
-              <img
-                src={FacebookLogo}
-                alt="Facebook Logo"
-                className="w-8"
-              />
+            <a href="https://www.facebook.com/shecodesaustralia/">
+              <img src={FacebookLogo} alt="Facebook Logo" className="w-8" />
             </a>
           </section>
           <section className="flex space-x-4 flex-row">
