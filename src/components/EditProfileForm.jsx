@@ -120,16 +120,19 @@ export default function EditProfileForm() {
             <img
               src={auth.user.profile_image}
               className="object-cover  w-32 h-32 rounded-full"
+              alt={"image of " + auth.user.first_name}
             />)}
           {image && (
-            <img src={image} className="object-cover w-32 h-32 rounded-full absolute top-0 z-2" />
+            <img src={image} className="object-cover w-32 h-32 rounded-full absolute top-0 z-2" alt="selected profile image"/>
           )}
           <div className="absolute bottom-3 right-0 w-6 z-1 bg-white rounded-full p-1">
             <img
               src={CameraIcon}
               className="w-full object-contain"
+              aria-hidden="true"
             />
           </div>
+          <label htmlFor="profile_image" className="sr-only"></label>
           <input
             id="profile_image"
             type="file"
@@ -238,7 +241,7 @@ export default function EditProfileForm() {
           />
         </div>
         <div className="my-8 text-center">
-          <Button buttonType="action" buttonStyle="secondary" type="submit" size="md">
+          <Button buttonType="action" buttonStyle="secondary" type="submit" size="md" aria-label="save profile button">
             Save
           </Button>
         </div>

@@ -121,13 +121,14 @@ export default function CreateWorkshopForm() {
             className="block rounded-md relative w-full max-w-[400px] h-60 m-auto bg-greyscale-300 my-8 cursor-pointer"
           >
             {image ? (
-              <img src={image} className="object-cover w-full h-60" />
+              <img src={image} className="object-cover w-full h-60" alt="selected workshop image" />
             ) : (
               <></>
             )}
             <div className="absolute top-1/2 left-1/2 w-32 z-1 p-1 opacity-25 -translate-y-1/2 -translate-x-1/2">
-              <img src={CameraIcon} className="w-full object-contain" />
+              <img src={CameraIcon} className="w-full object-contain" aria-hidden="true"/>
             </div>
+            <label htmlFor="image" className="sr-only"></label>
             <input
               id="image"
               type="file"
