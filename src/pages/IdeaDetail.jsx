@@ -7,24 +7,30 @@ export default function IdeaDetail() {
   const { id } = useParams();
   const { workshop, isLoading, error } = useWorkshop(id);
   const [formattedCost, setFormattedCost] = useState("");
+  const [isOpenText, setIsOpenText] = useState("");
 
   useEffect(() => {
-    const formatCost = () => {
-      if (workshop && workshop.est_cost) {
-        const cost = workshop.est_cost;
-        const formattedCost = new Intl.NumberFormat("en-AU", {
-          style: "currency",
-          currency: "AUD",
-        }).format(cost);
-        setFormattedCost(formattedCost);
-      }
-    };
+    if (workshop) {
+      const formatCost = () => {
+        if (workshop.est_cost) {
+          const cost = workshop.est_cost;
+          const formattedCost = new Intl.NumberFormat("en-AU", {
+            style: "currency",
+            currency: "AUD",
+          }).format(cost);
+          setFormattedCost(formattedCost);
+        }
+      };
 
-    formatCost();
+      formatCost();
+      setIsOpenText(workshop.is_open ? "Yes" : "No");
+    }
   }, [workshop]);
 
   if (isLoading) return <h1>Loading...</h1>;
   if (error) return <h1>{error.message}</h1>;
+
+  if (!workshop) return null; // Added null check to handle undefined workshop
 
   var date = new Date(workshop.plannned_date);
   var formattedDate = date.toLocaleDateString();
@@ -41,7 +47,7 @@ export default function IdeaDetail() {
         <section className="mb-5 text-left mx-7">
           <p>Proposed Date: {formattedDate}</p>
           <p>Location: Perth</p>
-          <p>Taking new EOIs: {workshop.is_open}</p>
+          <p>Taking new EOIs: {isOpenText}</p>
         </section>
         <section className="mb-5 text-left mx-7 md:mr-10">
           <p>Type: In-Person</p>
