@@ -60,26 +60,53 @@ export default function IdeaDetail() {
       </section>
 
       <section className="mb-5 text-center mx-7 md:text-start">
-        <p className="font-semibold">
-          Learners Needed: {workshop.attendee_target}
-        </p>
-        <Button variant="link" href="/eoi" size="sm" buttonStyle="secondary">
-          I want to learn!
-        </Button>
-        {/* Optional button to express interest in mentoring */}
-        <p className="font-semibold">
-          Mentors Needed: {workshop.mentor_target}
-        </p>
-        <Button variant="link" href="/eoi" size="sm" buttonStyle="tertiary">
-          I want to mentor!
-        </Button>
+        {workshop.is_open && (
+          <>
+            <p className="font-semibold">
+              Learners Needed: {workshop.attendee_target}
+            </p>
+            <Button
+              variant="link"
+              href="/eoi"
+              size="sm"
+              buttonStyle="secondary"
+            >
+              I want to learn!
+            </Button>
+            {/* Conditional rendering for mentor button */}
+            {workshop.mentor_target !== 0 && (
+              <>
+                <p className="font-semibold">
+                  Mentors Needed: {workshop.mentor_target}
+                </p>
+                <Button
+                  variant="link"
+                  href="/eoi"
+                  size="sm"
+                  buttonStyle="tertiary"
+                >
+                  I want to mentor!
+                </Button>
+              </>
+            )}
+          </>
+        )}
+        {/* Conditional rendering for contact organiser when workshop is closed*/}
+        {!workshop.is_open && (
+          <>
+            <p className="font-semibold">For more info about this workshop:</p>
+            <Button variant="link" href="/eoi" size="sm" buttonStyle="primary">
+              Contact Organiser
+            </Button>
+          </>
+        )}
       </section>
-      {/* <section>
+      <section>
         <p>Ideated by: {workshop.created_by}</p>
-        <p>{user.first_name}</p>
+        {/* <p>{user.first_name}</p>
         <p>{user.profile_image}</p>
-        <p>About the ideator: {user.biography}</p>
-      </section> */}
+        <p>About the ideator: {user.biography}</p> */}
+      </section>
     </>
   );
 }
