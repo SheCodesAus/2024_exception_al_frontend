@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useWorkshop from "../hooks/use-workshop";
 import Button from "../components/Button";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 export default function IdeaDetail() {
   const { id } = useParams();
@@ -27,12 +28,12 @@ export default function IdeaDetail() {
     }
   }, [workshop]);
 
-  if (isLoading) return <h1>Loading...</h1>;
+  if (isLoading) return <LoadingSpinner />;
   if (error) return <h1>{error.message}</h1>;
 
-  if (!workshop) return null; // Added null check to handle undefined workshop
+  if (!workshop) return null;
 
-  var date = new Date(workshop.plannned_date);
+  var date = new Date(workshop.planned_date);
   var formattedDate = date.toLocaleDateString();
 
   return (
