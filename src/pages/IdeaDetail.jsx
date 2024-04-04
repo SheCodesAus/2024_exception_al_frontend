@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import useWorkshop from "../hooks/use-workshop";
 import Button from "../components/Button";
 
-export default function LoginPage() {
+export default function IdeaDetail() {
   const { id } = useParams();
   const { workshop, isLoading, error } = useWorkshop(id);
   const [formattedCost, setFormattedCost] = useState("");
@@ -41,6 +41,7 @@ export default function LoginPage() {
         <section className="mb-5 text-left mx-7">
           <p>Proposed Date: {formattedDate}</p>
           <p>Location: Perth</p>
+          <p>Taking new EOIs: {workshop.is_open}</p>
         </section>
         <section className="mb-5 text-left mx-7 md:mr-10">
           <p>Type: In-Person</p>
