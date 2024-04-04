@@ -5,6 +5,8 @@ import postSignUp from "../api/post-signup";
 import SuccessfulCard from "./SuccessfulCard";
 import Dropdown from "./Dropdown";
 import CameraIcon from "../assets/icons/camera.svg";
+import { Link, useNavigate } from "react-router-dom";
+
 
 
 export default function CreateWorkshopForm() {
@@ -176,6 +178,16 @@ export default function CreateWorkshopForm() {
               Create
             </Button>
           </div>
+          <div className="text-greyscale-600 underline">
+              Don't see your category? Send us your suggestion!{" "}
+          </div>
+            <Link
+              className="font-semibold text-secondary text-lg underline"
+              to="/contactusgit"
+            >
+              Contact Us
+            </Link>
+          
         </form>
       )}
     </div>
