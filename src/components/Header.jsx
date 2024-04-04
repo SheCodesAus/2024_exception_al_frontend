@@ -16,11 +16,13 @@ export default function Header() {
   };
   return (
     <div className="flex flex-row items-center p-4 container mx-auto">
-      <img
-        className="size-16 mr-4 sm:size-24"
-        src="/planidea-light.svg"
-        alt="planidea logo"
-      />
+      <Link to="/">
+        <img
+          className="size-16 mr-4 sm:size-24"
+          src="/planidea-light.svg"
+          alt="planidea logo"
+        />
+      </Link>
       <section className="flex flex-grow gap-4 items-center flex-row-reverse md:flex-row md:justify-between">
         <NavBar />
 
@@ -40,17 +42,18 @@ export default function Header() {
                   to={`profile/${auth.user.id}`}
                   className="flex items-center gap-3"
                 >
-                  <img src={profilePlaceHolder} className="w-[40px] block" />
+                  <img src={profilePlaceHolder} className="w-[40px] block" alt="" aria-hidden="true"/>
                   <span>{auth.user.first_name}</span>
                 </Link>
                 <Button
                   buttonType="action"
                   size="sm"
                   buttonStyle="primary-outline"
+                  aria-label="log out"
                   onClick={handleLogout}
                 >
                   <span className="hidden sm:block">LOGOUT</span>
-                  <img src={LogoutIcon} className="w-[24px] sm:hidden" />
+                  <img src={LogoutIcon} className="w-[24px] sm:hidden" aria-hidden="true" />
                 </Button>
               </>
             ) : (

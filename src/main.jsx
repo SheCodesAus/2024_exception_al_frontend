@@ -17,9 +17,8 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <Layout />,
-    errorElement: <NotFound />,
     children: [
-      { path: "/", element: <Home /> },
+      { index: true, element: <Home /> },
       { path: "/signup", element: <SignUpPage /> },
       { path: "/login", element: <LoginPage /> },
       { path: "/profile/:slug", element: <ProtectedRoute><ProfilePage /></ProtectedRoute> },
@@ -29,6 +28,8 @@ const router = createBrowserRouter([
       // { path: "/contact", element: <Contact /> },
       { path: "/workshops/:id", element: <IdeaDetail /> },
       // { path: "/ideas", element: <AllIdeaDetails /> },
+      { path: "*", element: <NotFound /> },
+
     ],
   },
 ]);
