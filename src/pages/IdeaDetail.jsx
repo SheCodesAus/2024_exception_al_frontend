@@ -26,9 +26,9 @@ export default function LoginPage() {
       <section className="mb-5 text-left mx-7">
         <p>{workshop.description}</p>
       </section>
-      <section>
+      <section className="mb-5 text-left mx-7">
         <p>Location: Perth</p>
-        <p>Workshop Delivery: In-Person</p>
+        <p>Type: In-Person</p>
       </section>
       <section className="mb-5 text-center mx-7">
         <p className="font-semibold p-3">
