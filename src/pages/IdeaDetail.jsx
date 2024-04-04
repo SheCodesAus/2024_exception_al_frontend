@@ -101,12 +101,12 @@ export default function IdeaDetail() {
           </>
         )}
       </section>
-      <section>
-        <p>Ideated by: {workshop.created_by}</p>
-        {/* <p>{user.first_name}</p>
+      {/* <section>
+        <p>Ideated by: {user.username}</p>
+        <p>{user.first_name}</p>
         <p>{user.profile_image}</p>
-        <p>About the ideator: {user.biography}</p> */}
-      </section>
+        <p>About the ideator: {user.biography}</p>
+      </section> */}
     </>
   );
 }
