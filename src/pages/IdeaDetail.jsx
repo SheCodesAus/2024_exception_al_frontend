@@ -34,14 +34,14 @@ export default function LoginPage() {
         <p className="font-semibold p-3">
           Learners Needed: {workshop.attendee_target}
         </p>
-        <Button variant="link" href="/eoi" size="sm" buttonStyle="white">
+        <Button variant="link" href="/eoi" size="sm" buttonStyle="secondary">
           I want to learn!
         </Button>
         {/* Optional button to express interest in mentoring */}
         <p className="font-semibold p-3">
           Mentors Needed: {workshop.mentor_target}
         </p>
-        <Button variant="link" href="/eoi" size="sm" buttonStyle="white">
+        <Button variant="link" href="/eoi" size="sm" buttonStyle="tertiary">
           I want to mentor!
         </Button>
       </section>
