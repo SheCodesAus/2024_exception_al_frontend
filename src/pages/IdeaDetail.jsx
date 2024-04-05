@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import useWorkshop from "../hooks/use-workshop";
 import Button from "../components/Button";
@@ -7,31 +6,22 @@ import LoadingSpinner from "../components/LoadingSpinner";
 export default function IdeaDetail() {
   const { id } = useParams();
   const { workshop, isLoading, error } = useWorkshop(id);
-  const [formattedCost, setFormattedCost] = useState("");
-  const [isOpenText, setIsOpenText] = useState("");
-
-  useEffect(() => {
-    if (workshop) {
-      const formatCost = () => {
-        if (workshop.est_cost) {
-          const cost = workshop.est_cost;
-          const formattedCost = new Intl.NumberFormat("en-AU", {
-            style: "currency",
-            currency: "AUD",
-          }).format(cost);
-          setFormattedCost(formattedCost);
-        }
-      };
-
-      formatCost();
-      setIsOpenText(workshop.is_open ? "Yes" : "No");
-    }
-  }, [workshop]);
 
   if (isLoading) return <LoadingSpinner />;
   if (error) return <h1>{error.message}</h1>;
 
   if (!workshop) return null;
+
+  let formattedCost = "";
+
+  if (workshop.est_cost) {
+    const cost = workshop.est_cost;
+    formattedCost = new Intl.NumberFormat("en-AU", {
+      style: "currency",
+      currency: "AUD",
+    }).format(cost);
+  }
+  const isOpenText = workshop.is_open ? "Yes" : "No";
 
   var date = new Date(workshop.planned_date);
   var formattedDate = date.toLocaleDateString();
