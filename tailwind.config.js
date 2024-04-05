@@ -6,8 +6,9 @@ export default {
   ],
    theme: {
     colors:{
-      primary: '#26C1CD',
+      primary: '#10A3B7',
       'primary-dark': '#219199',
+      'primary-light': '#5cecf6',
       secondary: '#B25499',
       tertiary: '#FAB354',
       body: '#2D3648', // base text color
@@ -24,7 +25,8 @@ export default {
           200: '#F7F9FC',
           300: '#E2E7F0',
           400: '#CBD2E0',
-          600: '#717D96'
+          600: '#717D96',
+          700: '#5c616a'
         },
       },
       flexBasis: {
@@ -35,7 +37,8 @@ export default {
         "1/2-gap-4": "calc(50% - 1rem)"
       },
       boxShadow:{
-        "subtle": "rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;"
+        "subtle": "rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;",
+        "solid": "1px 3px"
       },
       fontFamily: {
         "poppins": ['Poppins', 'sans-serif']

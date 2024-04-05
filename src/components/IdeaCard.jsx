@@ -28,7 +28,7 @@ function IdeaCard({ workshop, toggleModal, handleClick }) {
 
   return (
     <>
-      <div className="flex flex-col items-start justify-between border border-1 border-greyscale-600 rounded-lg max-w-80 w-full overflow-hidden">
+      <div className="flex flex-col items-start justify-between border border-1 border-greyscale-600 rounded-lg max-w-96 w-full overflow-hidden">
         <section className="object-cover w-full">
           <Link to={`/workshops/${workshop.id}`} className="h-52 block">
             <img

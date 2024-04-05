@@ -9,7 +9,7 @@ import Toast from "./Toast";
 import useToast from "../hooks/use-toast";
 import Paginate from "./Paginate";
 
-function IdeaSnapshot({ itemNumber, orderBy }) {
+function IdeaSnapshot({ listingType, orderBy }) {
   const { workshops, isLoading } = useWorkshops();
   const { isOpen, toggleModal } = useModal();
   const [selectedWorkshopId, setSelectedWorkshopId] = useState(null);
@@ -22,31 +22,32 @@ function IdeaSnapshot({ itemNumber, orderBy }) {
     setType(type);
     showToast();
   };
-
+  const gridClassNames = listingType === "simple" ? "sm:grid-cols-2 lg:grid-cols-3" : "md:grid-cols-2 xl:grid-col-3" 
+  let sortedWorkshops = [...workshops].sort((a, b) => {
+    const dateA = new Date(a.created_at);
+    const dateB = new Date(b.created_at);
+    return orderBy === "latest" ? dateB - dateA : dateA - dateB;
+  });
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  const currentWorkshops = workshops.slice(indexOfFirstPost, indexOfLastPost);
+  const currentWorkshops = sortedWorkshops.slice(
+    indexOfFirstPost,
+    indexOfLastPost
+  );
+  if (listingType === "simple") {
+    sortedWorkshops = currentWorkshops;
+  }
 
-  const paginate = (pageNumber) => {
-    setCurrentPage(pageNumber);
-  };
-
+  //Pagination
+  const paginate = (pageNumber) => setCurrentPage(pageNumber);
   const previousPage = () => {
-    if (currentPage !== 1) {
-      setCurrentPage(currentPage - 1);
-    }
+    if (currentPage !== 1) setCurrentPage(currentPage - 1);
   };
-
   const nextPage = () => {
     if (currentPage !== Math.ceil(workshops.length / postsPerPage)) {
       setCurrentPage(currentPage + 1);
     }
   };
-  const sortedWorkshops = [...workshops].sort((a, b) => {
-    const dateA = new Date(a.created_at);
-    const dateB = new Date(b.created_at);
-    return orderBy === "latest" ? dateB - dateA : dateA - dateB;
-  });
 
   return (
     <>
@@ -57,27 +58,27 @@ function IdeaSnapshot({ itemNumber, orderBy }) {
           </div>
         ) : (
           <>
-            <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+            <div className={`grid gap-4 ${gridClassNames}`}>
               {currentWorkshops.map((workshop, index) => {
-                if (index < itemNumber) {
-                  return (
-                    <IdeaCard
-                      workshop={workshop}
-                      key={index}
-                      toggleModal={toggleModal}
-                      handleClick={handleEOIClick}
-                    />
-                  );
-                }
+                return (
+                  <IdeaCard
+                    workshop={workshop}
+                    key={index}
+                    toggleModal={toggleModal}
+                    handleClick={handleEOIClick}
+                  />
+                );
               })}
             </div>
-            <Paginate
-              postsPerPage={postsPerPage}
-              totalPosts={workshops.length}
-              paginate={paginate}
-              previousPage={previousPage}
-              nextPage={nextPage}
-            />
+            {listingType !== "simple" && (
+              <Paginate
+                postsPerPage={postsPerPage}
+                totalPosts={workshops.length}
+                paginate={paginate}
+                previousPage={previousPage}
+                nextPage={nextPage}
+              />
+            )}
           </>
         )}
       </div>
