@@ -44,74 +44,85 @@ export default function IdeaDetail() {
           {workshop.title}
         </h1>
       </section>
-      <div className="lg:max-w-[500px] md:flex md:flex-row md:justify-between lg:justify-start">
-        <section className="mb-5 text-left mx-7">
-          <p className="font-semibold">Proposed Date:</p> <p>{formattedDate}</p>
-          <br />
-          <p className="font-semibold">Location:</p> <p>Perth</p>
-          <br />
-          <p className="font-semibold">Open:</p> <p> {isOpenText}</p>
-        </section>
-        <section className="mb-5 text-left mx-7 md:mr-10">
-          <p className="font-semibold">Type:</p> <p>In-Person</p>
-          <br />
-          <p className="font-semibold">Estimated Cost:</p>{" "}
-          <p> {formattedCost}</p>
-        </section>
-      </div>
-      <section className="mb-5 text-left mx-7 lg:mr-96">
-        <p>{workshop.description}</p>
-      </section>
-
-      <section className="mb-5 text-center mx-7 md:text-start">
-        {workshop.is_open && (
-          <>
-            <p className="font-semibold">
-              Learners Needed: {workshop.attendee_target}
-            </p>
+      <div className="m-auto w-full px-4 sm:max-w-[1100px] sm:px-12 py-6 mb-20">
+        <div className="lg:max-w-[500px] md:flex md:flex-row md:justify-between lg:justify-start">
+          <section className="mb-5 text-left mx-7">
+            <p className="font-semibold">Proposed Date:</p>{" "}
+            <p>{formattedDate}</p>
             <br />
-            <Button
-              variant="link"
-              href="/eoi"
-              size="sm"
-              buttonStyle="secondary"
-            >
-              I want to learn!
-            </Button>
-            {/* Conditional rendering for mentor button */}
-            {workshop.mentor_target !== 0 && (
-              <>
-                <p className="font-semibold">
-                  Mentors Needed: {workshop.mentor_target}
-                </p>
-                <Button
-                  variant="link"
-                  href="/eoi"
-                  size="sm"
-                  buttonStyle="tertiary"
-                >
-                  I want to mentor!
-                </Button>
-              </>
-            )}
-          </>
-        )}
-        {/* Conditional rendering for contact organiser when workshop is closed*/}
-        {!workshop.is_open && (
-          <>
-            <p className="font-semibold">For more info about this workshop:</p>
-            <Button variant="link" href="/eoi" size="sm" buttonStyle="primary">
-              Contact Organiser
-            </Button>
-          </>
-        )}
-      </section>
-      {/* <section>
+            <p className="font-semibold">Location:</p> <p>Perth</p>
+            <br />
+            <p className="font-semibold">Open:</p> <p> {isOpenText}</p>
+          </section>
+          <section className="mb-5 text-left mx-7 md:mr-10">
+            <p className="font-semibold">Type:</p> <p>In-Person</p>
+            <br />
+            <p className="font-semibold">Estimated Cost:</p>{" "}
+            <p> {formattedCost}</p>
+          </section>
+        </div>
+        <section className="mb-5 text-left mx-7 lg:mr-96">
+          <p>{workshop.description}</p>
+        </section>
+
+        <section className="mb-5 text-center mx-7 md:text-start">
+          {workshop.is_open && (
+            <>
+              <p className="font-semibold">
+                Learners Needed: {workshop.attendee_target}
+              </p>
+              <br />
+              <Button
+                variant="link"
+                href="/eoi"
+                size="sm"
+                buttonStyle="secondary"
+              >
+                I want to learn!
+              </Button>
+              {/* Conditional rendering for mentor button */}
+              {workshop.mentor_target !== 0 && (
+                <>
+                  <p className="font-semibold">
+                    Mentors Needed: {workshop.mentor_target}
+                  </p>
+                  <br />
+                  <Button
+                    variant="link"
+                    href="/eoi"
+                    size="sm"
+                    buttonStyle="tertiary"
+                  >
+                    I want to mentor!
+                  </Button>
+                </>
+              )}
+            </>
+          )}
+          {/* Conditional rendering for contact organiser when workshop is closed*/}
+          {!workshop.is_open && (
+            <>
+              <p className="font-semibold">
+                For more info about this workshop:
+              </p>
+              <Button
+                variant="link"
+                href="/eoi"
+                size="sm"
+                buttonStyle="primary"
+              >
+                Contact Organiser
+              </Button>
+            </>
+          )}
+        </section>
+        {/* <section>
         <p>Ideated by: {user.username}</p>
         <p>{user.first_name}</p>
         <p>{user.profile_image}</p>
         <p>About the ideator: {user.biography}</p>
       </section> */}
+      </div>
     </>
   );
 }
