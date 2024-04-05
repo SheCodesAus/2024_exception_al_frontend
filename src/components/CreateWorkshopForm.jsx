@@ -6,6 +6,7 @@ import Dropdown from "./Dropdown";
 import CameraIcon from "../assets/icons/camera.svg";
 import { Link, useNavigate } from "react-router-dom";
 import postWorkshop from "../api/post-workshop";
+import LoadingSpinner from "./LoadingSpinner";
 
 
 
