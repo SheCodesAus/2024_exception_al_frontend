@@ -6,11 +6,14 @@ import Button from "./Button";
 import postSignUp from "../api/post-signup";
 import SuccessfulCard from "./SuccessfulCard";
 import LoadingSpinner from "./LoadingSpinner";
+import checkUsername from "../api/get-username-check";
 
 const emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$";
 
 export default function SignUpForm() {
   const [formState, setFormState] = useState("");
+  const [usernameCheck, setUsernameCheck] = useState(false);
+  const [usernameIsUnique, setUsernameIsUnique] = useState(false);
   const [credentials, setCredentials] = useState({
     username: "",
     firstName: "",
@@ -37,9 +40,22 @@ export default function SignUpForm() {
       [name]: selectedItems,
     }));
   };
+  const handleUsernameCheck = (e) => {
+    e.preventDefault();
+    checkUsername(credentials.username).then((res) => {
+      setUsernameCheck(true);
+      setUsernameIsUnique(!res);
+    });
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (credentials) {
+    if (!usernameCheck) {
+      setError({
+        field: "username",
+        errorMessage: "Please check username",
+      });
+    }
+    if (credentials && usernameIsUnique) {
       if (!credentials.email.match(emailPattern)) {
         setError({
           field: "email",
@@ -144,8 +160,34 @@ export default function SignUpForm() {
             id="username"
             label="Username*"
             onChange={handleChange}
+            width="sm"
             required
-          />
+          >
+            <Button
+              size="sm"
+              buttonStyle="plain"
+              buttonType="action"
+              classes="absolute right-2 top-1/2"
+              onClick={handleUsernameCheck}
+            >
+              Check username
+            </Button>
+          </TextInput>
+          {error && error.field === "username" ? (
+            <span className="text-warning pb-2 block">
+              {error.errorMessage}
+            </span>
+          ) : usernameCheck && usernameIsUnique ? (
+            <span className="text-primary-dark pb-2 block font-semibold">
+              Great news! Your username is available
+            </span>
+          ) : usernameCheck && !usernameIsUnique ? (
+            <span className="text-warning pb-2 block">
+              Sorry, your username has been taken!
+            </span>
+          ) : (
+            <></>
+          )}
           <TextInput
             type="email"
             name="email"
@@ -158,7 +200,9 @@ export default function SignUpForm() {
             required
           />
           {error && error.field === "email" ? (
-            <span className="font-warning">{error.errorMessage}</span>
+            <span className="text-warning pb-2 block">
+              {error.errorMessage}
+            </span>
           ) : (
             <></>
           )}
@@ -229,7 +273,7 @@ export default function SignUpForm() {
               type="submit"
               size="md"
             >
-              {formState === "pending" ? <LoadingSpinner/> : "Register"}
+              {formState === "pending" ? <LoadingSpinner /> : "Register"}
             </Button>
           </div>
         </form>

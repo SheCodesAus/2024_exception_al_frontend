@@ -3,6 +3,7 @@ export default function Button({
   size,
   buttonStyle,
   children,
+  classes,
   ...rest
 }) {
   let classNames = "rounded ";
@@ -10,7 +11,7 @@ export default function Button({
     switch (size) {
       case "sm":
         classNames +=
-          "px-3 py-1 sm:px-4 sm:py-2 font-normal text-sm sm:text-md ";
+          "px-3 py-1 sm:px-4 sm:py-2 text-sm sm:text-md ";
         break;
       case "md":
         classNames += "px-6 py-1.5 sm:px-8 sm:py-2 text-md sm:text-lg ";
@@ -49,17 +50,21 @@ export default function Button({
         classNames +=
           "bg-bg border-2 border-solid border-dark text-black tracking-wider drop-shadow-lg hover:bg-primary hover:text-black  transition-all";
         break;
+      case "plain":
+        classNames +=
+          "text-greyscale-600 font-bold tracking-wider hover:text-secondary transition-all";
+        break;
     }
     return classNames;
   })();
   return (
     <>
       {buttonType === "link" ? (
-        <a className={className} {...rest}>
+        <a className={className+ " " +classes} {...rest}>
           {children}
         </a>
       ) : (
-        <button className={className} {...rest}>
+        <button className={className + " " +classes} {...rest}>
           {children}
         </button>
       )}

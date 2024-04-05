@@ -7,6 +7,7 @@ export default {
    theme: {
     colors:{
       primary: '#26C1CD',
+      'primary-dark': '#219199',
       secondary: '#B25499',
       tertiary: '#FAB354',
       body: '#2D3648', // base text color

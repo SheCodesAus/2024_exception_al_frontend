@@ -14,7 +14,7 @@ function IdeaCard({
   const { auth } = useAuthContext();
 
   return (
-    <div className="flex flex-col items-start justify-center container border border-2 border-dark rounded-lg max-w-96 w-full sm:basis-1/2-gap-4 lg:basis-1/3-gap-4">
+    <div className="flex flex-col items-start justify-between container border border-2 border-dark rounded-lg max-w-96 w-full">
       <section className="object-cover w-full">
         <Link to={`/workshops/${workshop.id}`}>
           <img
@@ -41,9 +41,9 @@ function IdeaCard({
           )}
         </section>
       </section>
-      <section className="flex flex-col gap-1.5 p-4">
+      <section className="flex flex-col gap-1.5 p-4 flex-1">
         <p><span className="font-semibold">Planned Date: </span>{formattedDate}</p>
-        <p><span className="font-semibold">Description: </span>{workshop.description}</p>
+        <p><span className="font-semibold line-clamp-4">Description: </span>{workshop.description}</p>
         <p><span className="font-semibold">Attendee:</span>{workshop.attendee_target}</p>
         <p><span className="font-semibold">Mentor: </span>{workshop.mentor_target}</p>
       </section>

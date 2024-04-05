@@ -6,8 +6,8 @@ function IdeaSnapshot({itemNumber}) {
   const { workshops } = useWorkshops();
   return (
     <div className="flex flex-col justify-around items-center container mx-auto p-4">
-      <h2 className="text-xl font-bold">Latest Ideas</h2>
-      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-3">
+      <h2 className="text-xl font-bold my-6">Latest Ideas</h2>
+      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {workshops.map((workshop, index) => {
           if (index < itemNumber) {
             return <IdeaCard workshop={workshop} key={index} />;
