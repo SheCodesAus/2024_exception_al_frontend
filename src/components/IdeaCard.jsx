@@ -6,36 +6,30 @@ import EmptyHeart from "../assets/icons/heart-unfilled.svg";
 import Button from "./Button";
 
 function IdeaCard({
-  id,
-  plannedDate,
-  image,
-  title,
-  description,
-  attendeeTarget,
-  mentorTarget,
+  workshop
 }) {
   // const { workshopData } = props;
-  var date = new Date(plannedDate);
+  var date = new Date(workshop?.planned_date);
   var formattedDate = date.toLocaleDateString();
   const { auth } = useAuthContext();
 
   return (
-    <div className="flex flex-col items-start justify-center container mx-auto border border-dark rounded-lg max-w-96">
+    <div className="flex flex-col items-start justify-center container border border-2 border-dark rounded-lg max-w-96 w-full sm:basis-1/2-gap-4 lg:basis-1/3-gap-4">
       <section className="object-cover w-full">
-        <Link to={`/workshops/${id}`}>
+        <Link to={`/workshops/${workshop.id}`}>
           <img
-            src={image}
-            alt={`${title} picture of workshop`}
+            src={workshop.image}
+            alt={`${workshop.title} picture of workshop`}
             className="object-cover rounded-lg pb-2 w-full h-40"
           />
         </Link>
         <section className="flex justify-between">
-          <Link to={`/workshops/${id}`}>
-            <h2 className="justify-start text-xl p-2 md:p-4 ml-4">{title}</h2>
+          <Link to={`/workshops/${workshop.id}`}>
+            <h2 className="justify-start text-xl p-2 md:p-4 font-semibold">{workshop.title}</h2>
           </Link>
           {/* Add auth.user check */}
-          {/* {auth.user ? (
-            EOI ? (
+          {auth.user ? (
+            workshop.eoi ? (
               <img src={FilledHeart} className="justify-end p-4 max-w-16" />
             ) : (
               <img src={EmptyHeart} className="justify-end p-4 max-w-16" />
@@ -44,21 +38,21 @@ function IdeaCard({
             <Link to="/login">
               <img src={EmptyHeart} className="justify-end p-4 max-w-16" />
             </Link>
-          )} */}
+          )}
         </section>
       </section>
-      <section className="flex flex-col">
-        <p className="ml-4">Planned Date: {formattedDate}</p>
-        <p className="ml-4">Description: {description}</p>
-        <p className="ml-4">Attendee Target:{attendeeTarget}</p>
-        <p className="ml-4">Mentor Target: {mentorTarget}</p>
+      <section className="flex flex-col gap-1.5 p-4">
+        <p><span className="font-semibold">Planned Date: </span>{formattedDate}</p>
+        <p><span className="font-semibold">Description: </span>{workshop.description}</p>
+        <p><span className="font-semibold">Attendee:</span>{workshop.attendee_target}</p>
+        <p><span className="font-semibold">Mentor: </span>{workshop.mentor_target}</p>
       </section>
-      <div className="flex justify-center self-center m-5">
+      <div className="flex justify-center self-center my-5 w-full px-2">
         <Button
           variant="link"
-          href={`/workshops/${id}`}
-          size="sm"
-          buttonStyle="solid"
+          href={`/workshops/${workshop.id}`}
+          size="md"
+          buttonStyle="secondary"
         >
           More Info
         </Button>
