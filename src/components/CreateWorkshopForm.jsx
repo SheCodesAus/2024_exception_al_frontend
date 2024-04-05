@@ -5,6 +5,8 @@ import SuccessfulCard from "./SuccessfulCard";
 import Dropdown from "./Dropdown";
 import CameraIcon from "../assets/icons/camera.svg";
 import { Link, useNavigate } from "react-router-dom";
+import postWorkshop from "../api/post-workshop";
+
 
 
 export default function CreateWorkshopForm() {
