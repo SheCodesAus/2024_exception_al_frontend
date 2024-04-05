@@ -35,19 +35,19 @@ export default function Button({
         break;
       case "tertiary":
         classNames +=
-          "bg-tertiary border-2 border-solid border-dark text-black tracking-wider drop-shadow-lg hover:bg-bg hover:text-black hover:font-bold transition-all";
+          "bg-tertiary border-2 border-solid border-dark text-black tracking-wider drop-shadow-lg hover:bg-bg hover:text-black  transition-all";
         break;
       case "tertiary-outline":
         classNames +=
-          "bg-bg border-2 border-solid border-tertiary text-black tracking-wider drop-shadow-lg hover:bg-primary hover:text-black hover:font-bold transition-all";
+          "bg-bg border-2 border-solid border-tertiary text-black tracking-wider drop-shadow-lg hover:bg-primary hover:text-black  transition-all";
         break;
       case "white":
         classNames +=
-          "bg-bg border-2 border-solid border-white text-black tracking-wider drop-shadow-lg hover:bg-primary hover:text-black hover:font-bold transition-all";
+          "bg-bg border-2 border-solid border-white text-black tracking-wider drop-shadow-lg hover:bg-primary hover:text-black  transition-all";
         break;
       case "white-outline":
         classNames +=
-          "bg-bg border-2 border-solid border-dark text-black tracking-wider drop-shadow-lg hover:bg-primary hover:text-black hover:font-bold transition-all";
+          "bg-bg border-2 border-solid border-dark text-black tracking-wider drop-shadow-lg hover:bg-primary hover:text-black  transition-all";
         break;
     }
     return classNames;
