@@ -25,7 +25,7 @@ const router = createBrowserRouter([
       { path: "/profile/:slug", element: <ProtectedRoute><ProfilePage /></ProtectedRoute> },
       { path: "/workshopideas/create", element: <ProtectedRoute><CreateWorkshopPage /></ProtectedRoute> },
       // { path: "/about", element: <AboutUs /> },
-      { path: "/workshops", element: <AllWorkshopIdeasPage /> },
+      { path: "/workshopideas", element: <AllWorkshopIdeasPage /> },
       // { path: "/contact", element: <Contact /> },
       { path: "/workshops/:id", element: <IdeaDetail /> },
       // { path: "/ideas", element: <AllIdeaDetails /> },

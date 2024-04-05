@@ -27,11 +27,7 @@ function LoginForm() {
       postLogin(credentials.username, credentials.password)
         .then((res) => {
           window.localStorage.setItem("token", res.token);
-          setAuth(prev => ({...prev, token: res.token}))
-          return getUser(res.user_id);
-        })
-        .then((userDetails) => {
-          setAuth(prev => ({...prev, user: userDetails}))
+          setAuth(prev => ({...prev, token: res.token, user:res.user}))
           navigate("/");
         })
         .catch((err) => {
