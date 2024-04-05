@@ -38,21 +38,25 @@ export default function IdeaDetail() {
 
   return (
     <>
-      <section className="m-auto w-full px-4 sm:max-w-[500px] sm:px-12 py-6">
+      <section className="m-auto w-full px-4 sm:max-w-[500px] sm:px-12 py-6 mb-20">
         <img src={workshop.image} alt="" />
         <h1 className="text-3xl font-semibold mb-3 sm:text-4xl text-center">
           {workshop.title}
         </h1>
       </section>
-      <div className="md:flex md:flex-row md:justify-between lg:justify-start">
+      <div className="lg:max-w-[500px] md:flex md:flex-row md:justify-between lg:justify-start">
         <section className="mb-5 text-left mx-7">
-          <p>Proposed Date: {formattedDate}</p>
-          <p>Location: Perth</p>
-          <p>Taking new EOIs: {isOpenText}</p>
+          <p className="font-semibold">Proposed Date:</p> <p>{formattedDate}</p>
+          <br />
+          <p className="font-semibold">Location:</p> <p>Perth</p>
+          <br />
+          <p className="font-semibold">Open:</p> <p> {isOpenText}</p>
         </section>
         <section className="mb-5 text-left mx-7 md:mr-10">
-          <p>Type: In-Person</p>
-          <p>Estimated Cost: {formattedCost}</p>
+          <p className="font-semibold">Type:</p> <p>In-Person</p>
+          <br />
+          <p className="font-semibold">Estimated Cost:</p>{" "}
+          <p> {formattedCost}</p>
         </section>
       </div>
       <section className="mb-5 text-left mx-7 lg:mr-96">
@@ -65,6 +69,7 @@ export default function IdeaDetail() {
             <p className="font-semibold">
               Learners Needed: {workshop.attendee_target}
             </p>
+            <br />
             <Button
               variant="link"
               href="/eoi"
