@@ -11,7 +11,7 @@ function IdeaCard({ workshop, toggleModal, handleClick }) {
   const { auth } = useAuthContext();
   const navigate = useNavigate();
   const hasExpressedInterest =
-    workshop.eois.filter((eoi) => eoi.user === auth.user.id).length > 0;
+    auth.user && workshop.eois.filter((eoi) => eoi.user === auth.user.id).length > 0;
   const handleHeartClick = () => {
     if (!auth || !auth.user) {
       navigate("/login");
@@ -30,7 +30,7 @@ function IdeaCard({ workshop, toggleModal, handleClick }) {
     <>
       <div className="flex flex-col items-start justify-between border border-1 border-greyscale-600 rounded-lg max-w-96 w-full overflow-hidden">
         <section className="object-cover w-full">
-          <Link to={`/workshops/${workshop.id}`} className="h-52 block">
+          <Link to={`/workshopideas/${workshop.id}`} className="h-52 block">
             <img
               src={workshop.image}
               alt={`${workshop.title} picture of workshop`}
@@ -38,7 +38,7 @@ function IdeaCard({ workshop, toggleModal, handleClick }) {
             />
           </Link>
           <section className="flex justify-between items-start h-18 pt-2 px-4 gap-4 ">
-            <Link to={`/workshops/${workshop.id}`}>
+            <Link to={`/workshopideas/${workshop.id}`}>
               <h2 className="justify-start text-lg font-semibold">
                 {workshop.title}
               </h2>
@@ -77,7 +77,7 @@ function IdeaCard({ workshop, toggleModal, handleClick }) {
         <div className="flex my-5 w-full px-4 justify-center">
           <Button
             buttonType="link"
-            href={`/workshops/${workshop.id}`}
+            href={`/workshopideas/${workshop.id}`}
             size="md"
             buttonStyle="secondary"
           >
