@@ -1,15 +1,19 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import TextInput from "./TextInput";
 import MultiSelectCheckbox from "./MultiSelectCheckbox";
 import Button from "./Button";
 import postSignUp from "../api/post-signup";
 import SuccessfulCard from "./SuccessfulCard";
+import LoadingSpinner from "./LoadingSpinner";
+import checkUsername from "../api/get-username-check";
 
-const emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$";
+const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 export default function SignUpForm() {
   const [formState, setFormState] = useState("");
+  const [usernameCheck, setUsernameCheck] = useState(false);
+  const [usernameIsUnique, setUsernameIsUnique] = useState(false);
   const [credentials, setCredentials] = useState({
     username: "",
     firstName: "",
@@ -36,10 +40,31 @@ export default function SignUpForm() {
       [name]: selectedItems,
     }));
   };
+  const handleUsernameCheck = (e) => {
+    e.preventDefault();
+    checkUsername(credentials.username).then((res) => {
+      setUsernameCheck(true);
+      setUsernameIsUnique(!res);
+    });
+  };
+  const isPasswordValid = (password) => {
+    const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
+    return pattern.test(password);
+  };
   const handleSubmit = (e) => {
     e.preventDefault();
-    if (credentials) {
-      if (!credentials.email.match(emailPattern)) {
+    if (!usernameCheck) {
+      setError({
+        field: "usernameCheck",
+        errorMessage: "Please check username",
+      });
+      window.scrollTo({
+        top: 100,
+        behavior: "smooth",
+      });
+    }
+    if (credentials && usernameIsUnique) {
+      if (!credentials.email || !emailPattern.test(credentials.email)) {
         setError({
           field: "email",
           errorMessage: "Please enter a valid email address.",
@@ -48,8 +73,18 @@ export default function SignUpForm() {
           top: 200,
           behavior: "smooth",
         });
+      } else if (!isPasswordValid(credentials.password)) {
+        setError({
+          field: "passwordCheck",
+          errorMessage:
+            "Please ensure your password includes at least 8 characters, with at least one uppercase letter, one lowercase letter, and one number.",
+        });
+        window.scrollTo({
+          top: 400,
+          behavior: "smooth",
+        });
       } else if (credentials.password !== credentials.passwordConfirm) {
-        setError({ field: "password", errorMessage: "Password do not match." });
+        setError({ field: "password", errorMessage: "Password do not match" });
         window.scrollTo({
           top: 400,
           behavior: "smooth",
@@ -83,12 +118,15 @@ export default function SignUpForm() {
   };
   return (
     <div className="form-container pt-6">
-      {formState === "pending" ? (
-        <p>Submitting ...</p>
-      ) : formState === "successful" ? (
+      {formState === "successful" ? (
         <SuccessfulCard>
           <p className="text-lg">Sign up was successful!</p>
-          <Button buttonType="link" href="/login" size="md" buttonStyle="secondary">
+          <Button
+            buttonType="link"
+            href="/login"
+            size="md"
+            buttonStyle="secondary"
+          >
             Login
           </Button>
         </SuccessfulCard>
@@ -141,7 +179,36 @@ export default function SignUpForm() {
             label="Username*"
             onChange={handleChange}
             required
-          />
+          >
+            <Button
+              size="sm"
+              buttonStyle="plain"
+              buttonType="action"
+              classes="absolute right-2 top-1/2 text-greyscale-600 hover:text-secondary "
+              onClick={handleUsernameCheck}
+            >
+              Check username
+            </Button>
+          </TextInput>
+          {error && error.field === "username" && (
+            <span className="text-warning pb-2 block">
+              {error.errorMessage}
+            </span>
+          )}
+          {error &&
+            error.field === "usernameCheck" &&
+            usernameCheck &&
+            !usernameIsUnique && (
+              <span className="text-warning pb-2 block">
+                Sorry, your username has been taken!
+              </span>
+            )}
+          {usernameIsUnique &&
+            (!usernameCheck || error.field !== "usernameCheck") && (
+              <span className="text-primary-dark pb-2 block font-semibold">
+                Great news! Your username is available
+              </span>
+            )}
           <TextInput
             type="email"
             name="email"
@@ -154,7 +221,9 @@ export default function SignUpForm() {
             required
           />
           {error && error.field === "email" ? (
-            <span className="font-warning">{error.errorMessage}</span>
+            <span className="text-warning pb-2 block">
+              {error.errorMessage}
+            </span>
           ) : (
             <></>
           )}
@@ -166,6 +235,13 @@ export default function SignUpForm() {
             onChange={handleChange}
             required
           />
+          {error && error.field === "passwordCheck" ? (
+            <span className="text-warning text-sm mb-4 block">
+              {error.errorMessage}
+            </span>
+          ) : (
+            <></>
+          )}
           <TextInput
             type="password"
             name="passwordConfirm"
@@ -225,7 +301,7 @@ export default function SignUpForm() {
               type="submit"
               size="md"
             >
-              Register
+              {formState === "pending" ? <LoadingSpinner /> : "Register"}
             </Button>
           </div>
         </form>

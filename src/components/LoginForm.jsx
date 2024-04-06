@@ -27,11 +27,7 @@ function LoginForm() {
       postLogin(credentials.username, credentials.password)
         .then((res) => {
           window.localStorage.setItem("token", res.token);
-          setAuth(prev => ({...prev, token: res.token}))
-          return getUser(res.user_id);
-        })
-        .then((userDetails) => {
-          setAuth(prev => ({...prev, user: userDetails}))
+          setAuth(prev => ({...prev, token: res.token, user:res.user}))
           navigate("/");
         })
         .catch((err) => {
@@ -42,7 +38,7 @@ function LoginForm() {
   return (
     <form
       onSubmit={handleSubmit}
-      className="m-auto w-full px-4 sm:max-w-[500px] sm:px-12 pt-6"
+      className="m-auto w-full px-4 max-w-[500px] sm:px-12 pt-6"
     >
       <h1 className="text-3xl font-semibold mb-3 sm:text-4xl text-center">
         Login
@@ -59,7 +55,7 @@ function LoginForm() {
         type="text"
         name="username"
         id="username"
-        label="username*"
+        label="Username*"
         onChange={handleChange}
       />
       <TextInput

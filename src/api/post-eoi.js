@@ -1,16 +1,20 @@
 
-async function updateUser(userId, formData) {
-  const url = `${import.meta.env.VITE_API_URL}/user/${userId}/`;
+export default async function postEOI(data) {
+  const url = `${import.meta.env.VITE_API_URL}/eois/`;
   const token = window.localStorage.getItem('token');
   const res = await fetch(url, {
-    method: "PUT",
+    method: "POST",
     headers: {
+      "Content-Type": "application/json",
       "Authorization": "Token " + token
     },
-    body: formData
+    body: JSON.stringify({
+      "workshop": data.workshopId,
+      "eoi_type": data.type,
+    })
   })
   if(!res.ok) {
-    const fallbackError = "Please check your username and password and try again.";
+    const fallbackError = "Error trying to post workshop";
     const data = await res.json().catch(() => {
       throw new Error(fallbackError)
     });
@@ -19,5 +23,3 @@ async function updateUser(userId, formData) {
   }
   return await res.json();
 }
-
-export default updateUser;

@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
-import { options } from '../data/options';
+import { useState, useRef, useEffect } from "react";
+import { categoryOptions } from "../data/options";
 
-const Dropdown = ({onSelect }) => {
+const Dropdown = ({ onSelect, ...rest }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedOption, setSelectedOption] = useState(null);
   const dropdownRef = useRef(null);
@@ -24,41 +24,47 @@ const Dropdown = ({onSelect }) => {
   };
 
   const handleKeyDown = (event) => {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.key === "Enter" || event.key === " ") {
       toggleDropdown();
-    } else if (event.key === 'Escape') {
+    } else if (event.key === "Escape") {
       setIsOpen(false);
     }
   };
 
   const handleOptionKeyDown = (event, option) => {
-    if (event.key === 'Enter' || event.key === ' ') {
+    if (event.key === "Enter" || event.key === " ") {
       handleSelect(option);
     }
   };
   useEffect(() => {
-    document.addEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
 
   return (
     <div className="dropdown" ref={dropdownRef}>
       <button
-        className="border-2 border-solid border-greyscale-400 rounded-md bg-greyscale-200 px-3 py-2 flex flex-col w-full"
+        className="border-2 border-solid border-greyscale-400 rounded-md bg-greyscale-200 px-3 py-2 flex flex-row justify-between w-full items-center hover:bg-greyscale-300"
         onClick={toggleDropdown}
         onKeyDown={handleKeyDown}
         aria-haspopup="true"
         aria-expanded={isOpen}
         aria-controls="dropdown-list"
+        {...rest}
       >
-        {selectedOption ? selectedOption.label : 'Select'}
-        <span className='w-0 h-0 border-l-[10px] border-l-transparent border-r-[10px] border-r-transparent border-t-[10px] border-t-black border-t-solid'></span>
+        {selectedOption ? selectedOption.label : "Select"}
+        <span
+          className="w-2 h-2 border-r-2 border-b-2 transform rotate-45"
+        ></span>
       </button>
       {isOpen && (
-        <ul className="border-2 border-solid border-greyscale-400 rounded-md bg-greyscale-200 px-3 py-2 " id="dropdown-list">
-          {options.map((option, index) => (
+        <ul
+          className="border-2 border-solid border-greyscale-400 rounded-md bg-greyscale-200 cursor-pointer "
+          id="dropdown-list"
+        >
+          {categoryOptions.map((option, index) => (
             <li
               key={index}
               onClick={() => handleSelect(option)}
@@ -66,6 +72,7 @@ const Dropdown = ({onSelect }) => {
               tabIndex="0"
               role="option"
               aria-selected={selectedOption === option}
+              className="py-1.5 px-3 hover:bg-greyscale-300 "
             >
               {option.label}
             </li>

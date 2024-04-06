@@ -1,10 +1,13 @@
 import { useState } from "react";
 import TextInput from "./TextInput";
 import Button from "./Button";
-import postSignUp from "../api/post-signup";
 import SuccessfulCard from "./SuccessfulCard";
 import Dropdown from "./Dropdown";
 import CameraIcon from "../assets/icons/camera.svg";
+import { Link, useNavigate } from "react-router-dom";
+import postWorkshop from "../api/post-workshop";
+import LoadingSpinner from "./LoadingSpinner";
+
 
 
 export default function CreateWorkshopForm() {
@@ -14,10 +17,11 @@ export default function CreateWorkshopForm() {
     title: "",
     description: "",
     category: "",
-    closing_date: "",
+    closing_date: null,
     attendee_target: 0,
-    mentor_target: [],
-    materials: [],
+    mentor_target: 0,
+    materials: "",
+    image: null,
   });
   const [error, setError] = useState({
     field: "",
@@ -30,12 +34,18 @@ export default function CreateWorkshopForm() {
       [id]: value,
     }));
   };
+  const handleDropdownSelect = (option) => {
+    setWorkshopDetails((prev) => ({
+      ...prev,
+      category: option.value,
+    }));
+  };
   const handleImageChange = (e) => {
     setWorkshopDetails((prev) => ({
       ...prev,
-      profile_image: e.target.files[0],
+      image: e.target.value,
     }));
-    setImage(URL.createObjectURL(e.target.files[0]));
+    setImage(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -58,18 +68,21 @@ export default function CreateWorkshopForm() {
           top: 400,
           behavior: "smooth",
         });
-      } else if (workshopDetails.interests.length == 0) {
-        setError({
-          field: "interests",
-          errorMessage: "Please select one or more interests.",
-        });
-        window.scrollTo({
-          top: 300,
-          behavior: "smooth",
-        });
       } else {
         setFormState("pending");
-        postSignUp(workshopDetails)
+        const formData = new FormData();
+        formData.append("title", workshopDetails.title);
+        formData.append("description", workshopDetails.description);
+        formData.append("category", workshopDetails.category);
+        formData.append("closing_date", workshopDetails.closing_date);
+        formData.append("attendee_target", workshopDetails.attendee_target);
+        formData.append("mentor_target", workshopDetails.mentor_target);
+        if (workshopDetails.image) {
+          formData.append("image", workshopDetails.image);
+        }
+        if (workshopDetails.materials)
+          formData.append("materials", workshopDetails.materials);
+        postWorkshop(formData)
           .then((res) => {
             setFormState("successful");
           })
@@ -82,13 +95,11 @@ export default function CreateWorkshopForm() {
   };
   return (
     <div className="form-container pt-6">
-      {formState === "pending" ? (
-        <p>Submitting ...</p>
-      ) : formState === "successful" ? (
+      {formState === "successful" ? (
         <SuccessfulCard>
-          <p className="text-lg">Sign up was successful!</p>
-          <Button buttonType="link" href="/login" size="md" buttonStyle="secondary">
-            Login
+          <p className="text-lg">Workshop Idea has been submitted!</p>
+          <Button buttonType="link" href="/" size="md" buttonStyle="secondary">
+            Go back to home page
           </Button>
         </SuccessfulCard>
       ) : formState === "error" ? (
@@ -102,30 +113,35 @@ export default function CreateWorkshopForm() {
           <h1 className="text-3xl font-semibold mb-3 sm:text-4xl text-center">
             Create workshop idea
           </h1>
-          <hr className="w-10 m-auto border-t-2 border-tertiary"/>
+          <hr className="w-10 m-auto border-t-2 border-tertiary" />
           <label
             htmlFor="image"
-            className="block rounded-md relative w-full max-w-[400px] h-60 m-auto bg-greyscale-300 my-8 cursor-pointer"
+            className="block rounded-md relative w-full max-w-[400px] h-60 m-auto bg-greyscale-300 my-8 overflow-hidden"
           >
             {image ? (
               <img
                 src={image}
                 className="object-cover w-full h-60"
+                alt="selected workshop image"
               />
             ) : (
               <></>
             )}
             <div className="absolute top-1/2 left-1/2 w-32 z-1 p-1 opacity-25 -translate-y-1/2 -translate-x-1/2">
-              <img src={CameraIcon} className="w-full object-contain" />
+              <img
+                src={CameraIcon}
+                className="w-full object-contain"
+                aria-hidden="true"
+              />
             </div>
-            <input
-              id="image"
-              type="file"
-              accept="image/png, image/jpeg"
-              onChange={handleImageChange}
-              className="sr-only"
-            />
           </label>
+          <TextInput
+              type="text"
+              name="image"
+              id="image"
+              label="Workshop idea image URL"
+              onChange={handleImageChange}
+            />
           <TextInput
             type="text"
             name="title"
@@ -139,7 +155,9 @@ export default function CreateWorkshopForm() {
             size="lg"
             name="description"
             id="description"
-            label="Description"
+            label="Description*"
+            onChange={handleChange}
+            required
           />
           <div className="mb-4">
             <span
@@ -149,13 +167,19 @@ export default function CreateWorkshopForm() {
             >
               Category*
             </span>
-            <Dropdown name="category" id="category" onSelect={handleChange} />
+            <Dropdown
+              name="category"
+              id="category"
+              onSelect={handleDropdownSelect}
+            />
           </div>
           <TextInput
             type="date"
             name="closing_date"
             id="closing_date"
-            label="Closing date"
+            label="Closing date*"
+            onChange={handleChange}
+            required
           />
 
           <TextInput
@@ -166,6 +190,14 @@ export default function CreateWorkshopForm() {
             onChange={handleChange}
             required
           />
+          <TextInput
+            type="number"
+            name="mentor_target"
+            id="mentor_target"
+            label="Mentor target*"
+            onChange={handleChange}
+            required
+          />
           <div className="my-8 text-center">
             <Button
               buttonType="action"
@@ -173,9 +205,19 @@ export default function CreateWorkshopForm() {
               type="submit"
               size="md"
             >
-              Create
+              {formState === "pending" ? <LoadingSpinner /> : "Create"}
             </Button>
           </div>
+          <div className="text-greyscale-600 underline">
+              Don't see your category? Send us your suggestion!{" "}
+          </div>
+            <Link
+              className="font-semibold text-secondary text-lg underline"
+              to="/contactus"
+            >
+              Contact Us
+            </Link>
+          
         </form>
       )}
     </div>
