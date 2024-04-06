@@ -1,15 +1,82 @@
 import { useParams } from "react-router-dom";
-import useWorkshop from "../hooks/use-workshop";
+import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import LoadingSpinner from "../components/LoadingSpinner";
+import postEOI from "../api/post-eoi";
+import getWorkshop from "../api/get-workshop";
+import { useAuthContext } from "../hooks/use-auth-context";
 
 export default function IdeaDetail() {
   const { id } = useParams();
-  const { workshop, isLoading, error } = useWorkshop(id);
+  const { auth } = useAuthContext();
+  const [refetchWorkshop, setRefetchWorkshop] = useState(false);
+  const [workshop, setWorkshop] = useState();
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState();
 
-  if (isLoading) return <LoadingSpinner />;
+  const hasExpressedInterest =
+    auth.user &&
+    workshop &&
+    workshop.eois.filter(
+      (eoi) => eoi.user === auth.user.id && eoi.eoi_type === "Attend"
+    ).length > 0;
+
+  const isMentor =
+    auth.user &&
+    workshop &&
+    workshop.eois.filter(
+      (eoi) => eoi.user === auth.user.id && eoi.eoi_type === "Mentor"
+    ).length > 0;
+
+  useEffect(() => {
+    if (!workshop || refetchWorkshop === true) {
+      console.log("use effect re-running for getting workshop!", {
+        id,
+        refetchWorkshop,
+      });
+      getWorkshop(id)
+        .then((workshop) => {
+          setWorkshop(workshop);
+          setRefetchWorkshop(false);
+        })
+        .catch((error) => {
+          setError(error);
+        })
+        .finally(() => {
+          setLoading(false);
+          setRefetchWorkshop(false);
+        });
+    }
+  }, [id, workshop, refetchWorkshop]);
+
+  const handleAttendeeClick = async () => {
+    try {
+      const data = {
+        workshopId: id,
+        type: "Attend",
+      };
+      await postEOI(data);
+      setRefetchWorkshop(true);
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+
+  const handleMentorClick = async () => {
+    try {
+      const data = {
+        workshopId: id,
+        type: "Mentor",
+      };
+      await postEOI(data);
+      setRefetchWorkshop(true);
+    } catch (error) {
+      console.log("Error:", error);
+    }
+  };
+
+  if (loading) return <LoadingSpinner />;
   if (error) return <h1>{error.message}</h1>;
-
   if (!workshop) return null;
 
   let formattedCost = "";
@@ -59,31 +126,47 @@ export default function IdeaDetail() {
           {workshop.is_open && (
             <>
               <p className="font-semibold">
-                Learners Needed: {workshop.attendee_target}
+                Learners Needed:{" "}
+                {
+                  workshop.eois.filter((eoi) => eoi.eoi_type === "Attend")
+                    .length
+                }{" "}
+                / {workshop.attendee_target}
               </p>
               <br />
               <Button
+                disabled={hasExpressedInterest || isMentor}
                 variant="link"
                 href="/eoi"
                 size="sm"
                 buttonStyle="secondary"
+                onClick={handleAttendeeClick}
               >
-                I want to learn!
+                {hasExpressedInterest ? "I'm attending!" : "I want to learn!"}
               </Button>
+              <br />
+              <br />
               {/* Conditional rendering for mentor button */}
               {workshop.mentor_target !== 0 && (
                 <>
                   <p className="font-semibold">
-                    Mentors Needed: {workshop.mentor_target}
+                    Mentors Needed:{" "}
+                    {
+                      workshop.eois.filter((eoi) => eoi.eoi_type === "Mentor")
+                        .length
+                    }
+                    / {workshop.mentor_target}
                   </p>
                   <br />
                   <Button
+                    disabled={isMentor || hasExpressedInterest}
                     variant="link"
                     href="/eoi"
                     size="sm"
                     buttonStyle="tertiary"
+                    onClick={handleMentorClick}
                   >
-                    I want to mentor!
+                    {isMentor ? "I am mentoring!" : "I want to mentor!"}
                   </Button>
                 </>
               )}
