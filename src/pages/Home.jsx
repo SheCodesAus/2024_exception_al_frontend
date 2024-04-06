@@ -4,8 +4,8 @@ import IdeaSnapshot from "../components/IdeaSnapshot";
 function Home() {
   return (
     <>
-      <Hero></Hero>
-      <IdeaSnapshot></IdeaSnapshot>
+      <Hero />
+      <IdeaSnapshot itemNumber={6}/>
     </>
   );
 }
