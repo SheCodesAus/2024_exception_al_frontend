@@ -13,6 +13,8 @@ import CreateWorkshopPage from "./pages/CreateWorkshop";
 import ProtectedRoute from "./components/ProtectedRoute";
 import IdeaDetail from "./pages/IdeaDetail";
 import AboutUs from "./pages/AboutUs";
+import AllWorkshopIdeasPage from "./pages/AllWorkshopIdeas";
+
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,8 @@ const router = createBrowserRouter([
       { path: "/workshopideas/create", element: <ProtectedRoute><CreateWorkshopPage /></ProtectedRoute> },
       { path: "/aboutus", element: <AboutUs /> },
       // { path: "/workshops", element: <Ideas /> },
+      // { path: "/about", element: <AboutUs /> },
+      { path: "/workshopideas", element: <AllWorkshopIdeasPage /> },
       // { path: "/contact", element: <Contact /> },
       { path: "/workshops/:id", element: <IdeaDetail /> },
       // { path: "/ideas", element: <AllIdeaDetails /> },
