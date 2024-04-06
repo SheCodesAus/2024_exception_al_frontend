@@ -13,6 +13,7 @@ import CreateWorkshopPage from "./pages/CreateWorkshop";
 import ProtectedRoute from "./components/ProtectedRoute";
 import IdeaDetail from "./pages/IdeaDetail";
 import AllWorkshopIdeasPage from "./pages/AllWorkshopIdeas";
+import ContactusPage from "./pages/Contactus";
 
 const router = createBrowserRouter([
   {
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
       { path: "/workshopideas/create", element: <ProtectedRoute><CreateWorkshopPage /></ProtectedRoute> },
       // { path: "/about", element: <AboutUs /> },
       { path: "/workshopideas", element: <AllWorkshopIdeasPage /> },
-      // { path: "/contact", element: <Contact /> },
+      { path: "/Contactus", element: <ContactusPage /> },
       { path: "/workshops/:id", element: <IdeaDetail /> },
       // { path: "/ideas", element: <AllIdeaDetails /> },
       { path: "*", element: <NotFound /> },
