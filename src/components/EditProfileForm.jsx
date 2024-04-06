@@ -18,7 +18,7 @@ export default function EditProfileForm() {
     password: "",
     profile_image: null,
     interests: auth.user?.interests.split("|"),
-    skills: auth.user?.skills.split("|")
+    skills: auth.user?.skills.split("|"),
   });
   const [error, setError] = useState({
     field: "",
@@ -41,14 +41,17 @@ export default function EditProfileForm() {
   const handleImageChange = (e) => {
     setProfileDetails((prev) => ({
       ...prev,
-      profile_image: e.target.files[0],
+      profile_image: e.target.value,
     }));
-    setImage(URL.createObjectURL(e.target.files[0]));
+    setImage(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
     if (profileDetails) {
-      if (profileDetails.password !== "" && profileDetails.password !== profileDetails.passwordConfirm) {
+      if (
+        profileDetails.password !== "" &&
+        profileDetails.password !== profileDetails.passwordConfirm
+      ) {
         setError({ field: "password", errorMessage: "Password do not match." });
         window.scrollTo({
           top: 400,
@@ -78,12 +81,12 @@ export default function EditProfileForm() {
         if (profileDetails.profile_image) {
           formData.append("profile_image", profileDetails.profile_image);
         }
-        if (profileDetails.password !== ""){
-          formData.append("password", profileDetails.first_name)
+        if (profileDetails.password !== "") {
+          formData.append("password", profileDetails.first_name);
         }
         updateUser(auth.user.id, formData)
           .then((res) => {
-            setAuth(prev => ({...prev, user:res}));
+            setAuth((prev) => ({ ...prev, user: res }));
             setFormState("successful");
             window.scrollTo({
               top: 0,
@@ -114,16 +117,21 @@ export default function EditProfileForm() {
         </h1>
         <label
           htmlFor="profile_image"
-          className="block rounded-full relative w-32 h-32 m-auto bg-greyscale-300 my-8 cursor-pointer"
+          className="block rounded-full relative w-32 h-32 m-auto bg-greyscale-300 my-8"
         >
-          {auth.user?.profile_image && (
+          {auth.user?.profile_image && !image && (
             <img
               src={auth.user.profile_image}
-              className="object-cover  w-32 h-32 rounded-full"
+              className="object-cover w-32 h-32 rounded-full"
               alt={"image of " + auth.user.first_name}
-            />)}
+            />
+          )}
           {image && (
-            <img src={image} className="object-cover w-32 h-32 rounded-full absolute top-0 z-2" alt="selected profile image"/>
+            <img
+              src={image}
+              className="object-cover w-32 h-32 rounded-full absolute top-0 z-2"
+              alt="selected profile image"
+            />
           )}
           <div className="absolute bottom-3 right-0 w-6 z-1 bg-white rounded-full p-1">
             <img
@@ -132,15 +140,14 @@ export default function EditProfileForm() {
               aria-hidden="true"
             />
           </div>
-          <label htmlFor="profile_image" className="sr-only"></label>
-          <input
-            id="profile_image"
-            type="file"
-            accept="image/png, image/jpeg"
-            onChange={handleImageChange}
-            className="sr-only"
-          />
         </label>
+        <TextInput
+          type="text"
+          name="profile_image"
+          id="profile_image"
+          label="Profile image URL"
+          onChange={handleImageChange}
+        />
         <div className="flex flex-col justify-between gap-4 sm:flex-row">
           <TextInput
             type="text"
@@ -241,7 +248,13 @@ export default function EditProfileForm() {
           />
         </div>
         <div className="my-8 text-center">
-          <Button buttonType="action" buttonStyle="secondary" type="submit" size="md" aria-label="save profile button">
+          <Button
+            buttonType="action"
+            buttonStyle="secondary"
+            type="submit"
+            size="md"
+            aria-label="save profile button"
+          >
             Save
           </Button>
         </div>

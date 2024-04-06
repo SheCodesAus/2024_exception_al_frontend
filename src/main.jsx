@@ -31,7 +31,7 @@ const router = createBrowserRouter([
       // { path: "/about", element: <AboutUs /> },
       { path: "/workshopideas", element: <AllWorkshopIdeasPage /> },
       // { path: "/contact", element: <Contact /> },
-      { path: "/workshops/:id", element: <IdeaDetail /> },
+      { path: "/workshopideas/:id", element: <IdeaDetail /> },
       // { path: "/ideas", element: <AllIdeaDetails /> },
       { path: "*", element: <NotFound /> },
 

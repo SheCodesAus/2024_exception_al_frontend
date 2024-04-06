@@ -1,82 +1,92 @@
 /* eslint-disable react/prop-types */
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useAuthContext } from "../hooks/use-auth-context";
 import FilledHeart from "../assets/icons/heart-filled.svg";
 import EmptyHeart from "../assets/icons/heart-unfilled.svg";
 import Button from "./Button";
 
-function IdeaCard({
-  workshop
-}) {
-  // const { workshopData } = props;
+function IdeaCard({ workshop, toggleModal, handleClick }) {
   var date = new Date(workshop?.planned_date);
   var formattedDate = date.toLocaleDateString();
   const { auth } = useAuthContext();
+  const navigate = useNavigate();
+  const hasExpressedInterest =
+    auth.user && workshop.eois.filter((eoi) => eoi.user === auth.user.id).length > 0;
+  const handleHeartClick = () => {
+    if (!auth || !auth.user) {
+      navigate("/login");
+      return;
+    }
+    if (workshop.created_by === auth.user.id) {
+      handleClick(workshop.id, "error");
+    } else {
+      const action = hasExpressedInterest ? "cancel" : "submit";
+      handleClick(workshop.id, action);
+      toggleModal();
+    }
+  };
 
   return (
-    <div className="flex flex-col items-start justify-center container border border-2 border-dark rounded-lg max-w-96 w-full sm:basis-1/2-gap-4 lg:basis-1/3-gap-4">
-      <section className="object-cover w-full">
-        <Link to={`/workshops/${workshop.id}`}>
-          <img
-            src={workshop.image}
-            alt={`${workshop.title} picture of workshop`}
-            className="object-cover rounded-lg pb-2 w-full h-40"
-          />
-        </Link>
-        <section className="flex justify-between">
-          <Link to={`/workshops/${workshop.id}`}>
-            <h2 className="justify-start text-xl p-2 md:p-4 font-semibold">{workshop.title}</h2>
+    <>
+      <div className="flex flex-col items-start justify-between border border-1 border-greyscale-600 rounded-lg max-w-96 w-full overflow-hidden">
+        <section className="object-cover w-full">
+          <Link to={`/workshopideas/${workshop.id}`} className="h-52 block">
+            <img
+              src={workshop.image}
+              alt={`${workshop.title} picture of workshop`}
+              className="object-cover pb-2 w-full h-full"
+            />
           </Link>
-          {/* Add auth.user check */}
-          {auth.user ? (
-            workshop.eoi ? (
-              <img src={FilledHeart} className="justify-end p-4 max-w-16" />
-            ) : (
-              <img src={EmptyHeart} className="justify-end p-4 max-w-16" />
-            )
-          ) : (
-            <Link to="/login">
-              <img src={EmptyHeart} className="justify-end p-4 max-w-16" />
+          <section className="flex justify-between items-start h-18 pt-2 px-4 gap-4 ">
+            <Link to={`/workshopideas/${workshop.id}`}>
+              <h2 className="justify-start text-lg font-semibold">
+                {workshop.title}
+              </h2>
             </Link>
-          )}
+            {/* Add auth.user check */}
+            <button onClick={handleHeartClick}>
+              <img
+                src={hasExpressedInterest ? FilledHeart : EmptyHeart}
+                className="justify-end max-w-10 h-full"
+                aria-hidden="true"
+                alt=""
+              />
+              <span className="sr-only">expression of interest</span>
+            </button>
+          </section>
         </section>
-      </section>
-      <section className="flex flex-col gap-1.5 p-4">
-        <p><span className="font-semibold">Planned Date: </span>{formattedDate}</p>
-        <p><span className="font-semibold">Description: </span>{workshop.description}</p>
-        <p><span className="font-semibold">Attendee:</span>{workshop.attendee_target}</p>
-        <p><span className="font-semibold">Mentor: </span>{workshop.mentor_target}</p>
-      </section>
-      <div className="flex justify-center self-center my-5 w-full px-2">
-        <Button
-          variant="link"
-          href={`/workshops/${workshop.id}`}
-          size="md"
-          buttonStyle="secondary"
-        >
-          More Info
-        </Button>
+        <section className="flex flex-col gap-0.5 px-4 flex-1">
+          <span className="line-clamp-4 text-greyscale-700 flex-1 my-2">
+            {workshop.description}
+          </span>
+          <p className="flex gap-1">
+            <span className="font-semibold">Planned Date: </span>
+            {formattedDate}
+          </p>
+          <p className="flex gap-1">
+            <span className="font-semibold">Attendee:</span>
+            {
+              workshop.eois.filter((eoi) => eoi.eoi_type === "Attend").length
+            } / {workshop.attendee_target}
+          </p>
+          <p className="flex gap-1">
+            <span className="font-semibold">Mentor: </span>
+            {workshop.mentor_target}
+          </p>
+        </section>
+        <div className="flex my-5 w-full px-4 justify-center">
+          <Button
+            buttonType="link"
+            href={`/workshopideas/${workshop.id}`}
+            size="md"
+            buttonStyle="secondary"
+          >
+            More Info
+          </Button>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 
 export default IdeaCard;
-
-// <Link to={`/idea/${workshopData.id}`}>
-//         <img
-//           // src={workshopData.image}
-//           alt="Women holding pottery"
-//           className="rounded-lg w-auto pb-2"
-//           src="../women-holding-pottery.jpg"
-//         ></img>
-//         <h2 className="text-xl p-2 md:p-4">{workshopData.title}</h2>
-//       </Link>
-//       <p className="ml-4">Planned Date: {formattedDate}</p>
-//       <p className="ml-4">Description: {workshopData.description}</p>
-//       <p className="ml-4">{workshopData.attendee_target}</p>
-//       <p>{workshopData.mentor_target}</p>
-//       <button onClick={() => alert(`View details of ${ideaData.title}`)}>
-//         More Info
-//       </button>
-//     </div>

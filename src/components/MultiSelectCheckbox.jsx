@@ -1,6 +1,6 @@
 /* eslint-disable react/prop-types */
 import { useState } from "react";
-import { options } from "../data/options";
+import { categoryOptions } from "../data/options";
 
 export default function MultiSelectCheckbox({ onChange, values }) {
   const initialState = values ? values.split('|') : []
@@ -21,7 +21,7 @@ export default function MultiSelectCheckbox({ onChange, values }) {
   };
   return (
     <div className="flex flex-col">
-      {options.map((option, index) => (
+      {categoryOptions.map((option, index) => (
         <label
           key={index}
           htmlFor={option.name}

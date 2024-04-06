@@ -15,3 +15,7 @@ html {
   -moz-box-sizing: inherit;
   box-sizing: inherit;
 }
+
+body {
+  font-size: 16px;
+}
