@@ -1,11 +1,56 @@
+import Button from "../components/Button";
 import Hero from "../components/Hero";
 import IdeaSnapshot from "../components/IdeaSnapshot";
 
 function Home() {
   return (
     <>
-      <Hero />
-      <IdeaSnapshot itemNumber={6}/>
+      <Hero>
+        <section className="py-16">
+          <h1 className="text-5xl lg:text-6xl md:text-6xl text-bg font-semibold">
+            Workshops People Want
+          </h1>
+          <h2 className="text-2xl font-semibold">
+            Never have empty workshops again
+          </h2>
+          <div className="flex space-x-4 py-8">
+            <Button
+              buttonType="link"
+              href="/login"
+              size="md"
+              buttonStyle="white"
+            >
+              Get Started
+            </Button>
+            <Button
+              buttonType="link"
+              href="/signup"
+              size="md"
+              buttonStyle="black"
+            >
+              Find Out More
+            </Button>
+          </div>
+        </section>
+        <img
+          src="../women-holding-pottery.jpg"
+          alt="Black women holding up abstract pottery"
+          className="max-w-lg hidden lg:block"
+        />
+        {/* Photo by RF._.studio: https://www.pexels.com/photo/black-female-artist-with-painted-vase-in-creative-room-3817580/ */}
+      </Hero>
+      <h2 className="text-3xl text-center mt-16 mb-6">Featured Ideas</h2>
+      <IdeaSnapshot listingType="simple" orderBy="latest" />
+      <div className="mx-auto my-6 w-fit">
+        <Button
+          buttonType="link"
+          href="/workshopideas"
+          size="sm"
+          buttonStyle="primary-outline"
+        >
+          View All Workshop Ideas
+        </Button>
+      </div>
     </>
   );
 }

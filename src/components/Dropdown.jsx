@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from "react";
-import { options } from "../data/options";
+import { categoryOptions } from "../data/options";
 
 const Dropdown = ({ onSelect, ...rest }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -64,7 +64,7 @@ const Dropdown = ({ onSelect, ...rest }) => {
           className="border-2 border-solid border-greyscale-400 rounded-md bg-greyscale-200 cursor-pointer "
           id="dropdown-list"
         >
-          {options.map((option, index) => (
+          {categoryOptions.map((option, index) => (
             <li
               key={index}
               onClick={() => handleSelect(option)}

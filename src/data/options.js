@@ -1,4 +1,4 @@
-export const options = [
+export const categoryOptions = [
   {value: 'none', label: 'None'},
   { value: 'technology', label: 'Technology' },
   { value: 'arts_crafts', label: 'Arts and crafts' },
@@ -10,3 +10,9 @@ export const options = [
   { value: 'sports', label: 'Sports' },
   { value: 'music', label: 'Music' }
 ];
+
+export const audienceOptions = [
+  {value: 'all', label: 'All'},
+  {value: 'learn', label: 'Learn'},
+  {value: 'teach', label: 'Teach'}
+]

@@ -4,8 +4,11 @@ import Button from "./Button";
 import SuccessfulCard from "./SuccessfulCard";
 import Dropdown from "./Dropdown";
 import CameraIcon from "../assets/icons/camera.svg";
+import { Link, useNavigate } from "react-router-dom";
 import postWorkshop from "../api/post-workshop";
 import LoadingSpinner from "./LoadingSpinner";
+
+
 
 export default function CreateWorkshopForm() {
   const [formState, setFormState] = useState("");
@@ -40,9 +43,9 @@ export default function CreateWorkshopForm() {
   const handleImageChange = (e) => {
     setWorkshopDetails((prev) => ({
       ...prev,
-      image: e.target.files[0],
+      image: e.target.value,
     }));
-    setImage(URL.createObjectURL(e.target.files[0]));
+    setImage(e.target.value);
   };
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -78,7 +81,7 @@ export default function CreateWorkshopForm() {
           formData.append("image", workshopDetails.image);
         }
         if (workshopDetails.materials)
-        formData.append("materials", workshopDetails.materials);
+          formData.append("materials", workshopDetails.materials);
         postWorkshop(formData)
           .then((res) => {
             setFormState("successful");
@@ -95,12 +98,7 @@ export default function CreateWorkshopForm() {
       {formState === "successful" ? (
         <SuccessfulCard>
           <p className="text-lg">Workshop Idea has been submitted!</p>
-          <Button
-            buttonType="link"
-            href="/"
-            size="md"
-            buttonStyle="secondary"
-          >
+          <Button buttonType="link" href="/" size="md" buttonStyle="secondary">
             Go back to home page
           </Button>
         </SuccessfulCard>
@@ -118,25 +116,32 @@ export default function CreateWorkshopForm() {
           <hr className="w-10 m-auto border-t-2 border-tertiary" />
           <label
             htmlFor="image"
-            className="block rounded-md relative w-full max-w-[400px] h-60 m-auto bg-greyscale-300 my-8 cursor-pointer"
+            className="block rounded-md relative w-full max-w-[400px] h-60 m-auto bg-greyscale-300 my-8 overflow-hidden"
           >
             {image ? (
-              <img src={image} className="object-cover w-full h-60" alt="selected workshop image" />
+              <img
+                src={image}
+                className="object-cover w-full h-60"
+                alt="selected workshop image"
+              />
             ) : (
               <></>
             )}
             <div className="absolute top-1/2 left-1/2 w-32 z-1 p-1 opacity-25 -translate-y-1/2 -translate-x-1/2">
-              <img src={CameraIcon} className="w-full object-contain" aria-hidden="true"/>
+              <img
+                src={CameraIcon}
+                className="w-full object-contain"
+                aria-hidden="true"
+              />
             </div>
-            <label htmlFor="image" className="sr-only"></label>
-            <input
-              id="image"
-              type="file"
-              accept="image/png, image/jpeg"
-              onChange={handleImageChange}
-              className="sr-only"
-            />
           </label>
+          <TextInput
+              type="text"
+              name="image"
+              id="image"
+              label="Workshop idea image URL"
+              onChange={handleImageChange}
+            />
           <TextInput
             type="text"
             name="title"
@@ -200,10 +205,19 @@ export default function CreateWorkshopForm() {
               type="submit"
               size="md"
             >
-              {formState === "pending" ? <LoadingSpinner/> : "Create"}
-
+              {formState === "pending" ? <LoadingSpinner /> : "Create"}
             </Button>
           </div>
+          <div className="text-greyscale-600 underline">
+              Don't see your category? Send us your suggestion!{" "}
+          </div>
+            <Link
+              className="font-semibold text-secondary text-lg underline"
+              to="/contactus"
+            >
+              Contact Us
+            </Link>
+          
         </form>
       )}
     </div>

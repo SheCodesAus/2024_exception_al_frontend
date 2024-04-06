@@ -7,6 +7,7 @@ export default function useWorkshops() {
   const [error, setError] = useState("");
 
   useEffect(() => {
+    setIsLoading(true);
     getWorkshops()
       .then((workshops) => {
         setWorkshops(workshops);
@@ -18,5 +19,5 @@ export default function useWorkshops() {
     setIsLoading(false);
   }, []);
 
-  return {workshops, isLoading, error};
+  return {workshops, isLoading, error, setWorkshops};
 }
