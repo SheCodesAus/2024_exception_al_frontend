@@ -56,13 +56,13 @@ export default function AboutUs() {
           <div className="text-center bg-greyscale-300 py-6 px-8 rounded-xl">
             <p className="text-lg mb-4">Step 3</p>
             <span className="pr-6">
-              Don't see an idea you're interested in? Simply create one or{" "}
+              Don't see an idea you're interested in? Simply create one or
               <Link
-                className="font-semibold text-secondary text-md underline text-center "
+                className="font-semibold text-secondary text-md underline text-center px-1"
                 to="/contactus"
               >
                 Contact Us
-              </Link>{" "}
+              </Link>
               to share!
             </span>
           </div>
