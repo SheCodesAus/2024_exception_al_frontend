@@ -95,12 +95,27 @@ export default function IdeaDetail() {
 
   return (
     <>
-      <section className="m-auto w-full px-4 sm:max-w-[500px] sm:px-12 py-6 mb-20">
-        <img src={workshop.image} alt="" />
-        <h1 className="text-3xl font-semibold mb-3 sm:text-4xl text-center">
-          {workshop.title}
-        </h1>
+      <section className="relative m-auto w-full py-6 mb-5">
+        <div className="relative">
+          <img
+            src={workshop.image}
+            alt=""
+            className="w-full object-cover max-h-96"
+          />
+          <div
+            className="absolute top-0 left-0 w-full h-full flex items-center justify-center"
+            style={{
+              background:
+                "linear-gradient(rgba(69, 69, 69, 0.5), rgba(69, 69, 69, 0.5))",
+            }}
+          >
+            <h1 className="text-3xl font-semibold mb-3 sm:text-4xl text-center text-white z-10">
+              {workshop.title}
+            </h1>
+          </div>
+        </div>
       </section>
+
       <div className="m-auto w-full px-4 sm:max-w-[1100px] sm:px-12 py-6 mb-20">
         <div className="lg:max-w-[500px] md:flex md:flex-row md:justify-between lg:justify-start">
           <section className="mb-5 text-left mx-7">
