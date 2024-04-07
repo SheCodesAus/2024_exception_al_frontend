@@ -98,7 +98,7 @@ export default function IdeaDetail() {
       <section className="relative m-auto w-full py-6 mb-5">
         <div className="relative">
           <img
-            src={workshop.image}
+            src={workshop.image || "https://picsum.photos/id/295/4272/2848"}
             alt={`photo for: ${workshop.title}`}
             className="w-full object-cover max-h-96"
           />
