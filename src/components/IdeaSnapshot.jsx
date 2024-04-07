@@ -10,6 +10,8 @@ import useWorkshops from "../hooks/use-workshops";
 import useToast from "../hooks/use-toast";
 import { applyFilters } from "../utils/filterWorkshop";
 import OopsImage from "../assets/oops.jpeg";
+import Button from "./Button";
+import deleteWorkshop from "../api/delete-workshop";
 
 function IdeaSnapshot({ listingType, filters }) {
   const { workshops, isLoading } = useWorkshops();
@@ -25,14 +27,25 @@ function IdeaSnapshot({ listingType, filters }) {
     setType(type);
     showToast();
   };
+  const handleDeleteButtonClick = (workshopId, type) => {
+    setType(type);
+    setSelectedWorkshopId(workshopId);
+  };
+  const handleDelete = () => {
+    deleteWorkshop(selectedWorkshopId).then(res => {
+      setType("success");
+      showToast();
+      window.location.replace();
+    });
+  }
   const gridClassNames =
     listingType === "simple"
       ? "sm:grid-cols-2 lg:grid-cols-3"
-      : "sm:grid-cols-2 xl:grid-cols-3 w-full ";
-  // switch()
+      : "sm:grid-cols-2 xl:grid-cols-3 w-fit ";
+
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  
+
   useEffect(() => {
     const sortedWorkshops = applyFilters(workshops, filters);
     setFilteredWorkshops(sortedWorkshops);
@@ -68,29 +81,32 @@ function IdeaSnapshot({ listingType, filters }) {
                     workshop={workshop}
                     key={index}
                     toggleModal={toggleModal}
-                    handleClick={handleEOIClick}
+                    handleEOIClick={handleEOIClick}
+                    handleDeleteClick={handleDeleteButtonClick}
                   />
                 );
               })}
             </div>
-            {listingType !== "simple" && currentWorkshops.length >= postsPerPage && (
-              <Paginate
-                postsPerPage={postsPerPage}
-                totalPosts={workshops.length}
-                paginate={paginate}
-                previousPage={previousPage}
-                nextPage={nextPage}
-              />
-            )}
+            {listingType !== "simple" &&
+              currentWorkshops.length >= postsPerPage && (
+                <Paginate
+                  postsPerPage={postsPerPage}
+                  totalPosts={workshops.length}
+                  paginate={paginate}
+                  previousPage={previousPage}
+                  nextPage={nextPage}
+                />
+              )}
           </>
         ) : (
-          <div className="text-center flex flex-col gap-6 h-full items-center justify-center">
-            <img src={OopsImage} alt="oops graphic" className="w-12" />
-            <p className="text-xl font-bold">Oopsie!</p>
-            <p>
-               It seems there are no workshops that match your criteria.
-            </p>
-          </div>
+          !isLoading &&
+          filteredWorkshops.length === 0 && (
+            <div className="text-center flex flex-col gap-6 h-full items-center justify-center">
+              <img src={OopsImage} alt="oops graphic" className="w-12" />
+              <p className="text-xl font-bold">Oopsie!</p>
+              <p>It seems there are no workshops that match your criteria.</p>
+            </div>
+          )
         )}
       </div>
       {type === "error" ? (
@@ -99,13 +115,28 @@ function IdeaSnapshot({ listingType, filters }) {
           type="error"
           isVisible={isVisible}
         />
-      ) : (
+      ) : type === "success" ? (
+        <Toast
+          message="Workshop deleted."
+          type="success"
+          isVisible={isVisible}
+        />
+      ) :(
         <Modal open={isOpen} onClose={toggleModal}>
-          <EOIForm
-            workshopId={selectedWorkshopId}
-            onClose={toggleModal}
-            actionType={type}
-          />
+          {type !== "delete" ? (
+            <EOIForm
+              workshopId={selectedWorkshopId}
+              onClose={toggleModal}
+              actionType={type}
+            />
+          ) : (
+            <div>
+            <p>Are you sure you want to delete this workshop idea?</p>
+              <Button buttonType="action" onClick={handleDelete}>
+                Delete
+              </Button>
+            </div>
+          )}
         </Modal>
       )}
     </>

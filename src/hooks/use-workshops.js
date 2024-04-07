@@ -11,13 +11,14 @@ export default function useWorkshops() {
     getWorkshops()
       .then((workshops) => {
         setWorkshops(workshops);
+        setIsLoading(false);
       })
       .catch((err) => {
-        setError(err)
+        setError(err);
+        setIsLoading(false);
         console.error(err);
       });
-    setIsLoading(false);
   }, [setWorkshops]);
 
-  return {workshops, isLoading, error, setWorkshops};
+  return { workshops, isLoading, error, setWorkshops };
 }

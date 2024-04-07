@@ -27,7 +27,9 @@ function LoginForm() {
       postLogin(credentials.username, credentials.password)
         .then((res) => {
           window.localStorage.setItem("token", res.token);
-          setAuth(prev => ({...prev, token: res.token, user:res.user}))
+          const isSuperuser = res.is_superuser;
+          const updatedUser = { ...res.user, is_superuser: isSuperuser };
+          setAuth((prev) => ({ ...prev, token: res.token, user: updatedUser }));
           navigate("/");
         })
         .catch((err) => {
@@ -47,7 +49,10 @@ function LoginForm() {
         <span className="text-greyscale-600 underline">
           Don't have an account yet?{" "}
         </span>
-        <Link className="font-semibold text-secondary text-lg underline" to="/signup">
+        <Link
+          className="font-semibold text-secondary text-lg underline"
+          to="/signup"
+        >
           Sign up
         </Link>
       </div>
@@ -65,11 +70,19 @@ function LoginForm() {
         label="Password*"
         onChange={handleChange}
       />
-      {
-        errorMessage ? <span className="text-warning text-sm">{errorMessage}</span> : <></>
-      }
+      {errorMessage ? (
+        <span className="text-warning text-sm">{errorMessage}</span>
+      ) : (
+        <></>
+      )}
       <div className="my-8 text-center">
-        <Button buttonType="action" buttonStyle="secondary" type="submit" size="md" onClick={() => {}}>
+        <Button
+          buttonType="action"
+          buttonStyle="secondary"
+          type="submit"
+          size="md"
+          onClick={() => {}}
+        >
           Login
         </Button>
       </div>

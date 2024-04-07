@@ -15,7 +15,8 @@ import IdeaDetail from "./pages/IdeaDetail";
 import AboutUs from "./pages/AboutUs";
 import AllWorkshopIdeasPage from "./pages/AllWorkshopIdeas";
 import ContactusPage from "./pages/Contactus";
-
+import EditProfileForm from "./components/EditProfileForm";
+import IdeaSnapshot from "./components/IdeaSnapshot";
 
 const router = createBrowserRouter([
   {
@@ -25,8 +26,27 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "/signup", element: <SignUpPage /> },
       { path: "/login", element: <LoginPage /> },
-      { path: "/profile/:slug", element: <ProtectedRoute><ProfilePage /></ProtectedRoute> },
-      { path: "/workshopideas/create", element: <ProtectedRoute><CreateWorkshopPage /></ProtectedRoute> },
+      {
+        path: "/profile/:slug",
+        element: (
+          <ProtectedRoute>
+            <ProfilePage />
+          </ProtectedRoute>
+        ),
+        children: [
+          { index: true, element: <EditProfileForm /> },
+          {path: "", element:<EditProfileForm/>},
+          {path: "manageworkshops", element: <IdeaSnapshot filters={[]}/>}
+        ],
+      },
+      {
+        path: "/workshopideas/create",
+        element: (
+          <ProtectedRoute>
+            <CreateWorkshopPage />
+          </ProtectedRoute>
+        ),
+      },
       { path: "/aboutus", element: <AboutUs /> },
       { path: "/workshopideas", element: <AllWorkshopIdeasPage /> },
       { path: "/contactus", element: <ContactusPage /> },
