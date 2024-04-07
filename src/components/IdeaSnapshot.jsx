@@ -32,7 +32,7 @@ function IdeaSnapshot({ listingType, filters }) {
   // switch()
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-
+  
   useEffect(() => {
     const sortedWorkshops = applyFilters(workshops, filters);
     setFilteredWorkshops(sortedWorkshops);
@@ -73,7 +73,7 @@ function IdeaSnapshot({ listingType, filters }) {
                 );
               })}
             </div>
-            {listingType !== "simple" && (
+            {listingType !== "simple" && currentWorkshops.length >= postsPerPage && (
               <Paginate
                 postsPerPage={postsPerPage}
                 totalPosts={workshops.length}
