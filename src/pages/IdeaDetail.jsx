@@ -140,31 +140,36 @@ export default function IdeaDetail() {
         <section className="mb-5 text-center mx-7 md:text-start">
           {workshop.is_open && (
             <>
-              <p className="font-semibold">
-                Learners Needed:{" "}
-                {
-                  workshop.eois.filter((eoi) => eoi.eoi_type === "Attend")
-                    .length
-                }{" "}
-                / {workshop.attendee_target}
-              </p>
-              <br />
-              <Button
-                disabled={hasExpressedInterest || isMentor}
-                variant="link"
-                href="/eoi"
-                size="sm"
-                buttonStyle="secondary"
-                onClick={handleAttendeeClick}
-              >
-                {hasExpressedInterest ? "I'm attending!" : "I want to learn!"}
-              </Button>
-              <br />
+              {workshop.attendee_target !== 0 && (
+                <div>
+                  <p className="font-semibold mb-2">
+                    Learners Needed:{" "}
+                    {
+                      workshop.eois.filter((eoi) => eoi.eoi_type === "Attend")
+                        .length
+                    }{" "}
+                    / {workshop.attendee_target}
+                  </p>
+                  <Button
+                    disabled={hasExpressedInterest || isMentor}
+                    variant="link"
+                    href="/eoi"
+                    size="sm"
+                    buttonStyle="secondary"
+                    onClick={handleAttendeeClick}
+                  >
+                    {hasExpressedInterest
+                      ? "I'm attending!"
+                      : "I want to learn!"}
+                  </Button>
+                </div>
+              )}
+
               <br />
               {/* Conditional rendering for mentor button */}
               {workshop.mentor_target !== 0 && (
-                <>
-                  <p className="font-semibold">
+                <div>
+                  <p className="font-semibold mb-2">
                     Mentors Needed:{" "}
                     {
                       workshop.eois.filter((eoi) => eoi.eoi_type === "Mentor")
@@ -172,7 +177,6 @@ export default function IdeaDetail() {
                     }
                     / {workshop.mentor_target}
                   </p>
-                  <br />
                   <Button
                     disabled={isMentor || hasExpressedInterest}
                     variant="link"
@@ -183,7 +187,7 @@ export default function IdeaDetail() {
                   >
                     {isMentor ? "I am mentoring!" : "I want to mentor!"}
                   </Button>
-                </>
+                </div>
               )}
             </>
           )}
@@ -195,7 +199,7 @@ export default function IdeaDetail() {
               </p>
               <Button
                 variant="link"
-                href="/eoi"
+                href="/contactus"
                 size="sm"
                 buttonStyle="primary"
               >
