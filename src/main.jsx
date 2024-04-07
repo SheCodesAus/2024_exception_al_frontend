@@ -16,6 +16,7 @@ import AboutUs from "./pages/AboutUs";
 import AllWorkshopIdeasPage from "./pages/AllWorkshopIdeas";
 import Contact from "./pages/ContactUs";
 
+import ContactusPage from "./pages/Contactus";
 
 const router = createBrowserRouter([
   {
