@@ -62,7 +62,7 @@ export default function SignUpForm() {
         top: 100,
         behavior: "smooth",
       });
-    }
+    } 
     if (credentials && usernameIsUnique) {
       if (!credentials.email || !emailPattern.test(credentials.email)) {
         setError({
@@ -195,15 +195,15 @@ export default function SignUpForm() {
               {error.errorMessage}
             </span>
           )}
-          {usernameIsUnique ? (
+          {usernameCheck && (usernameIsUnique  ? (
               <span className="text-primary-dark pb-2 block font-semibold">
                 Great news! Your username is available
               </span>
-            ) : (
+            ) :  (
               <span className="text-warning pb-2 block">
               Sorry, your username has been taken!
               </span>
-            )}
+            ))}
           <TextInput
             type="email"
             name="email"
