@@ -1,21 +1,30 @@
-import AsciiCat from "./AsciiCat";
+import React from 'react';
+import Button from './Button';
 
 function Error404() {
   return (
-    <>
-      <div className="flex flex-col justify-center items-center">
-        <h1 className="m-6 font-bold text-5xl">404</h1>
-
-        <p className="m-6">
-          You've been blessed by developer cat! My owners are working hard to
-          make sure this site works well. Sorry you've come to the wrong spot
-          temporarily!
+    <section className="w-full min-h-screen flex flex-col items-center justify-center text-white relative">
+      <div className="w-full h-full absolute top-0 left-0 z-0 overflow-hidden">
+        <iframe
+          src="/404.html"
+          title="404 Animated Background"
+          className="w-full h-full"
+          frameBorder="0"
+          scrolling="no"
+        ></iframe>
+      </div>
+      <div className="z-10 py-16 text-center">
+        <h1 className="text-5xl lg:text-6xl font-semibold">404</h1>
+        <h2 className="text-3xl font-semibold mt-4">Lost your way?</h2>
+        <p className="text-2xl mt-4 mb-6">
+          The page you are looking for has moved to a galaxy far, far away...
         </p>
+        <p className="text-2xl mb-6">Let's get you home to safety.</p>
+        <Button buttonType="link" href="/home" size="md" buttonStyle="white">
+          Take me home!
+        </Button>
       </div>
-      <div className="block">
-        <AsciiCat />
-      </div>
-    </>
+    </section>
   );
 }
 
