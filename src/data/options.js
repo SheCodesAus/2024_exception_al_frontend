@@ -14,7 +14,7 @@ export const categoryOptions = [
 export const audienceOptions = [
   {value: 'all', label: 'All'},
   {value: 'learn', label: 'Learn'},
-  {value: 'teach', label: 'Teach'}
+  {value: 'mentor', label: 'Mentor'}
 ]
 
 export const sortOption = [

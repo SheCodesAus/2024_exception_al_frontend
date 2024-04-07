@@ -10,7 +10,7 @@ function IdeaCard({ workshop, toggleModal, handleEOIClick, handleDeleteClick }) 
   var date = new Date(workshop?.planned_date);
   var formattedDate = date.toLocaleDateString();
   const { auth } = useAuthContext();
-  const userIsSuperuser = auth.user !== null && auth.user.is_superuser;
+  const userIsSuperuser = auth.user && auth.user.is_superuser;
   const navigate = useNavigate();
   const hasExpressedInterest =
     auth.user &&
@@ -84,7 +84,8 @@ function IdeaCard({ workshop, toggleModal, handleEOIClick, handleDeleteClick }) 
           </p>
           <p className="flex gap-1">
             <span className="font-semibold">Mentor: </span>
-            {workshop.mentor_target}
+            {workshop.eois.filter((eoi) => eoi.eoi_type === "Mentor").length}
+             / {workshop.mentor_target}
           </p>
         </section>
         <div className="flex my-5 w-full px-4 justify-center">
