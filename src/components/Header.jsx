@@ -8,6 +8,7 @@ import LogoutIcon from "../assets/icons/logout.png";
 export default function Header() {
   const { auth } = useAuthContext();
   const navigate = useNavigate();
+  const profileImage = (auth.user !== null && auth.user.profile_image) ? auth.user.profile_image : profilePlaceHolder;
   const handleLogout = () => {
     window.localStorage.removeItem("user");
     window.localStorage.removeItem("token");
@@ -42,7 +43,7 @@ export default function Header() {
                   to={`profile/${auth.user.id}`}
                   className="flex items-center gap-3"
                 >
-                  <img src={profilePlaceHolder} className="w-[40px] block" alt="" aria-hidden="true"/>
+                  <img src={profileImage} className="w-[40px] h-[40px] object-cover block rounded-full" alt="" aria-hidden="true"/>
                   <span>{auth.user.first_name}</span>
                 </Link>
                 <Button
