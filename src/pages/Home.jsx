@@ -3,6 +3,7 @@ import Hero from "../components/Hero";
 import IdeaSnapshot from "../components/IdeaSnapshot";
 
 function Home() {
+  const initialFilters = {date: "newest"}
   return (
     <>
       <Hero>
@@ -40,7 +41,7 @@ function Home() {
         {/* Photo by RF._.studio: https://www.pexels.com/photo/black-female-artist-with-painted-vase-in-creative-room-3817580/ */}
       </Hero>
       <h2 className="text-3xl text-center mt-16 mb-6">Featured Ideas</h2>
-      <IdeaSnapshot listingType="simple" orderBy="latest" />
+      <IdeaSnapshot listingType="simple" filters={initialFilters} />
       <div className="mx-auto my-6 w-fit">
         <Button
           buttonType="link"

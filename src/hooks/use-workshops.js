@@ -17,7 +17,7 @@ export default function useWorkshops() {
         console.error(err);
       });
     setIsLoading(false);
-  }, []);
+  }, [setWorkshops]);
 
   return {workshops, isLoading, error, setWorkshops};
 }

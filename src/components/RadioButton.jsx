@@ -11,7 +11,7 @@ export default function RadioButton({ onChange }) {
   };
 
   return (
-    <div className="flex flex-col">
+    <div className="flex gap-6 md:flex-col md:gap-1">
       {audienceOptions.map((option, index) => (
         <label
           key={index}
