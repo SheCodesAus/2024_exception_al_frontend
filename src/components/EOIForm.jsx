@@ -60,14 +60,7 @@ function EOIForm({ workshopId, onClose, actionType }) {
               Choose below!
             </p>
             <div className="flex justify-between gap-4">
-              <Button
-                size="md"
-                buttonStyle="tertiary"
-                buttonType="action"
-                onClick={() => handleClick("Mentor")}
-              >
-                I want to teach!
-              </Button>
+
               <Button
                 size="md"
                 buttonStyle="secondary"
@@ -75,6 +68,14 @@ function EOIForm({ workshopId, onClose, actionType }) {
                 onClick={() => handleClick("Attend")}
               >
                 I want to learn!!
+              </Button>
+              <Button
+                size="md"
+                buttonStyle="tertiary"
+                buttonType="action"
+                onClick={() => handleClick("Mentor")}
+              >
+                I want to mentor!
               </Button>
             </div>
           </>
