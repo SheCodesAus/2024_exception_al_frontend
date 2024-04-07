@@ -60,7 +60,7 @@ export default function CreateWorkshopForm() {
           top: 200,
           behavior: "smooth",
         });
-      } else if (workshopDetails.category) {
+      } else if (!workshopDetails.category) {
         setError({
           field: "category",
           errorMessage: "Please select a category.",
