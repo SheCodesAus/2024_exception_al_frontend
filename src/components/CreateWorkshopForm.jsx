@@ -38,7 +38,7 @@ export default function CreateWorkshopForm() {
   const handleDropdownSelect = (option) => {
     setWorkshopDetails((prev) => ({
       ...prev,
-      category: option.value,
+      category: option,
     }));
   };
   const handleImageChange = (e) => {
