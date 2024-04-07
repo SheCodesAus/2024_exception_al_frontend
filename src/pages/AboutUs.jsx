@@ -3,15 +3,17 @@ import Button from "../components/Button";
 
 export default function AboutUsPage() {
   return (
+
     <div className="bg-primary flex-col justify-center">
       <section className="flex flex-col justify-center items-center space-y-2">
+
         
           <h1 className="lg:text-6xl md:text-6xl sm: text-4xl text-center mt-0 text-bg font-semibold">
             planidea
           </h1>
           
           <h2 className="text-2xl font-semibold text-center mt-0 text-bg">
-            workshops created by people for people
+            workshops people want
           </h2>
           <img
           src="/planidea-light.svg"
