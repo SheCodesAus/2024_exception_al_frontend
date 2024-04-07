@@ -4,25 +4,31 @@ import FacebookLogo from "../assets/icons/facebook-2.svg";
 function Footer() {
   return (
     <footer className="w-full bg-primary text-sm p-4 ">
-      <div className="container mx-auto flex flex-col sm:flex-col lg:flex-row justify-between items-center">
-        <div className="flex items-center space-x-4">
+      <div className="container mx-auto flex flex-col sm:flex-col lg:flex-row justify-between items-start">
+        {/* Logo and Copyright */}
+        <section className="flex flex-col items-start justify-start start-x-4">
           <img
             className="size-24"
             src="/planidea-light.svg"
             alt="planidea logo"
           />
           <h3>Copyright {new Date().getFullYear()} | planidea</h3>
-        </div>
-        <div className="flex justify-center space-x-4 ">
-          <a href="https://www.instagram.com/shecodesaus/?hl=en">
-            <img src={InstagramLogo} alt="Instagram Logo" className="w-8" />
-          </a>
-          <a href="https://www.facebook.com/shecodesaustralia/">
-            <img src={FacebookLogo} alt="Facebook Logo" className="w-8" />
-          </a>
-        </div>
-        <div className="flex flex-col lg:flex-row">
-          <section className="flex space-x-4">
+        </section>
+
+        {/* Social Icons and Links */}
+        <div className="flex flex-col sm:flex-col lg:flex-row space-y-4 sm:space-y-0 lg:space-y-0 sm:space-x-4 lg:space-x-4">
+          {/* Social Icons */}
+          <section className="flex justify-start sm:justify-end lg:justify-end space-x-4">
+            <a href="https://www.instagram.com/shecodesaus/?hl=en">
+              <img src={InstagramLogo} alt="Instagram Logo" className="w-8" />
+            </a>
+            <a href="https://www.facebook.com/shecodesaustralia/">
+              <img src={FacebookLogo} alt="Facebook Logo" className="w-8" />
+            </a>
+          </section>
+
+          {/* Links */}
+          <section className="flex flex-col sm:flex-row lg:flex-row space-y-4 sm:space-y-0 lg:space-y-0 sm:space-x-4 lg:space-x-4">
             <a href="/privacy" className="hover:text-white">
               Privacy Policy
             </a>
