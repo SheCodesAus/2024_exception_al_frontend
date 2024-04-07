@@ -10,7 +10,7 @@ function Footer() {
           src="/planidea-light.svg"
           alt="planidea logo"
         />
-        <section className="flex flex-col sm:flex-row  lg:flex-row space-x-8">
+        <section className="flex flex-col sm:flex-row  lg:flex-row space-x-28">
           <section>
             <h3>Copyright {new Date().getFullYear()} | planidea</h3>
           </section>
@@ -23,23 +23,25 @@ function Footer() {
               <img src={FacebookLogo} alt="Facebook Logo" className="w-8" />
             </a>
           </section>
-          <section className="flex space-x-4 flex-row">
-            <a href="/privacy" className="hover:text-white">
-              Privacy Policy
-            </a>
-            <a href="/termsandconditions" className="hover:text-white">
-              Terms & Conditions
-            </a>
-            <a
-              href="https://youtu.be/Ye8mB6VsUHw?si=t8GPJxh3FpjzYYim&t=10"
-              className="hover:text-white"
-            >
-              Cookie Policy
-            </a>
-            <a href="/contactus" className="hover:text-white">
-              Contact Us
-            </a>
-          </section>
+          <div>
+            <section className="flex space-x-4 flex-row">
+              <a href="/privacy" className="hover:text-white">
+                Privacy Policy
+              </a>
+              <a href="/termsandconditions" className="hover:text-white">
+                Terms & Conditions
+              </a>
+              <a
+                href="https://youtu.be/Ye8mB6VsUHw?si=t8GPJxh3FpjzYYim&t=10"
+                className="hover:text-white"
+              >
+                Cookie Policy
+              </a>
+              <a href="/contactus" className="hover:text-white">
+                Contact Us
+              </a>
+            </section>
+          </div>
         </section>
       </div>
     </footer>
