@@ -119,7 +119,7 @@ export default function IdeaDetail() {
       <div className="m-auto w-full px-4 sm:max-w-[1100px] sm:px-12 py-6 mb-20">
         <div className="lg:max-w-[500px] md:flex md:flex-row md:justify-between lg:justify-start">
           <section className="mb-5 text-left mx-7">
-            <p className="font-semibold">Proposed Date:</p>{" "}
+            <p className="font-semibold">Planned Date:</p>{" "}
             <p>{formattedDate}</p>
             <br />
             <p className="font-semibold">Location:</p> <p>Perth</p>
