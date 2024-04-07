@@ -24,17 +24,20 @@ function Footer() {
             </a>
           </section>
           <section className="flex space-x-4 flex-row">
-            <a href="/" className="hover:text-secondary">
+            <a href="/privacy" className="hover:text-white">
               Privacy Policy
             </a>
-            <a href="/" className="hover:text-secondary">
+            <a href="/termsandconditions" className="hover:text-white">
               Terms & Conditions
             </a>
-            <a href="/" className="hover:text-secondary">
+            <a
+              href="https://youtu.be/Ye8mB6VsUHw?si=t8GPJxh3FpjzYYim&t=10"
+              className="hover:text-white"
+            >
               Cookie Policy
             </a>
-            <a href="/" className="hover:text-secondary">
-              Contact
+            <a href="/contactus" className="hover:text-white">
+              Contact Us
             </a>
           </section>
         </section>
