@@ -99,7 +99,7 @@ export default function IdeaDetail() {
         <div className="relative">
           <img
             src={workshop.image}
-            alt=""
+            alt={`photo for: ${workshop.title}`}
             className="w-full object-cover max-h-96"
           />
           <div
