@@ -11,7 +11,8 @@ function IdeaCard({ workshop, toggleModal, handleClick }) {
   const { auth } = useAuthContext();
   const navigate = useNavigate();
   const hasExpressedInterest =
-    auth.user && workshop.eois.filter((eoi) => eoi.user === auth.user.id).length > 0;
+    auth.user &&
+    workshop.eois.filter((eoi) => eoi.user === auth.user.id).length > 0;
   const handleHeartClick = () => {
     if (!auth || !auth.user) {
       navigate("/login");

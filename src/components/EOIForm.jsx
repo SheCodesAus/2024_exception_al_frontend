@@ -13,6 +13,7 @@ function EOIForm({ workshopId, onClose, actionType }) {
     const newEoiDetails = { ...eoiDetails, type: type, workshopId: workshopId };
     postEOI(newEoiDetails).then((res) => {
       res && setStatus("success");
+      window.location.reload();
     });
   };
   const handleCancel = () => {

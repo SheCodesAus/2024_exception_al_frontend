@@ -55,7 +55,7 @@ export default function SignUpForm() {
     e.preventDefault();
     if (!usernameCheck) {
       setError({
-        field: "usernameCheck",
+        field: "username",
         errorMessage: "Please check username",
       });
       window.scrollTo({
@@ -195,18 +195,13 @@ export default function SignUpForm() {
               {error.errorMessage}
             </span>
           )}
-          {error &&
-            error.field === "usernameCheck" &&
-            usernameCheck &&
-            !usernameIsUnique && (
-              <span className="text-warning pb-2 block">
-                Sorry, your username has been taken!
-              </span>
-            )}
-          {usernameIsUnique &&
-            (!usernameCheck || error.field !== "usernameCheck") && (
+          {usernameIsUnique ? (
               <span className="text-primary-dark pb-2 block font-semibold">
                 Great news! Your username is available
+              </span>
+            ) : (
+              <span className="text-warning pb-2 block">
+              Sorry, your username has been taken!
               </span>
             )}
           <TextInput

@@ -16,3 +16,8 @@ export const audienceOptions = [
   {value: 'learn', label: 'Learn'},
   {value: 'teach', label: 'Teach'}
 ]
+
+export const sortOption = [
+  {value: 'newest', label: 'Newest'},
+  {value: 'oldest', label: 'Oldest'},
+]
