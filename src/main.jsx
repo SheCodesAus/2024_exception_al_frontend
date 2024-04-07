@@ -15,6 +15,7 @@ import IdeaDetail from "./pages/IdeaDetail";
 import AboutUs from "./pages/AboutUs";
 import AllWorkshopIdeasPage from "./pages/AllWorkshopIdeas";
 
+import ContactusPage from "./pages/Contactus";
 
 const router = createBrowserRouter([
   {
@@ -30,8 +31,8 @@ const router = createBrowserRouter([
       // { path: "/workshops", element: <Ideas /> },
       // { path: "/about", element: <AboutUs /> },
       { path: "/workshopideas", element: <AllWorkshopIdeasPage /> },
-      // { path: "/contact", element: <Contact /> },
-      { path: "/workshopideas/:id", element: <IdeaDetail /> },
+      { path: "/contactus", element: <ContactusPage /> },
+      { path: "/workshops/:id", element: <IdeaDetail /> },
       // { path: "/ideas", element: <AllIdeaDetails /> },
       { path: "*", element: <NotFound /> },
 
