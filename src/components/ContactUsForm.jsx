@@ -36,20 +36,21 @@ export default function ContactUsForm() {
   };
   const handleSubmit = (e) => {
     e.preventDefault();
+    setFormState("successful");
         
   };
   return (
     <div className="form-container pt-6">
       {formState === "successful" ? (
         <SuccessfulCard>
-          <p className="text-lg">Sign up was successful!</p>
+          <p className="text-lg">Thanks for contacting us, we'll get back to you shortly.</p>
           <Button
             buttonType="link"
-            href="/login"
+            href="/"
             size="md"
             buttonStyle="secondary"
           >
-            Login
+            Go back 
           </Button>
         </SuccessfulCard>
       ) : formState === "error" ? (
@@ -57,9 +58,9 @@ export default function ContactUsForm() {
         <p>Error while submitting the sign up form</p>
       ) : (
         <form
-          // onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
           className="m-auto w-full px-4 sm:max-w-[500px] sm:px-12"
-          action="https://formspree.io/f/xbjvqzol" method="POST"
+          // action="https://formspree.io/f/xbjvqzol" method="POST"
           
         >
           
@@ -92,6 +93,8 @@ export default function ContactUsForm() {
           ) : (
             <></>
           )}
+
+          
           <TextInput
             type="text"
             name="subject"
