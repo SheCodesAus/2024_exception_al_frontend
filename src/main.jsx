@@ -14,7 +14,7 @@ import ProtectedRoute from "./components/ProtectedRoute";
 import IdeaDetail from "./pages/IdeaDetail";
 import AboutUs from "./pages/AboutUs";
 import AllWorkshopIdeasPage from "./pages/AllWorkshopIdeas";
-import ContactusPage from "./pages/ContactUs";
+import ContactusPage from "./pages/Contactus";
 
 
 const router = createBrowserRouter([
