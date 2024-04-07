@@ -10,6 +10,7 @@ function IdeaCard({ workshop, toggleModal, handleEOIClick, handleDeleteClick }) 
   var date = new Date(workshop?.planned_date);
   var formattedDate = date.toLocaleDateString();
   const { auth } = useAuthContext();
+  const userIsSuperuser = auth.user !== null && auth.user.is_superuser;
   const navigate = useNavigate();
   const hasExpressedInterest =
     auth.user &&
@@ -49,7 +50,7 @@ function IdeaCard({ workshop, toggleModal, handleEOIClick, handleDeleteClick }) 
                 {workshop.title}
               </h2>
             </Link>
-            {!auth.user.is_superuser ? (
+            {!userIsSuperuser ? (
               <button onClick={handleHeartClick}>
                 <img
                   src={hasExpressedInterest ? FilledHeart : EmptyHeart}
@@ -61,7 +62,7 @@ function IdeaCard({ workshop, toggleModal, handleEOIClick, handleDeleteClick }) 
               </button>
             ) : (
               <button className="text-center text-warning" onClick={handleDeleteBtnClick}>
-                <img src={BinIcon} alt="" />
+                <img src={BinIcon} alt="" className="min-w-6"/>
                 <span className="sr-only">Delete</span>
               </button>
             )}
@@ -87,7 +88,7 @@ function IdeaCard({ workshop, toggleModal, handleEOIClick, handleDeleteClick }) 
           </p>
         </section>
         <div className="flex my-5 w-full px-4 justify-center">
-          {!auth.user.is_superuser && (
+          {!userIsSuperuser && (
             <Button
               buttonType="link"
               href={`/workshopideas/${workshop.id}`}
