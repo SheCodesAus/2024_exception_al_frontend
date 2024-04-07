@@ -32,12 +32,12 @@ function IdeaSnapshot({ listingType, filters }) {
     setSelectedWorkshopId(workshopId);
   };
   const handleDelete = () => {
-    deleteWorkshop(selectedWorkshopId).then(res => {
+    deleteWorkshop(selectedWorkshopId).then((res) => {
       setType("success");
       showToast();
       window.location.replace();
     });
-  }
+  };
   const gridClassNames =
     listingType === "simple"
       ? "sm:grid-cols-2 lg:grid-cols-3"
@@ -88,7 +88,7 @@ function IdeaSnapshot({ listingType, filters }) {
               })}
             </div>
             {listingType !== "simple" &&
-              currentWorkshops.length >= postsPerPage && (
+              (currentWorkshops.length >= postsPerPage || currentPage > 1) && (
                 <Paginate
                   postsPerPage={postsPerPage}
                   totalPosts={workshops.length}
@@ -121,7 +121,7 @@ function IdeaSnapshot({ listingType, filters }) {
           type="success"
           isVisible={isVisible}
         />
-      ) :(
+      ) : (
         <Modal open={isOpen} onClose={toggleModal}>
           {type !== "delete" ? (
             <EOIForm
@@ -130,9 +130,9 @@ function IdeaSnapshot({ listingType, filters }) {
               actionType={type}
             />
           ) : (
-            <div>
-            <p>Are you sure you want to delete this workshop idea?</p>
-              <Button buttonType="action" onClick={handleDelete}>
+            <div className="flex flex-col gap-8 max-w-[400px] text-center">
+              <p className="text-lg">Are you sure you want to delete this workshop idea?</p>
+              <Button buttonType="action" buttonStyle="secondary-outline" size="sm" onClick={handleDelete}>
                 Delete
               </Button>
             </div>
