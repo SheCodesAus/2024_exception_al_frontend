@@ -1,7 +1,7 @@
 
 export default function AboutUsPage() {
   return (
-    <div className="bg-primary flex justify-center h-screen">
+    <div className="bg-primary">
       <section className="flex flex-col justify-center items-center space-y-2 mt-[-300px]">
         
           <h1 className="lg:text-6xl md:text-6xl sm: text-4xl text-center mt-0">

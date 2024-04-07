@@ -31,7 +31,10 @@ export default {
       },
       flexBasis: {
         "1/2-gap-4": "calc(50% - 1rem)",
-        "1/3-gap-4": "calc(33.3333% - 1rem)"
+        "1/3-gap-4": "calc(33.3333% - 1rem)",
+      },
+      flex: {
+        6: "1 1 60%"
       },
       width: {
         "1/2-gap-4": "calc(50% - 1rem)"

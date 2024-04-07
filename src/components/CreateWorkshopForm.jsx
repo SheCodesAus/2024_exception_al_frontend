@@ -4,9 +4,10 @@ import Button from "./Button";
 import SuccessfulCard from "./SuccessfulCard";
 import Dropdown from "./Dropdown";
 import CameraIcon from "../assets/icons/camera.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import postWorkshop from "../api/post-workshop";
 import LoadingSpinner from "./LoadingSpinner";
+import { categoryOptions } from "../data/options";
 
 
 
@@ -168,6 +169,7 @@ export default function CreateWorkshopForm() {
               Category*
             </span>
             <Dropdown
+              options={categoryOptions}
               name="category"
               id="category"
               onSelect={handleDropdownSelect}
