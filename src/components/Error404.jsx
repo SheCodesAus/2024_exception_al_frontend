@@ -20,7 +20,7 @@ function Error404() {
           The page you are looking for has moved to a galaxy far, far away...
         </p>
         <p className="text-2xl mb-6">Let's get you home to safety.</p>
-        <Button buttonType="link" href="/home" size="md" buttonStyle="white">
+        <Button buttonType="link" href="./pages/Home" size="md" buttonStyle="white">
           Take me home!
         </Button>
       </div>
