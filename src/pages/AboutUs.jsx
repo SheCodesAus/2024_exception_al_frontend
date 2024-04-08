@@ -26,7 +26,7 @@ export default function AboutUs() {
             <span>
               <Link
                 to="/workshopideas"
-                className="font-semibold text-secondary text-md underline text-center"
+                className="font-semibold text-secondary-dark text-lg underline text-center"
               >
                 Browse
               </Link>{" "}
@@ -39,14 +39,14 @@ export default function AboutUs() {
             <span>
               <Link
                 to="/workshopideas"
-                className="font-semibold text-secondary text-md underline text-center"
+                className="font-semibold text-secondary-dark text-lg underline text-center"
               >
                 Register
               </Link>{" "}
               or{" "}
               <Link
                 to="/workshopideas"
-                className="font-semibold text-secondary text-md underline text-center"
+                className="font-semibold text-secondary-dark text-lg underline text-center"
               >
                 Login
               </Link>{" "}
@@ -58,7 +58,7 @@ export default function AboutUs() {
             <span className="pr-6">
               Don't see an idea you're interested in? Simply create one or
               <Link
-                className="font-semibold text-secondary text-md underline text-center px-1"
+                className="font-semibold text-secondary-dark text-lg underline text-center px-1"
                 to="/contactus"
               >
                 Contact Us

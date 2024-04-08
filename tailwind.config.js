@@ -10,6 +10,7 @@ export default {
       'primary-dark': '#219199',
       'primary-light': '#5cecf6',
       secondary: '#B25499',
+      'secondary-dark': '#a23d87',
       tertiary: '#FAB354',
       body: '#2D3648', // base text color
       bg: '#FFFFF8',
