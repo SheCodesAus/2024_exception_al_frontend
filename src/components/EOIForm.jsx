@@ -1,6 +1,9 @@
 import { useState } from "react";
 import Button from "./Button";
 import postEOI from "../api/post-eoi";
+import useWorkshop from "../hooks/use-workshop";
+import { useAuthContext } from "../hooks/use-auth-context";
+import deleteEOI from "../api/delete-eoi";
 
 function EOIForm({ workshopId, onClose, actionType }) {
   const [eoiDetails, setEoiDetails] = useState({
@@ -8,6 +11,8 @@ function EOIForm({ workshopId, onClose, actionType }) {
     workshopId: null,
   });
   const [status, setStatus] = useState("idle");
+  const {workshop} = useWorkshop(workshopId);
+  const {auth} = useAuthContext();
   const handleClick = (type) => {
     setEoiDetails((prev) => ({ ...prev, type: type, workshopId: workshopId }));
     const newEoiDetails = { ...eoiDetails, type: type, workshopId: workshopId };
@@ -16,8 +21,10 @@ function EOIForm({ workshopId, onClose, actionType }) {
       window.location.reload();
     });
   };
+  const eoiId = workshop && workshop.eois && workshop.eois.find(eoi => eoi.user === auth.user.id)?.id;
   const handleCancel = () => {
     console.log("cancel");
+    deleteEOI(eoiId);
     onClose();
   }
   return (
@@ -53,14 +60,7 @@ function EOIForm({ workshopId, onClose, actionType }) {
               Choose below!
             </p>
             <div className="flex justify-between gap-4">
-              <Button
-                size="md"
-                buttonStyle="tertiary"
-                buttonType="action"
-                onClick={() => handleClick("Mentor")}
-              >
-                I want to teach!
-              </Button>
+
               <Button
                 size="md"
                 buttonStyle="secondary"
@@ -68,6 +68,14 @@ function EOIForm({ workshopId, onClose, actionType }) {
                 onClick={() => handleClick("Attend")}
               >
                 I want to learn!!
+              </Button>
+              <Button
+                size="md"
+                buttonStyle="tertiary"
+                buttonType="action"
+                onClick={() => handleClick("Mentor")}
+              >
+                I want to mentor!
               </Button>
             </div>
           </>

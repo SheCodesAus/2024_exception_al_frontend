@@ -5,8 +5,15 @@ import FilledHeart from "../assets/icons/heart-filled.svg";
 import EmptyHeart from "../assets/icons/heart-unfilled.svg";
 import Button from "./Button";
 import BinIcon from "../assets/icons/bin.svg";
+import VerifiedIcon from "../assets/icons/verified.svg";
 
-function IdeaCard({ workshop, toggleModal, handleEOIClick, handleDeleteClick }) {
+function IdeaCard({
+  workshop,
+  toggleModal,
+  handleEOIClick,
+  handleDeleteClick,
+  handleAuthorizeClick
+}) {
   var date = new Date(workshop?.planned_date);
   var formattedDate = date.toLocaleDateString();
   const { auth } = useAuthContext();
@@ -31,7 +38,11 @@ function IdeaCard({ workshop, toggleModal, handleEOIClick, handleDeleteClick }) 
   const handleDeleteBtnClick = () => {
     handleDeleteClick(workshop.id, "delete");
     toggleModal();
-  }
+  };
+  const handleAuthorizeButtonClick = () => {
+    handleAuthorizeClick(workshop.id, "authorize");
+    toggleModal();
+  };
 
   return (
     <>
@@ -50,22 +61,44 @@ function IdeaCard({ workshop, toggleModal, handleEOIClick, handleDeleteClick }) 
                 {workshop.title}
               </h2>
             </Link>
-            {!userIsSuperuser ? (
-              <button onClick={handleHeartClick}>
+            <div className="flex gap-2 w-fit shrink-0">
+              <button
+                title="verified"
+                className={`text-center text-warning ${
+                  userIsSuperuser ? "" : "pointer-none hover:grayscale"
+                }`}
+                onClick={handleAuthorizeButtonClick}
+                disabled={!userIsSuperuser || workshop.is_open}
+              >
                 <img
-                  src={hasExpressedInterest ? FilledHeart : EmptyHeart}
-                  className="justify-end max-w-10 h-full"
-                  aria-hidden="true"
+                  src={VerifiedIcon}
                   alt=""
+                  className={`w-[28px] ${
+                    workshop.is_open ? "" : "grayscale hover:grayscale-0"
+                  }`}
                 />
-                <span className="sr-only">expression of interest</span>
+                <span className="sr-only">Verified badge</span>
               </button>
-            ) : (
-              <button className="text-center text-warning" onClick={handleDeleteBtnClick}>
-                <img src={BinIcon} alt="" className="min-w-6"/>
-                <span className="sr-only">Delete</span>
-              </button>
-            )}
+              {!userIsSuperuser ? (
+                <button onClick={handleHeartClick}>
+                  <img
+                    src={hasExpressedInterest ? FilledHeart : EmptyHeart}
+                    className="w-[28px] h-full hover:scale-105 tranition-all duration-300"
+                    aria-hidden="true"
+                    alt=""
+                  />
+                  <span className="sr-only">expression of interest</span>
+                </button>
+              ) : (
+                <button
+                  className="text-center text-warning"
+                  onClick={handleDeleteBtnClick}
+                >
+                  <img src={BinIcon} alt="" className="w-[28px]" />
+                  <span className="sr-only">Delete</span>
+                </button>
+              )}
+            </div>
           </section>
         </section>
         <section className="flex flex-col gap-0.5 px-4 flex-1">
@@ -84,8 +117,9 @@ function IdeaCard({ workshop, toggleModal, handleEOIClick, handleDeleteClick }) 
           </p>
           <p className="flex gap-1">
             <span className="font-semibold">Mentor: </span>
-            {workshop.eois.filter((eoi) => eoi.eoi_type === "Mentor").length}
-             / {workshop.mentor_target}
+            {
+              workshop.eois.filter((eoi) => eoi.eoi_type === "Mentor").length
+            }/ {workshop.mentor_target}
           </p>
         </section>
         <div className="flex my-5 w-full px-4 justify-center">

@@ -8,7 +8,8 @@ export const categoryOptions = [
   { value: 'diy', label: 'DIY' },
   { value: 'writing', label: 'Writing' },
   { value: 'sports', label: 'Sports' },
-  { value: 'music', label: 'Music' }
+  { value: 'music', label: 'Music' },
+  { value: 'gaming', label: 'Gaming' },
 ];
 
 export const audienceOptions = [

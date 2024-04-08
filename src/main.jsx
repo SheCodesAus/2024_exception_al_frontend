@@ -17,6 +17,8 @@ import AllWorkshopIdeasPage from "./pages/AllWorkshopIdeas";
 import ContactusPage from "./pages/Contactus";
 import EditProfileForm from "./components/EditProfileForm";
 import IdeaSnapshot from "./components/IdeaSnapshot";
+import TermsCondPage from "./pages/TermsCond";
+// import PrivacyPolicyPage from "./pages/PrivacyPolicy";
 
 const router = createBrowserRouter([
   {
@@ -26,6 +28,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "/signup", element: <SignUpPage /> },
       { path: "/login", element: <LoginPage /> },
+      { path: "/aboutus", element: <AboutUs /> },
       {
         path: "/profile/:slug",
         element: (
@@ -35,8 +38,8 @@ const router = createBrowserRouter([
         ),
         children: [
           { index: true, element: <EditProfileForm /> },
-          {path: "", element:<EditProfileForm/>},
-          {path: "manageworkshops", element: <IdeaSnapshot filters={[]}/>}
+          { path: "", element: <EditProfileForm /> },
+          { path: "manageworkshops", element: <IdeaSnapshot filters={[]} /> },
         ],
       },
       {
@@ -47,10 +50,11 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      { path: "/aboutus", element: <AboutUs /> },
       { path: "/workshopideas", element: <AllWorkshopIdeasPage /> },
-      { path: "/contactus", element: <ContactusPage /> },
+      // { path: "/privacy", element: <PrivacyPolicyPage /> },
+      { path: "/termsandconditions", element: <TermsCondPage /> },
       { path: "/workshopideas/:id", element: <IdeaDetail /> },
+      { path: "/contactus", element: <ContactusPage /> },
       { path: "*", element: <NotFound /> },
     ],
   },

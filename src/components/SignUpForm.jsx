@@ -6,14 +6,17 @@ import Button from "./Button";
 import postSignUp from "../api/post-signup";
 import SuccessfulCard from "./SuccessfulCard";
 import LoadingSpinner from "./LoadingSpinner";
-import checkUsername from "../api/get-username-check";
+import checkEmail from "../api/get-email-check";
+import checkUsername from "../api/get-username-check copy";
 
 const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
 export default function SignUpForm() {
   const [formState, setFormState] = useState("");
   const [usernameCheck, setUsernameCheck] = useState(false);
+  const [emailCheck, setEmailCheck] = useState(false);
   const [usernameIsUnique, setUsernameIsUnique] = useState(false);
+  const [emailIsUnique, setEmailIsUnique] = useState(false);
   const [credentials, setCredentials] = useState({
     username: "",
     firstName: "",
@@ -47,6 +50,13 @@ export default function SignUpForm() {
       setUsernameIsUnique(!res);
     });
   };
+  const handleEmailCheck = (e) => {
+    e.preventDefault();
+    checkEmail(credentials.email).then((res) => {
+      setEmailCheck(true);
+      setEmailIsUnique(!res);
+    });
+  };
   const isPasswordValid = (password) => {
     const pattern = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/;
     return pattern.test(password);
@@ -59,11 +69,21 @@ export default function SignUpForm() {
         errorMessage: "Please check username",
       });
       window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+    if (!emailCheck) {
+      setError({
+        field: "email",
+        errorMessage: "Please check email",
+      });
+      window.scrollTo({
         top: 100,
         behavior: "smooth",
       });
-    } 
-    if (credentials && usernameIsUnique) {
+    }
+    if (credentials && usernameIsUnique && emailIsUnique) {
       if (!credentials.email || !emailPattern.test(credentials.email)) {
         setError({
           field: "email",
@@ -184,24 +204,25 @@ export default function SignUpForm() {
               size="sm"
               buttonStyle="plain"
               buttonType="action"
-              classes="absolute right-2 top-1/2 text-greyscale-600 hover:text-secondary "
+              classes="absolute right-1 top-7 text-greyscale-800 hover:text-secondary "
               onClick={handleUsernameCheck}
             >
               Check username
             </Button>
           </TextInput>
-          {error && error.field === "username" && (
+          {error && error.field === "username" && !usernameCheck && (
             <span className="text-warning pb-2 block">
               {error.errorMessage}
             </span>
           )}
-          {usernameCheck && (usernameIsUnique  ? (
+          {usernameCheck &&
+            (usernameIsUnique ? (
               <span className="text-primary-dark pb-2 block font-semibold">
                 Great news! Your username is available
               </span>
-            ) :  (
+            ) : (
               <span className="text-warning pb-2 block">
-              Sorry, your username has been taken!
+                Sorry, your username has been taken!
               </span>
             ))}
           <TextInput
@@ -214,14 +235,32 @@ export default function SignUpForm() {
               error && error.field === "email" ? "border-2 border-warning" : ""
             }
             required
-          />
-          {error && error.field === "email" ? (
+          >
+            <Button
+              size="sm"
+              buttonStyle="plain"
+              buttonType="action"
+              classes="absolute right-1 top-7 text-greyscale-800 hover:text-secondary "
+              onClick={handleEmailCheck}
+            >
+              Check email
+            </Button>
+          </TextInput>
+          {error && error.field === "email" && (
             <span className="text-warning pb-2 block">
               {error.errorMessage}
             </span>
-          ) : (
-            <></>
           )}
+          {emailCheck &&
+            (emailIsUnique ? (
+              <span className="text-primary-dark pb-2 block font-semibold">
+                Great news! Your email is available
+              </span>
+            ) : (
+              <span className="text-warning pb-2 block">
+                Sorry, your email has been taken!
+              </span>
+            ))}
           <TextInput
             type="password"
             name="password"
