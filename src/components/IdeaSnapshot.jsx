@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import IdeaCard from "./IdeaCard";
 import LoadingSpinner from "./LoadingSpinner";
 import Modal from "./Modal";
@@ -10,6 +10,9 @@ import useWorkshops from "../hooks/use-workshops";
 import useToast from "../hooks/use-toast";
 import { applyFilters } from "../utils/filterWorkshop";
 import OopsImage from "../assets/oops.jpeg";
+import Button from "./Button";
+import deleteWorkshop from "../api/delete-workshop";
+import updateWorkshop from "../api/update-workshop";
 
 function IdeaSnapshot({ listingType, filters }) {
   const { workshops, isLoading } = useWorkshops();
@@ -19,26 +22,42 @@ function IdeaSnapshot({ listingType, filters }) {
   const [type, setType] = useState("");
   const [currentPage, setCurrentPage] = useState(1);
   const [postsPerPage] = useState(6);
-  const [filteredWorkshops, setFilteredWorkshops] = useState([]);
   const handleEOIClick = (workshopId, type) => {
     setSelectedWorkshopId(workshopId);
     setType(type);
     showToast();
   };
+  const handleDeleteButtonClick = (workshopId, type) => {
+    setType(type);
+    setSelectedWorkshopId(workshopId);
+  };
+  const handleAuthorizeButtonClick = (workshopId, type) => {
+    setType(type);
+    setSelectedWorkshopId(workshopId);
+  };
+  const handleDelete = () => {
+    deleteWorkshop(selectedWorkshopId).then((res) => {
+      setType("success-delete");
+      showToast();
+      window.location.replace();
+    });
+  };
+  const handleAuthorize = () => {
+    updateWorkshop(selectedWorkshopId, "authorise").then((res) => {
+      setType("success-updated");
+      showToast();
+      window.location.replace();
+    });
+  };
   const gridClassNames =
     listingType === "simple"
       ? "sm:grid-cols-2 lg:grid-cols-3"
-      : "sm:grid-cols-2 xl:grid-cols-3 w-full ";
-  // switch()
+      : "sm:grid-cols-2 xl:grid-cols-3 w-fit ";
+
   const indexOfLastPost = currentPage * postsPerPage;
   const indexOfFirstPost = indexOfLastPost - postsPerPage;
-  
-  useEffect(() => {
-    const sortedWorkshops = applyFilters(workshops, filters);
-    setFilteredWorkshops(sortedWorkshops);
-  }, [workshops, filters]);
-
-  const currentWorkshops = filteredWorkshops.slice(
+  const sortedWorkshops = applyFilters(workshops, filters);
+  const currentWorkshops = sortedWorkshops.slice(
     indexOfFirstPost,
     indexOfLastPost
   );
@@ -48,7 +67,7 @@ function IdeaSnapshot({ listingType, filters }) {
     if (currentPage !== 1) setCurrentPage(currentPage - 1);
   };
   const nextPage = () => {
-    if (currentPage !== Math.ceil(filteredWorkshops.length / postsPerPage)) {
+    if (currentPage !== Math.ceil(sortedWorkshops.length / postsPerPage)) {
       setCurrentPage(currentPage + 1);
     }
   };
@@ -59,7 +78,7 @@ function IdeaSnapshot({ listingType, filters }) {
           <div className="h-full w-full flex items-center justify-center">
             <LoadingSpinner />
           </div>
-        ) : filteredWorkshops.length > 0 ? (
+        ) : sortedWorkshops.length > 0 ? (
           <>
             <div className={`grid gap-4 ${gridClassNames} justify-center`}>
               {currentWorkshops.map((workshop, index) => {
@@ -68,29 +87,33 @@ function IdeaSnapshot({ listingType, filters }) {
                     workshop={workshop}
                     key={index}
                     toggleModal={toggleModal}
-                    handleClick={handleEOIClick}
+                    handleEOIClick={handleEOIClick}
+                    handleDeleteClick={handleDeleteButtonClick}
+                    handleAuthorizeClick={handleAuthorizeButtonClick}
                   />
                 );
               })}
             </div>
-            {listingType !== "simple" && currentWorkshops.length >= postsPerPage && (
-              <Paginate
-                postsPerPage={postsPerPage}
-                totalPosts={workshops.length}
-                paginate={paginate}
-                previousPage={previousPage}
-                nextPage={nextPage}
-              />
-            )}
+            {listingType !== "simple" &&
+              (currentWorkshops.length >= postsPerPage || currentPage > 1) && (
+                <Paginate
+                  postsPerPage={postsPerPage}
+                  totalPosts={workshops.length}
+                  paginate={paginate}
+                  previousPage={previousPage}
+                  nextPage={nextPage}
+                />
+              )}
           </>
         ) : (
-          <div className="text-center flex flex-col gap-6 h-full items-center justify-center">
-            <img src={OopsImage} alt="oops graphic" className="w-12" />
-            <p className="text-xl font-bold">Oopsie!</p>
-            <p>
-               It seems there are no workshops that match your criteria.
-            </p>
-          </div>
+          !isLoading &&
+          sortedWorkshops.length === 0 && (
+            <div className="text-center flex flex-col gap-6 h-full items-center justify-center">
+              <img src={OopsImage} alt="oops graphic" className="w-12" />
+              <p className="text-xl font-bold">Oopsie!</p>
+              <p>It seems there are no workshops that match your criteria.</p>
+            </div>
+          )
         )}
       </div>
       {type === "error" ? (
@@ -99,13 +122,55 @@ function IdeaSnapshot({ listingType, filters }) {
           type="error"
           isVisible={isVisible}
         />
+      ) : type === "success-delete" ? (
+        <Toast
+          message="Workshop deleted."
+          type="success"
+          isVisible={isVisible}
+        />
+      ) : type === "success-updated" ? (
+        <Toast
+          message="Workshop has been authorised."
+          type="success"
+          isVisible={isVisible}
+        />
       ) : (
         <Modal open={isOpen} onClose={toggleModal}>
-          <EOIForm
-            workshopId={selectedWorkshopId}
-            onClose={toggleModal}
-            actionType={type}
-          />
+          {type === "cancel" || type === "submit" ? (
+            <EOIForm
+              workshopId={selectedWorkshopId}
+              onClose={toggleModal}
+              actionType={type}
+            />
+          ) : type === "delete" ? (
+            <div className="flex flex-col gap-8 max-w-[400px] text-center">
+              <p className="text-lg">
+                Are you sure you want to autho this workshop idea?
+              </p>
+              <Button
+                buttonType="action"
+                buttonStyle="secondary-outline"
+                size="sm"
+                onClick={handleDelete}
+              >
+                Delete
+              </Button>
+            </div>
+          ) : (
+            <div className="flex flex-col gap-8 max-w-[400px] text-center px-4">
+              <p className="text-lg">
+              Authorise this workshop idea?
+              </p>
+              <Button
+                buttonType="action"
+                buttonStyle="secondary-outline"
+                size="sm"
+                onClick={handleAuthorize}
+              >
+                Yes
+              </Button>
+            </div>
+          )}
         </Modal>
       )}
     </>

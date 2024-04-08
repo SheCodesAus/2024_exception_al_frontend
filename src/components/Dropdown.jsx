@@ -46,7 +46,7 @@ const Dropdown = ({ options, onSelect, ...rest }) => {
   return (
     <div className="dropdown relative" ref={dropdownRef}>
       <button
-        className="border-2 border-solid border-greyscale-400 rounded-md bg-greyscale-200 px-3 py-2 flex flex-row justify-between w-full items-center hover:bg-greyscale-300"
+        className="border-2 border-solid border-greyscale-400 rounded-md bg-greyscale-200 px-3 py-2 flex flex-row justify-between w-full items-center hover:bg-greyscale-300 text-left"
         onClick={toggleDropdown}
         onKeyDown={handleKeyDown}
         aria-haspopup="true"

@@ -3,13 +3,11 @@ import Button from "../components/Button";
 import Hero from "../components/Hero";
 import IdeaSnapshot from "../components/IdeaSnapshot";
 import RadioButton from "../components/RadioButton";
-import useWorkshops from "../hooks/use-workshops";
 import { useAuthContext } from "../hooks/use-auth-context";
 import Dropdown from "../components/Dropdown";
 import { categoryOptions, sortOption } from "../data/options";
 
 export default function AllWorkshopIdeasPage() {
-  const { workshops } = useWorkshops();
   const { auth } = useAuthContext();
   const [filters, setFilters] = useState({
     audience: null,
