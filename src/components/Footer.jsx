@@ -15,17 +15,16 @@ function Footer() {
           <h3>Copyright {new Date().getFullYear()} | planidea</h3>
         </section>
 
-        {/* Social Icons and Links */}
-        <div className="flex flex-col sm:flex-col lg:flex-row space-y-4 sm:space-y-0 lg:space-y-0 sm:space-x-4 lg:space-x-4">
+        <div className="flex lg:mt-12 flex-col md:flex-col lg:flex-col space-y-4 sm:space-y-0 lg:space-y-0 sm:space-x-4 md:space-x-0 lg:space-x-4 lg:items-end justify-end">
           {/* Social Icons */}
-          <section className="flex justify-start sm:justify-end lg:justify-end space-x-4">
+          <div className="flex space-x-4 m-1">
             <a href="https://www.instagram.com/shecodesaus/?hl=en">
               <img src={InstagramLogo} alt="Instagram Logo" className="w-8" />
             </a>
             <a href="https://www.facebook.com/shecodesaustralia/">
               <img src={FacebookLogo} alt="Facebook Logo" className="w-8" />
             </a>
-          </section>
+          </div>
 
           {/* Links */}
           <section className="flex flex-col sm:flex-row lg:flex-row space-y-4 sm:space-y-0 lg:space-y-0 sm:space-x-4 lg:space-x-4">
