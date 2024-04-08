@@ -9,7 +9,7 @@ export default function Layout() {
       <header>
         <Header/>
       </header>
-      <main className="flex-1 pb-8">
+      <main className="flex-1">
         <Outlet />
       </main>
       <Footer />
