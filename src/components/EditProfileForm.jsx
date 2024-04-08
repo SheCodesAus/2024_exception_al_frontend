@@ -147,6 +147,7 @@ export default function EditProfileForm() {
           id="profile_image"
           label="Profile image URL"
           onChange={handleImageChange}
+          defaultValue={auth.user.profile_image}
         />
         <div className="flex flex-col justify-between gap-4 sm:flex-row">
           <TextInput

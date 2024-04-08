@@ -28,6 +28,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "/signup", element: <SignUpPage /> },
       { path: "/login", element: <LoginPage /> },
+      { path: "/aboutus", element: <AboutUs /> },
       {
         path: "/profile/:slug",
         element: (
@@ -49,13 +50,11 @@ const router = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      { path: "/aboutus", element: <AboutUs /> },
       { path: "/workshopideas", element: <AllWorkshopIdeasPage /> },
-      { path: "/contactus", element: <ContactusPage /> },
       // { path: "/privacy", element: <PrivacyPolicyPage /> },
       { path: "/termsandconditions", element: <TermsCondPage /> },
-
       { path: "/workshopideas/:id", element: <IdeaDetail /> },
+      { path: "/contactus", element: <ContactusPage /> },
       { path: "*", element: <NotFound /> },
     ],
   },

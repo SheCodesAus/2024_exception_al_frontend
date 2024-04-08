@@ -6,7 +6,7 @@ export default function Button({
   classes,
   ...rest
 }) {
-  let classNames = "rounded ";
+  let classNames = "rounded text-center ";
   const className = (() => {
     switch (size) {
       case "sm":

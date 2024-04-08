@@ -184,7 +184,7 @@ export default function SignUpForm() {
               size="sm"
               buttonStyle="plain"
               buttonType="action"
-              classes="absolute right-2 top-1/2 text-greyscale-600 hover:text-secondary "
+              classes="absolute right-1 top-7 text-greyscale-800 hover:text-secondary "
               onClick={handleUsernameCheck}
             >
               Check username
