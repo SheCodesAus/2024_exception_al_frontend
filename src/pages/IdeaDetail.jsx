@@ -109,7 +109,7 @@ export default function IdeaDetail() {
                 "linear-gradient(rgba(69, 69, 69, 0.5), rgba(69, 69, 69, 0.5))",
             }}
           >
-            <h1 className="text-3xl font-semibold mb-3 sm:text-4xl text-center text-white z-10">
+            <h1 className="text-3xl font-semibold mb-3 sm:text-4xl text-center text-white">
               {workshop.title}
             </h1>
           </div>
