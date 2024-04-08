@@ -1,9 +1,11 @@
 import Button from "../components/Button";
 import Hero from "../components/Hero";
 import IdeaSnapshot from "../components/IdeaSnapshot";
+import { useAuthContext } from "../hooks/use-auth-context";
 
 function Home() {
   const initialFilters = {date: "newest"}
+  const {auth} = useAuthContext();
   return (
     <>
       <Hero>
@@ -17,7 +19,7 @@ function Home() {
           <div className="flex space-x-4 py-8">
             <Button
               buttonType="link"
-              href="/login"
+              href={auth?.user ? "/workshopideas" : "/login"}
               size="md"
               buttonStyle="white"
             >
@@ -25,7 +27,7 @@ function Home() {
             </Button>
             <Button
               buttonType="link"
-              href="/signup"
+              href="/aboutus"
               size="md"
               buttonStyle="black"
             >

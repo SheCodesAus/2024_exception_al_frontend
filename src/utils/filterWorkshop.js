@@ -14,10 +14,20 @@ export function applyFilters(workshops, filters) {
 
   switch (filters.audience) {
     case "mentor":
-      sortedWorkshops= sortedWorkshops.filter(workshop => workshop.mentor_target < workshop.eois.filter(eoi => eoi.eoi_type=== "Mentor").length);
+      sortedWorkshops = sortedWorkshops.filter(workshop => {
+        const mentorEOIs = workshop.eois.filter(eoi => eoi.eoi_type === "Mentor");
+        return mentorEOIs.length < workshop.mentor_target;
+      });
       break;
     case "learn":
-      sortedWorkshops = sortedWorkshops.filter(workshop => workshop.attendee_target < workshop.eois.filter(eoi => eoi.eoi_type=== "Attend").length);
+      sortedWorkshops = sortedWorkshops.filter(workshop => {
+        const attendeeEOIs = workshop.eois.filter(eoi => eoi.eoi_type === "Attend");
+        return attendeeEOIs.length < workshop.attendee_target;
+      });
+      break;
+    default:
+      // Handle default case
+      break;
   }
 
   if (filters.category) {
