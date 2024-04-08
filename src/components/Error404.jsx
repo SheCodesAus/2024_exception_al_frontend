@@ -3,7 +3,7 @@ import Button from './Button';
 
 function Error404() {
   return (
-    <section className="w-full min-h-screen sm:min-h-0 sm:py-20 flex items-center justify-center text-white relative">
+    <section className="w-full min-h-screen sm:py-20 flex items-center justify-center text-white relative">
       <div className="absolute inset-0">
         <img
           src="/404-static.png"

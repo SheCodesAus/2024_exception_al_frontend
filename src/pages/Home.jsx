@@ -7,7 +7,7 @@ function Home() {
   const initialFilters = {date: "newest"}
   const {auth} = useAuthContext();
   return (
-    <>
+    <div className="pb-8">
       <Hero>
         <section className="py-16">
           <h1 className="text-5xl lg:text-6xl md:text-6xl text-bg font-semibold">
@@ -54,7 +54,7 @@ function Home() {
           View All Workshop Ideas
         </Button>
       </div>
-    </>
+    </div>
   );
 }
 

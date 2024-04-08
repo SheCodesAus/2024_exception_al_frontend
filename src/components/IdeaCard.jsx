@@ -12,7 +12,7 @@ function IdeaCard({
   toggleModal,
   handleEOIClick,
   handleDeleteClick,
-  handleAuthorizeClick
+  handleAuthorizeClick,
 }) {
   var date = new Date(workshop?.planned_date);
   var formattedDate = date.toLocaleDateString();
@@ -52,60 +52,60 @@ function IdeaCard({
             <img
               src={workshop.image}
               alt={`${workshop.title} picture of workshop`}
-              className="object-cover pb-2 w-full h-full"
+              className="object-cover w-full h-full"
             />
           </Link>
-          <section className="flex justify-between items-start h-18 pt-2 px-4 gap-4 ">
-            <Link to={`/workshopideas/${workshop.id}`}>
-              <h2 className="justify-start text-lg font-semibold">
-                {workshop.title}
-              </h2>
-            </Link>
-            <div className="flex gap-2 w-fit shrink-0">
-              <button
-                title="verified"
-                className={`text-center text-warning ${
-                  userIsSuperuser ? "" : "pointer-none hover:grayscale"
+        </section>
+        <section className="flex justify-between items-start h-18 pt-4 px-4 gap-4 flex-1 ">
+          <Link to={`/workshopideas/${workshop.id}`}>
+            <h2 className="justify-start text-lg font-semibold min-h-[54px] ">
+              {workshop.title}
+            </h2>
+          </Link>
+          <div className="flex gap-2 w-fit shrink-0">
+            <button
+              title="verified"
+              className={`text-center text-warning ${
+                userIsSuperuser ? "" : "pointer-none hover:grayscale"
+              }`}
+              onClick={handleAuthorizeButtonClick}
+              disabled={!userIsSuperuser || workshop.is_open}
+            >
+              <img
+                src={VerifiedIcon}
+                alt=""
+                className={`w-[28px] ${
+                  workshop.is_open ? "" : "grayscale hover:grayscale-0"
                 }`}
-                onClick={handleAuthorizeButtonClick}
-                disabled={!userIsSuperuser || workshop.is_open}
-              >
+              />
+              <span className="sr-only">Verified badge</span>
+            </button>
+            {!userIsSuperuser ? (
+              <button onClick={handleHeartClick}>
                 <img
-                  src={VerifiedIcon}
+                  src={hasExpressedInterest ? FilledHeart : EmptyHeart}
+                  className="w-[28px] h-full hover:scale-105 tranition-all duration-300"
+                  aria-hidden="true"
                   alt=""
-                  className={`w-[28px] ${
-                    workshop.is_open ? "" : "grayscale hover:grayscale-0"
-                  }`}
                 />
-                <span className="sr-only">Verified badge</span>
+                <span className="sr-only">expression of interest</span>
               </button>
-              {!userIsSuperuser ? (
-                <button onClick={handleHeartClick}>
-                  <img
-                    src={hasExpressedInterest ? FilledHeart : EmptyHeart}
-                    className="w-[28px] h-full hover:scale-105 tranition-all duration-300"
-                    aria-hidden="true"
-                    alt=""
-                  />
-                  <span className="sr-only">expression of interest</span>
-                </button>
-              ) : (
-                <button
-                  className="text-center text-warning"
-                  onClick={handleDeleteBtnClick}
-                >
-                  <img src={BinIcon} alt="" className="w-[28px]" />
-                  <span className="sr-only">Delete</span>
-                </button>
-              )}
-            </div>
-          </section>
+            ) : (
+              <button
+                className="text-center text-warning"
+                onClick={handleDeleteBtnClick}
+              >
+                <img src={BinIcon} alt="" className="w-[28px]" />
+                <span className="sr-only">Delete</span>
+              </button>
+            )}
+          </div>
         </section>
         <section className="flex flex-col gap-0.5 px-4 flex-1">
           <span className="line-clamp-4 text-greyscale-700 flex-1 my-2">
             {workshop.description}
           </span>
-          <p className="flex gap-1">
+          <p className="flex gap-1 flex-wrap">
             <span className="font-semibold">Planned Date: </span>
             {formattedDate}
           </p>
