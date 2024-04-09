@@ -145,7 +145,7 @@ function IdeaSnapshot({ listingType, filters }) {
           ) : type === "delete" ? (
             <div className="flex flex-col gap-8 max-w-[400px] text-center">
               <p className="text-lg">
-                Are you sure you want to autho this workshop idea?
+                Are you sure you want to delete this workshop idea?
               </p>
               <Button
                 buttonType="action"

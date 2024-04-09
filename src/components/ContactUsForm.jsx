@@ -1,13 +1,10 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
 import TextInput from "./TextInput";
-import MultiSelectCheckbox from "./MultiSelectCheckbox";
 import Button from "./Button";
-import postSignUp from "../api/post-signup";
-import SuccessfulCard from "./SuccessfulCard";
-import LoadingSpinner from "./LoadingSpinner";
 
-const emailPattern = "[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+.[a-zA-Z]{2,}$";
+import LoadingSpinner from "./LoadingSpinner";
+import ContactFormSuccess from "./ContactFormSuccess";
+
 
 
 export default function ContactUsForm() {
@@ -42,7 +39,7 @@ export default function ContactUsForm() {
   return (
     <div className="form-container pt-6">
       {formState === "successful" ? (
-        <SuccessfulCard>
+        <ContactFormSuccess>
           <p className="text-lg">Thanks for contacting us, we'll get back to you shortly.</p>
           <Button
             buttonType="link"
@@ -52,16 +49,17 @@ export default function ContactUsForm() {
           >
             Go back 
           </Button>
-        </SuccessfulCard>
+        </ContactFormSuccess>
       ) : formState === "error" ? (
         // Todo: handle exceptions
-        <p>Error while submitting the sign up form</p>
+        <p>Error while submitting the contact us form</p>
       ) : (
+        
         <form
-          onSubmit={handleSubmit}
-          className="m-auto w-full px-4 sm:max-w-[500px] sm:px-12"
-          // action="https://formspree.io/f/xbjvqzol" method="POST"
           
+          onSubmit={handleSubmit}
+          action="https://formspree.io/f/xbjvqzol" method="POST"
+          className="m-auto w-full px-4 sm:max-w-[500px] sm:px-12"          
         >
           
           <h1 className="text-3xl font-semibold mb-3 sm:text-4xl text-center">
@@ -102,8 +100,23 @@ export default function ContactUsForm() {
             label="Subject*"
             TextInputsize="md"
             onChange={handleChange}
-            required
+            required           
           />
+
+          <TextInput
+            type="text"            
+            name="comment"
+            id="comment"
+            label="Comment*"
+            TextInputsize="md"
+            onChange={handleChange}
+            required
+            size= "lg"
+            rows={4}
+            />            
+            
+          
+          
                    
           <div className="my-8 text-center">
             
@@ -111,22 +124,18 @@ export default function ContactUsForm() {
               buttonType="action"
               buttonStyle="secondary"
               type="submit"
-              size="md"
+              size="md"              
             >
               
               {formState === "pending" ? <LoadingSpinner/> : "Submit"}              
             </Button>            
           </div>
-          
-
-          
-        </form>
-        
+                    
+        </form>        
       )}
+
     </div>
     
   );
  
 }
-
-
