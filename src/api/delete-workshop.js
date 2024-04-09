@@ -7,15 +7,15 @@ async function deleteWorkshop(workshopId) {
       "Authorization": "Token " + token
     }
   })
-  if (!response.ok) {
+  if (!response.status === 204) {
     const fallbackError = "Error deleting workshop with id " + workshopId;
 
-    const data = await response.json().catch(() => {
+    const data = await response.catch(() => {
      throw new Error(fallbackError);
     });
     const errorMessage = data?.detail ?? fallbackError;
     throw new Error(errorMessage);
   }
-  return await response.json();
+  return await response;
 }
 export default deleteWorkshop;
