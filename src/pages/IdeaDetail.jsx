@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import Button from "../components/Button";
 import LoadingSpinner from "../components/LoadingSpinner";
@@ -13,7 +13,7 @@ export default function IdeaDetail() {
   const [workshop, setWorkshop] = useState();
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
-
+  const navigate = useNavigate();
   const hasExpressedInterest =
     auth.user &&
     workshop &&
@@ -50,6 +50,9 @@ export default function IdeaDetail() {
   }, [id, workshop, refetchWorkshop]);
 
   const handleAttendeeClick = async () => {
+    if (!auth.user) {
+      navigate("/login");
+    }
     try {
       const data = {
         workshopId: id,
@@ -63,6 +66,9 @@ export default function IdeaDetail() {
   };
 
   const handleMentorClick = async () => {
+    if (!auth.user) {
+      navigate("/login");
+    }
     try {
       const data = {
         workshopId: id,
@@ -75,7 +81,12 @@ export default function IdeaDetail() {
     }
   };
 
-  if (loading) return <LoadingSpinner />;
+  if (loading)
+    return (
+      <div className="min-h-screen w-full flex items-center justify-center">
+        <LoadingSpinner />
+      </div>
+    );
   if (error) return <h1>{error.message}</h1>;
   if (!workshop) return null;
 
