@@ -10,6 +10,7 @@ export default {
       'primary-dark': '#219199',
       'primary-light': '#5cecf6',
       secondary: '#B25499',
+      'secondary-dark': '#a23d87',
       tertiary: '#FAB354',
       body: '#2D3648', // base text color
       bg: '#FFFFF8',
@@ -26,19 +27,19 @@ export default {
           300: '#E2E7F0',
           400: '#CBD2E0',
           600: '#717D96',
-          700: '#5c616a'
+          700: '#5c616a',
+          800: '#4a4c51',
         },
       },
       flexBasis: {
         "1/2-gap-4": "calc(50% - 1rem)",
-        "1/3-gap-4": "calc(33.3333% - 1rem)"
+        "1/3-gap-4": "calc(33.3333% - 1rem)",
+      },
+      flex: {
+        6: "1 1 60%"
       },
       width: {
         "1/2-gap-4": "calc(50% - 1rem)"
-      },
-      boxShadow:{
-        "subtle": "rgba(50, 50, 105, 0.15) 0px 2px 5px 0px, rgba(0, 0, 0, 0.05) 0px 1px 1px 0px;",
-        "solid": "1px 3px"
       },
       fontFamily: {
         "poppins": ['Poppins', 'sans-serif']

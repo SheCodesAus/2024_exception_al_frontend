@@ -8,11 +8,17 @@ export const categoryOptions = [
   { value: 'diy', label: 'DIY' },
   { value: 'writing', label: 'Writing' },
   { value: 'sports', label: 'Sports' },
-  { value: 'music', label: 'Music' }
+  { value: 'music', label: 'Music' },
+  { value: 'gaming', label: 'Gaming' },
 ];
 
 export const audienceOptions = [
   {value: 'all', label: 'All'},
   {value: 'learn', label: 'Learn'},
-  {value: 'teach', label: 'Teach'}
+  {value: 'mentor', label: 'Mentor'}
+]
+
+export const sortOption = [
+  {value: 'newest', label: 'Newest'},
+  {value: 'oldest', label: 'Oldest'},
 ]

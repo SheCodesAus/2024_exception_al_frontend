@@ -4,9 +4,10 @@ import Button from "./Button";
 import SuccessfulCard from "./SuccessfulCard";
 import Dropdown from "./Dropdown";
 import CameraIcon from "../assets/icons/camera.svg";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import postWorkshop from "../api/post-workshop";
 import LoadingSpinner from "./LoadingSpinner";
+import { categoryOptions } from "../data/options";
 
 
 
@@ -18,6 +19,8 @@ export default function CreateWorkshopForm() {
     description: "",
     category: "",
     closing_date: null,
+    planned_date: null,
+    est_cost: 0,
     attendee_target: 0,
     mentor_target: 0,
     materials: "",
@@ -37,7 +40,7 @@ export default function CreateWorkshopForm() {
   const handleDropdownSelect = (option) => {
     setWorkshopDetails((prev) => ({
       ...prev,
-      category: option.value,
+      category: option,
     }));
   };
   const handleImageChange = (e) => {
@@ -74,7 +77,9 @@ export default function CreateWorkshopForm() {
         formData.append("title", workshopDetails.title);
         formData.append("description", workshopDetails.description);
         formData.append("category", workshopDetails.category);
+        formData.append("planned_date", workshopDetails.planned_date);
         formData.append("closing_date", workshopDetails.closing_date);
+        formData.append("est_cost", workshopDetails.est_cost);
         formData.append("attendee_target", workshopDetails.attendee_target);
         formData.append("mentor_target", workshopDetails.mentor_target);
         if (workshopDetails.image) {
@@ -168,11 +173,20 @@ export default function CreateWorkshopForm() {
               Category*
             </span>
             <Dropdown
+              options={categoryOptions}
               name="category"
               id="category"
               onSelect={handleDropdownSelect}
             />
           </div>
+          <TextInput
+            type="date"
+            name="planned_date"
+            id="planned_date"
+            label="Planned date*"
+            onChange={handleChange}
+            required
+          />
           <TextInput
             type="date"
             name="closing_date"
@@ -181,7 +195,13 @@ export default function CreateWorkshopForm() {
             onChange={handleChange}
             required
           />
-
+          <TextInput
+            type="number"
+            name="est_cost"
+            id="est_cost"
+            label="Estimate cost"
+            onChange={handleChange}
+          />
           <TextInput
             type="number"
             name="attendee_target"

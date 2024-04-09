@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 export default function NavBar() {
   const [isNavOpen, setIsNavOpen] = useState(false);
-  const showMenuNavClasses = "left-0 z-10 transition-all duration-500";
+  const showMenuNavClasses = "left-0 z-10 transition-all duration-500 show";
   const hideMenuNavClasses = "left-[100%] z-10 transition-all duration-500 w-0 h-0 overflow-hidden";
 
   return (

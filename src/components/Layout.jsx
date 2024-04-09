@@ -5,11 +5,11 @@ import "../index.css";
 
 export default function Layout() {
   return (
-    <div className="bg-bg h-full font-poppins relative min-h-screen flex flex-col overflow-hidden">
+    <div className="[&:has(div.show)]:overflow-y-hidden bg-bg h-full font-poppins relative min-h-screen flex flex-col overflow-hidden">
       <header>
         <Header/>
       </header>
-      <main className="flex-1 pb-8">
+      <main className="flex-1">
         <Outlet />
       </main>
       <Footer />
