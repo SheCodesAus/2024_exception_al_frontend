@@ -56,21 +56,35 @@ Font used: Poppins
 
 ### Minimum Viable Product (MVP)
 ---
-#### Planidea Overview 
-<video controls src="public/Overview Planidea.mp4" title="Planidea Overview video"></video>
+#### Create Account
+<video controls src="public/Create account video 1.mp4" title="Create account in Planidea"></video>
+
+![Start of register page](<public/Register part 1.png>)
+![End of register page](<public/Register part 2.png>)
+
+#### Log in
+![Login page](<public/Login SS.png>)
 
 #### Create Account & log in 
 <video controls src="public/Login & register Planidea.mp4" title="Login & register"></video>
 #### View all workshop ideas
 
+![Overview of workshops part 1](<public/View all workshops part 1.png>)
+![Overview of workshops part 2](<public/View all workshops part 2.png>)
+
 #### Register expression of interest (EOI)
-<video controls src="public/EOI.mp4" title="Register EOI"></video>
+![Register EOI on details page](<public/Register EOI details page.png>)
+![Registered EOI on details page](<public/Registered EOI details page .png>)
+![EOI through heart](<public/EOI through heart on overview page.png>)
 
 #### Create workshop idea
-<video controls src="public/Create workshop.mp4" title="Create workshop idea"></video>
+![Create workshop](<public/Create workshop.png>)
 
-#### Filter 
-<video controls src="public/Filter.mp4" title="Showcase filter"></video>
+#### Filter (newest/ oldest, category & mentor/ learn)
+![Filter on category](<public/Filter on category.png>)
+![Filter on age](<public/Filter on oldest.png>)
+
+####
 
 ## We hope you enjoyed Planidea as much as we have <3 
 
