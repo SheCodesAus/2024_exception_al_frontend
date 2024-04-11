@@ -1,5 +1,5 @@
 # Exception(al) - She Codes 2023/24 Plus Program Perth
-## PLANIDEA - Never have an empty workshop again 
+## PLANIDEA - Workshops that people want 
 
 ![planidea logo](public/planidea-light.svg)
 
@@ -24,6 +24,7 @@ The Exception(al) team consist of:
 * Keerthi Mantha - Back end developer and tester 
 * Suan Choi - Technical Lead and Git Manager
 
+![Exceptional Team Overview Photos](<public/Team overview.png>)
 
 Planidea is our group project which is also the last project for the She Codes Plus Cohort 2023/24.
 It was created from our clients issue statement "“There are lots of people with skills they want to share. and lots of people who want to learn a skill, but there is no formal way of bringing these two people together”.
@@ -64,6 +65,8 @@ Font used: Poppins
 #### Log in
 ![Login page](<public/Login SS.png>)
 
+#### Create Account & log in 
+<video controls src="public/Login & register Planidea.mp4" title="Login & register"></video>
 #### View all workshop ideas
 
 ![Overview of workshops part 1](<public/View all workshops part 1.png>)
@@ -83,8 +86,6 @@ Font used: Poppins
 
 ####
 
-####
-
-
+## We hope you enjoyed Planidea as much as we have <3 
 
 
