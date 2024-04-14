@@ -35,6 +35,34 @@ You can find the deployed version here: https://planidea.netlify.app/
 
 If you are interested in the deployed back end you find it here: https://2024-exception-al-back-end.fly.dev/workshops/
 
+### Planning
+---
+#### Target audience
+- Presenters/Mentors
+- Students
+- Vendors
+- Partners (Sponsors)
+
+#### Scoped features
+- Functional requirements
+  - Accessibility compliant (WCAG standards, keyboard only, high contrast)
+  - Sign up/login functionality
+  - User profiles with the ability to modify details
+  - Display of active/prospective workshops seeking EOIs
+  - Different user permissions
+  - Social media integration
+  - Set categories/learning areas managed by site admin
+  - User interest and skills tags on profiles
+  - Workshop page updates with finalised event details
+  - Search/filter functionality by category, skills tags, workshop status, and date
+- UI/UX
+  - The UI/UX design should be fun, engaging, and accessible, reflecting the platform's brand identity.
+  - Incorporate the platform's unique selling points and competitive advantages.
+  - The design should facilitate the platform's functional features and user types/permission levels.
+  - The design should be responsive, ensuring a seamless experience across all devices.
+  - The design should be tested for accessibility to ensure compliance with WCAG standards.
+
+
 ### Branding (created with Canva)
 ---
 ![Branding for app](<public/Branding overview.png>)
